@@ -6,13 +6,11 @@ State your app in a nutshell, or one-sentence pitch. Give some elaboration on wh
 This browser based web application to ...
 
 ## 2. Names of Contributors
-
 List team members and/or short bio's here...
 
 - Hello I am SeungJae and I am excited because I was told to write why I am
 - My name is Joanne H.
-- ...
-- ...
+- Hey my name is Jake
 
 ## 3. Technologies and Resources Used
 
