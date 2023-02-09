@@ -5,4 +5,16 @@
 
 .container {
   display: flex;
+  flex-direction: row;
+}
+
+.btn-primary {
+  color: #ffffff;
+  /* contrast to secondary colour */
+  font-size: 150%;
+  background-color: #001247;
+  /* some secondary colour */
+  border-color: #001247;
+  /* some accent colour */
+  border-width: thick
 }
