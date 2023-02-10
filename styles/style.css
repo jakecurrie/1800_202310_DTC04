@@ -18,3 +18,18 @@
   /* some accent colour */
   border-width: thick
 }
+
+.container-hero {
+  display: flex;
+  justify-content: center;
+}
+
+.row {
+  display: inherit;
+  justify-content: space-evenly;
+  width: 70%;
+}
+
+.col-sm-4 {
+
+}
