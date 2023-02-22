@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+import time
 import pandas as pd
 
 # Adjusting selenium settings to reduce script runtime
@@ -32,6 +33,7 @@ def scrape_url(store, product_type, url):
     scraped_data = []
 
     driver.get(url)
+    time.sleep(10)
     all_product_elements = driver.find_elements(By.CSS_SELECTOR, parent_selector)
     for product_element in all_product_elements:
         product_name = product_element.find_element(By.CSS_SELECTOR, child_selectors['name']).text
