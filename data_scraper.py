@@ -49,7 +49,7 @@ all_data = []
 for product_type in urls:
     for store in urls[product_type]:
         data = scrape_url(store, product_type, urls[product_type][store])
-        all_data.append(data)
+        all_data += data
 
-df = pd.DataFrame(all_data[0])
+df = pd.DataFrame(all_data)
 print(df)
