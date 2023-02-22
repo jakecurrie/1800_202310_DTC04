@@ -20,8 +20,8 @@ urls = {
 # Creating a dictionary to store class names used to identify and extract data for each website
 selectors = {
     "canadian tire": {
-    "parent": "nl-product__content", 
-    "child_selectors": {"name": "shiitake-children", "price": "nl-price--total"}}}
+    "parent": "[class='nl-product__content']", 
+    "child_selectors": {"name": "[class='shiitake-children']", "price": "[class='nl-price--total']"}}}
 
 # Initializing the web browser to load web pages
 driver = webdriver.Chrome(options=options)
@@ -32,10 +32,10 @@ def scrape_url(store, product_type, url):
     scraped_data = []
 
     driver.get(url)
-    all_product_elements = driver.find_elements(By.CLASS_NAME, parent_selector)
+    all_product_elements = driver.find_elements(By.CSS_SELECTOR, parent_selector)
     for product_element in all_product_elements:
-        product_name = product_element.find_element(By.CLASS_NAME, child_selectors['name']).text
-        product_price = product_element.find_element(By.CLASS_NAME, child_selectors['price']).text
+        product_name = product_element.find_element(By.CSS_SELECTOR, child_selectors['name']).text
+        product_price = product_element.find_element(By.CSS_SELECTOR, child_selectors['price']).text
         result = {"name": product_name, "product type": product_type, "store": store, "price": product_price}
         scraped_data.append(result)
 
