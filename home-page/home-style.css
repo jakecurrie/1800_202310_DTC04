@@ -1,11 +1,14 @@
 :root {
     --mainBlue: rgb(71, 99, 223);
-
+    --mainBeige: #FFFBEB;
+    --mainLightestNavy: #495579;
+    --mainLightNavy: #251749;
+    --mainNavy: #251749;
 }
 
 body {
     margin: 0;
-    background-color: #FFFBEB;
+    background-color: var(--mainBeige);
 }
 
 .home-card {
@@ -48,7 +51,7 @@ body {
     left: 50%;
     padding: 10px 15px 10px 15px;
     background-color: #263159;
-    color: #FFFBEB;
+    color: var(--mainBeige);
     font-size: 25px;
     font-family: 'League Spartan', sans-serif;
     font-weight: 500;
@@ -70,7 +73,7 @@ body {
     display: block;
     width: 250%;
     height: 900px;
-    background-color: #FFFBEB;
+    background-color: var(--mainBeige);
     position: absolute;
     top: 0%;
     left: 50%;
@@ -123,7 +126,7 @@ body {
 }
 
 .card-description {
-    color: #FFFBEB;
+    color: var(--mainBeige);
     font-family: 'League Spartan', sans-serif;
     font-weight: 500;
     font-size: 1em;
