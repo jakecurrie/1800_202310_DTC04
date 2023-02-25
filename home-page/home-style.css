@@ -1,0 +1,134 @@
+:root {
+    --mainBlue: rgb(71, 99, 223);
+    --mainBeige: #FFFBEB;
+    --mainLightestNavy: #495579;
+    --mainLightNavy: #251749;
+    --mainNavy: #251749;
+}
+
+body {
+    margin: 0;
+    background-color: var(--mainBeige);
+}
+
+.home-card {
+    width: 100vw;
+    max-width:100%;
+    height: 100vh;
+    background-color: var(--mainBlue);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    position: absolute;
+    width: 50%;
+    transform: translate(-50%, -35%);
+    opacity: 0;
+    transition: 500ms ease;
+}
+
+.snow-name {
+    position: relative;
+    transform: translate(0, 10%);
+    color: white;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 150px;
+    z-index: 1;
+}
+
+.snow-name-letter {
+    display: inline-block;
+    opacity: 0;
+    transition: 500ms ease;
+}
+
+.short-description {
+    position: absolute;
+    transform: translate(-50%, 0%);
+    left: 50%;
+    padding: 10px 15px 10px 15px;
+    background-color: #263159;
+    color: var(--mainBeige);
+    font-size: 25px;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 500;
+    z-index: 1;
+    opacity: 0;
+    transition: 500ms ease;
+}
+
+.home-curve {
+    height: 100px;
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+    bottom: 0px;
+}
+
+.curve {
+    content: "";
+    display: block;
+    width: 250%;
+    height: 900px;
+    background-color: var(--mainBeige);
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.category-body {
+    width: 100vw;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 200px;
+}
+
+.category-header {
+    font-size: 5em;
+    color: black;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 600;
+}
+
+.category-card-container {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-container {
+    width: 75%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 3%;
+}
+
+.category-card {
+    padding: 25px 70px 25px 30px;
+    border-radius: 5%;
+    background-color: #97DECE;
+}
+
+.card-title {
+    color: white;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 500;
+    font-size: 2em;
+    margin: 0;
+}
+
+.card-description {
+    color: var(--mainBeige);
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 500;
+    font-size: 1em;
+    margin: 0;
+}
