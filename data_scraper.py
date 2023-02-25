@@ -38,14 +38,34 @@ selectors = {
 # Initializing the web browser to load web pages
 driver = webdriver.Chrome(options=options)
 
+
 def scrape_url(store, product_type, url):
+    """
+    Get data for all products on a webpage.
+
+    :param store: name of the online store, as string
+    :param product_type: category of product listed at url, as string
+    :param url: address of webpage to scrape, as string
+    :precondition: store must exactly match a store name in the urls and selectors dictionaries
+    :precondition: product_type must exactly match a product type listed in the urls dictionary
+    :precondition: url must exist in the urls dictionary
+    :postcondition: scrapes website for data on all products listed at the url
+    :return: list of dictionaries containing data for each product found
+    """
+    # getting the relevant css selectors from the selectors dictionary for the desired url
     parent_selector = selectors[store]["parent"]
     child_selectors = selectors[store]["child_selectors"]
+    # creating an empty list to store all product data in
     scraped_data = []
-
+    # instructing the web browser to load the url, then wait 10 seconds for page to fully load
     driver.get(url)
     time.sleep(10)
+    # grabbing a list of product elements on the page that match the parent css selector. The parent css selector is the
+    # class name associated with each individual product card on the website. Each selected element contains the html
+    # code for a product card element and all of its child elements which contain the data we need
     all_product_elements = driver.find_elements(By.CSS_SELECTOR, parent_selector)
+    # looping through the list of product elements. For each product, we find the html elements in the product card
+    # that have the class names of interest (listed in child_selectors dictionary) and extract their text or href values
     for product_element in all_product_elements:
         product_name = product_element.find_element(By.CSS_SELECTOR, child_selectors['name']).text
         product_price = product_element.find_element(By.CSS_SELECTOR, child_selectors['price']).text
@@ -57,9 +77,9 @@ def scrape_url(store, product_type, url):
 
 all_data = []
 
-for product_type in urls:
-    for store in urls[product_type]:
-        data = scrape_url(store, product_type, urls[product_type][store])
+for product_category in urls:
+    for web_store in urls[product_category]:
+        data = scrape_url(web_store, product_category, urls[product_category][web_store])
         all_data += data
 
 df = pd.DataFrame(all_data)
