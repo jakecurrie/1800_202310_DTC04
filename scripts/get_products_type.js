@@ -21,7 +21,7 @@ function queryProductCategory() {
       const productCard = `
         <div class="col-sm-4">
           <div class="card">
-            <img class="card-img-top" src="${product.image_url}" alt="${product.name}">
+            <img class="card-img-top" src="${product.image_url}" alt="${product.product_name}">
             <div class="card-body">
               <h5 class="card-title">${product.product_name}</h5>
               <p class="card-price">${product.price}</p>
