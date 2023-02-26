@@ -24,7 +24,7 @@ function queryProductCategory() {
             <img class="card-img-top" src="${product.image_url}" alt="${product.name}">
             <div class="card-body">
               <h5 class="card-title">${product.product_name}</h5>
-              <a href="#" class="btn btn-primary">${product.price}</a>
+              <p class="card-price">${product.price}</p>
             </div>
           </div>
         </div>
