@@ -11,6 +11,70 @@ body {
     background-color: var(--mainBeige);
 }
 
+.side-navbar {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.hamburger {
+    position: fixed;
+    margin: 15px;
+    z-index: 5;
+}
+
+.hamburger > i {
+    cursor: pointer;
+    font-size: 2em;
+}
+
+.side-nav-container {
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.281);
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    text-align: center;
+    background-color: #fdfdfd;
+    height: 100vh;
+    width: 8vw;
+    left: -8vw;
+    z-index: 3;
+    transition: 500ms;
+}
+
+.side-nav-content {
+    display: inherit;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+}
+
+.content-div {
+    display: inherit;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.content-div > p {
+    opacity: 0;
+    margin-top: 10px;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 400;
+    font-size: 1em;
+    transition: 500ms ease;
+}
+
+.content-div > i {
+    height: 100%;
+    font-size: 2em;
+}
+
+.content-div:hover > p {
+    opacity: 1;
+}
+
 .home-card {
     width: 100vw;
     max-width:100%;

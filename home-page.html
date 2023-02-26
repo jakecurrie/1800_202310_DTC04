@@ -4,26 +4,45 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./styles/home-style.css" />
     <script src="./scripts/home-main.js" defer></script>
-    <title>Snowscaper</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script src="https://kit.fontawesome.com/294e21ede5.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./styles/home-style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;400;500;600;900&family=Tilt+Warp&display=swap"
-      rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;400;500;600;900&family=Tilt+Warp&display=swap"
+    rel="stylesheet"
     />
+    <title>Snowscaper</title>
   </head>
   <body>
+    <!-- navbar -->
+    <section class="side-navbar">
+      <div class="hamburger">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+      <div class="side-nav-container">
+        <img draggable="false" src="./Snowscraper Logos/Logo Mountain with Star Transparent.png" alt="logo" class="nav-logo">
+        <div class="side-nav-content">
+          <div class="content-div login">
+            <i class="fa-solid fa-user"></i>
+            <p>My Account</p>
+          </div>
+          <div class="content-div wishlist">
+            <i class="fa-regular fa-heart"></i>
+            <p>Wishlist</p>
+          </div>
+          <div class="content-div product">
+            <i class="fa-solid fa-shop"></i>
+            <p>Shop Categories</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- title section -->
     <section class="home-card">
       <div class="home-logo">
-        <img src="/Snowscraper Logos/Logo Mountain with Star Transparent.png" alt="snowscraper logo" class="logo" />
+        <img draggable="false"  src="/Snowscraper Logos/Logo Mountain with Star Transparent.png" alt="snowscraper logo" class="logo" />
       </div>
       <div class="home-name">
         <h1 class="snow-name"></h1>
@@ -33,6 +52,7 @@
         <div class="curve"></div>
       </div>
     </section>
+    <!-- category section -->
     <section class="category-body">
       <div class="category-title">
         <h1 class="category-header">CATEGORIES</h1>

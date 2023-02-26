@@ -2,14 +2,7 @@ const curve = document.querySelector('.curve');
 const snowscraperTitle = document.querySelector(".snow-name");
 const mountainLogo = document.querySelector(".logo")
 const titleDescription = document.querySelector(".short-description")
-
-document.addEventListener('scroll', () => {
-    const scrollVal = (window.pageYOffset / screen.height) * 100 + 30;
-    if (scrollVal < 200) {
-        console.log(scrollVal)
-        curve.style.borderRadius = `${scrollVal}%`;
-    }
-})
+const hamburger = document.querySelector(".hamburger")
 
 window.addEventListener('load', () => {
     createTitle("SNOWSCRAPER")
@@ -29,6 +22,25 @@ window.addEventListener('load', () => {
         mountainLogo.style.opacity = '0.5';
         loop++
     }, 100);
+})
+
+document.addEventListener('scroll', () => {
+    const scrollVal = (window.pageYOffset / screen.height) * 100 + 30;
+    if (scrollVal < 200) {
+        curve.style.borderRadius = `${scrollVal}%`;
+    }
+})
+
+hamburger.addEventListener('click', (event) => {
+    let hamOrX = event.target.getAttribute("class")
+    const sideNav = document.querySelector(".side-nav-container")
+    if (hamOrX == "fa-solid fa-bars") {
+        event.target.className = "fa-solid fa-xmark"
+        sideNav.style.left = "0"
+    } else {
+        event.target.className = "fa-solid fa-bars"
+        sideNav.style.left = "-8vw"
+    }
 })
 
 const createWord = (text, index) => {
