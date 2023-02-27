@@ -36,9 +36,11 @@ hamburger.addEventListener('click', (event) => {
     const sideNav = document.querySelector(".side-nav-container")
     if (hamOrX == "fa-solid fa-bars") {
         event.target.className = "fa-solid fa-xmark"
+        sideNav.style.boxShadow = "2px 2px 2px 2px rgba(0, 0, 0, 0.281)"
         sideNav.style.left = "0"
     } else {
         event.target.className = "fa-solid fa-bars"
+        sideNav.style.boxShadow = "none"
         sideNav.style.left = "-8vw"
     }
 })
