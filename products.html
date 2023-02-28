@@ -1,29 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Products</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
+    <!-- Bootstrap Library CSS CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <!-- Boostrap Library JS CDN -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Link to Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-</head>
-<body>
-
-
+    <!-- Links to CSS   -->
+    <link rel="stylesheet" href="product.css" />
+    <!-- JQuery Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <!-- Font-Awesome Library -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body>
+    <nav class="underline_b container">
+      <img id="logo" src="images/logo-placeholder.png" height="50" />
+      <div class="row justify-content-end">
+        <!-- Search bar (initially hidden) -->
+        <div class="col-md-auto" id="search-bar" style="display: none">
+          <form action="" autocomplete="on">
+            <input type="text" placeholder="Search by category..." />
+          </form>
+        </div>
+        <!-- Search icon  -->
+        <a href="#" class="col-md-auto" id="search-icon"
+          ><i class="fa fa-search"></i
+        ></a>
+        <a href="#" class="col-md-auto" id="login"> Login</a>
+      </div>
+    </nav>
+    <!--product card element-->
     <div class="container">
-        <h2 id="category-header">huh</h2>
-        <div class="row" id="product-list"></div>
+      <h2 id="category-header">huh</h2>
+      <div class="row" id="product-list"></div>
     </div>
 
+    <!--footer-->
+    <footer>
+      <div class="top_header">
+        <section>
+          <div class="location" id="property-map-plugin-1">
+            <span><i class="fa fa-map-marker"></i></span>
+            <a
+              href="https://www.google.com/maps/place/555+Seymour+St,+Vancouver,+BC+V6B+3H6/@49.2833851,-123.1175252,17z/data=!3m1!4b1!4m6!3m5!1s0x54867178c92a69b9:0x6b40938af55472d6!8m2!3d49.2833851!4d-123.1153365!16s%2Fg%2F11bw416sdy"
+              target="_blank"
+              >555 Seymour St, Vancouver, BC V6B 3H6</a
+            >
+          </div>
+        </section>
+        <section>
+          <span><i class="fa fa-phone"></i></span>
+          <span><a href="tel:604-434-5734"></a>(604) 434 5734</span>
+        </section>
+        <section>
+          <span><i class="fa fa-envelope"></i></span>
+          <span
+            ><a href="mailto:info@dtc04snowscraper.com"
+              >info@dtc04snowscraper.com</a
+            ></span
+          >
+        </section>
+      </div>
+      <span class="border-shape"></span>
+      <div class="bottom_content">
+        <section>
+          <a href="#"><i class="fa fa-facebook"></i></a>
+          <a href="#"><i class="fa fa-instagram"></i></a>
+          <a href="#"><i class="fa fa-twitter"></i></a>
+        </section>
+        <section>
+          <a href="#">Home</a>
+          <a href="#">About us</a>
+          <a href="#">Members</a>
+          <a href="#">Contact Us</a>
+        </section>
+      </div>
+      <div class="copyright">
+        Copyright © 2023 DTC04SnowScraper - All rights reserved
+      </div>
+    </footer>
+    <script>
+      var searchIcon = document.getElementById("search-icon");
+      var searchBar = document.getElementById("search-bar");
+      if (searchIcon) {
+        searchIcon.addEventListener("click", function () {
+          if (searchBar.style.display === "none") {
+            searchBar.style.display = "block";
+          } else {
+            searchBar.style.display = "none";
+          }
+        });
+      }
+
+      // link to scripts
+    </script>
     <script src="./scripts/firebaseAPI_TEAMDTC04.js"></script>
     <script src="./scripts/get_selected_category.js"></script>
     <script src="./scripts/get_products_type.js"></script>
-
-</body>
+  </body>
 </html>
