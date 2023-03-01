@@ -22,7 +22,7 @@ function queryProductCategory() {
       querySnapshot.forEach((doc) => {
         const product = doc.data();
         const productCard = `
-      <div class="col-md-6 col-lg-4 col-xl-3">
+      <div class="col-6 col-lg-3">
         <div id="product-${doc.id}" class="single-product">
           <div class="part-1">
           <img class="card-img-top" src="${product.image_url}" alt="${product.product_name}">
@@ -42,7 +42,7 @@ function queryProductCategory() {
         row.innerHTML += productCard;
         cardCount++;
 
-        if (cardCount % 3 === 0) {
+        if (cardCount % 4 === 0) {
           row = document.createElement("div");
           row.classList.add("row");
           productList.appendChild(row);
