@@ -75,7 +75,7 @@ body {
     opacity: 1;
 }
 
-.home-card {
+.home-card-container {
     width: 100vw;
     max-width:100%;
     height: 100vh;
@@ -101,10 +101,16 @@ body {
 }
 
 .snow-name {
+    transform: translate(0, -40%);
     margin: 0;
     color: white;
     font-family: 'League Spartan', sans-serif;
+    font-weight: 900;
     z-index: 1;
+}
+
+.mobile {
+    opacity: 0;
 }
 
 .snow-name-letter {
@@ -115,7 +121,6 @@ body {
 }
 
 .short-description {
-    transform: translate(0, 200%);
     padding: 10px 15px 10px 15px;
     background-color: #263159;
     color: var(--mainBeige);
@@ -164,24 +169,16 @@ body {
 }
 
 .category-card-container {
-    display: flex;
+    display: grid;
     width: 100%;
-    flex-direction: column;
-    align-items: center;
-}
-
-.card-container {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
+    grid-template-columns: repeat(3, 300px);
+    grid-auto-rows: 150px;
+    grid-gap: 50px;
     justify-content: space-around;
-    margin-bottom: 3%;
 }
 
 .category-card {
     padding: 25px 70px 25px 30px;
-    width: 15%;
-    height: 100px;
     border-radius: 5%;
     background-color: #97DECE;
 }
@@ -271,18 +268,121 @@ body {
     .snow-name-letter {
         font-size: 100px;
     }
+
+    .category-card-container {
+        grid-template-columns: repeat(3, 220px);
+    }
 }
 
 @media screen and (max-width: 850px) {
     .snow-name-letter {
-        font-size: 80px;
+        font-size: 75px;
     }
 
     .store-list-header {
         font-size: 2.5em;
     }
+
+    .category-card-container {
+        grid-template-columns: repeat(3, 170px);
+        grid-gap: 30px;
+        justify-content: center;
+    }
 }
 
 @media screen and (max-width: 600px) {
+    .home-card {
+        display: flex;
+        justify-content: center;
+        margin-top: 25px;
+    }
+
+    .home-card-container {
+        width: 90vw;
+        height: 50vh;
+    }
+
+    .home-name {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .logo {
+        position: absolute;
+        width: 90%;
+        transform: translate(-49%, -25%);
+        opacity: 0;
+        transition: 500ms ease;
+        object-fit:fill;
+    }
     
+    .snow-name {
+        opacity: 0;
+    }
+
+    .mobile {
+        opacity: 1;
+        font-size: 60px;
+        margin: 0;
+        color: white;
+        font-family: 'League Spartan', sans-serif;
+        font-weight: 900;
+        z-index: 1;
+    }
+
+    .short-description {
+        transform: translate(0%, -25%);
+        font-size: 20px;
+    }
+
+    .curve {
+        display: none;
+    }
+
+    .category-header {
+        display: none;
+    }
+
+    .category-card-container {
+        margin-top: 50px;
+        width: 90vw;
+        grid-template-columns: repeat(2, 200px);
+        justify-content: center;
+        grid-gap: 50px;
+    }
+
+    .store-list {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .logo {
+        width: 80%;
+        transform: translate(-49%, -15%);
+    }
+
+    .mobile {
+        opacity: 1;
+        font-size: 50px;
+        margin: 0;
+        color: white;
+        font-family: 'League Spartan', sans-serif;
+        font-weight: 900;
+        z-index: 1;
+    }
+
+    .short-description {
+        transform: translate(0%, -25%);
+        font-size: 15px;
+    }
+
+    .category-card-container {
+        margin-top: 50px;
+        width: 90vw;
+        grid-template-columns: repeat(2, 170px);
+        justify-content: center;
+        grid-gap: 30px;
+    }
 }
