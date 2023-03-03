@@ -51,7 +51,7 @@ function queryProductCategory() {
                 <div class="part-2">
                   <h3 class="product-price">$${product.price}</h3>
                   <h4 class="product-title">${product.product_name}</h4>
-                  <h4 class="product-store">${product.store_name}</h4>
+                  <h4 class="product-store">${product.store}</h4>
                 </div>
               </div>
             </div>
