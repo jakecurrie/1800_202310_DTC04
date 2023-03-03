@@ -41,7 +41,12 @@ hamburger.addEventListener('click', (event) => {
     } else {
         event.target.className = "fa-solid fa-bars"
         sideNav.style.boxShadow = "none"
-        sideNav.style.left = "-8vw"
+        if (window.innerWidth <= 600) {
+            sideNav.style.left = "-50vw"
+        } else{
+            sideNav.style.left = "-8vw"
+        }
+        
     }
 })
 
