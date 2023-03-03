@@ -205,12 +205,14 @@ body {
 }
 
 .store-list {
-    background-image: linear-gradient(to bottom, var(--mainBeige), rgba(255, 255, 255, 0)), url(/images/mountain.jpg);
+    width: 100%;
+    background-image: linear-gradient(to bottom, rgba(255,251,235,100), rgba(255,251,235,0)), url(/images/mountain.jpg);
     background-position: center center;
-    padding-top: 200px;
+    background-size: cover;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 200px;
     padding-bottom: 500px;
 }
 
