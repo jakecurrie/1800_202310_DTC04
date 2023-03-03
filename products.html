@@ -18,7 +18,7 @@
     ></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <link rel="stylesheet" href="product.css" />
+    <link rel="stylesheet" href="./styles/product.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <link
       rel="stylesheet"
@@ -65,6 +65,16 @@
           </div>
           <div class="row" id="product-list"></div>
         </div>
+        <!-- pagination -->
+        <div id="paginations" class="d-flex flex-row justify-content-center">
+          <button id="prev-btn" class="btn">
+            <i class="fa fa-angle-double-left"></i>
+          </button>
+          <div id="pagination-container" class="btn"></div>
+          <button id="next-btn" class="btn">
+            <i class="fa fa-angle-double-right"></i>
+          </button>
+        </div>
       </div>
 
       <!-- scroll to top button -->
@@ -91,15 +101,13 @@
                 </address>
               </div>
               <div class="col-lg-6">
-                <abbr title="Phone Number"><strong>Phone:</strong></abbr>
-                604-434-5734<br />
-                <abbr title="Email Address"><strong>Email:</strong></abbr>
-                info@snowscraper.com
+                <strong>Phone: </strong>604-434-5734<br />
+                <strong>Email: </strong>info@snowscraper.com
               </div>
             </div>
           </div>
           <div class="col-auto b1">
-            <h6>Legal</h6>
+            <h6 id="legal">Legal</h6>
             <ul class="footer-links">
               <li><a href="">Privacy Policy</a></li>
               <li><a href="">Terms of Use</a></li>
