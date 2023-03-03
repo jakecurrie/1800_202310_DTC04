@@ -75,7 +75,7 @@ body {
     opacity: 1;
 }
 
-.home-card {
+.home-card-container {
     width: 100vw;
     max-width:100%;
     height: 100vh;
@@ -88,31 +88,39 @@ body {
 
 .logo {
     position: absolute;
-    width: 50%;
-    transform: translate(-50%, -35%);
+    width: 70%;
+    transform: translate(-50%, -40%);
     opacity: 0;
     transition: 500ms ease;
 }
 
+.home-name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .snow-name {
-    position: relative;
-    transform: translate(0, 10%);
+    transform: translate(0, -40%);
+    margin: 0;
     color: white;
     font-family: 'League Spartan', sans-serif;
-    font-size: 150px;
+    font-weight: 900;
     z-index: 1;
+}
+
+.mobile {
+    opacity: 0;
 }
 
 .snow-name-letter {
     display: inline-block;
+    font-size: 150px;
     opacity: 0;
     transition: 500ms ease;
 }
 
 .short-description {
-    position: absolute;
-    transform: translate(-50%, 0%);
-    left: 50%;
     padding: 10px 15px 10px 15px;
     background-color: #263159;
     color: var(--mainBeige);
@@ -161,24 +169,16 @@ body {
 }
 
 .category-card-container {
-    display: flex;
+    display: grid;
     width: 100%;
-    flex-direction: column;
-    align-items: center;
-}
-
-.card-container {
-    width: 75%;
-    display: flex;
-    flex-direction: row;
+    grid-template-columns: repeat(3, 300px);
+    grid-auto-rows: 150px;
+    grid-gap: 50px;
     justify-content: space-around;
-    margin-bottom: 3%;
 }
 
 .category-card {
     padding: 25px 70px 25px 30px;
-    width: 200px;
-    height: 100px;
     border-radius: 5%;
     background-color: #97DECE;
 }
@@ -219,6 +219,7 @@ body {
     font-size: 3em;
     font-family: 'League Spartan', sans-serif;
     font-weight: 600;
+    text-align: center;
     margin: 0;
 }
 
@@ -237,34 +238,187 @@ body {
 }
 
 .store-logos {
-    width: 250px;
+    width: 20%;
     object-fit: cover;
 }
 
 .footer {
-    display: flex;
+    width: 100vw;
+    max-width: 100%;
+    height: 60px;
     background-color: var(--mainNavy);
-    justify-content: center;
-}
-
-.footer-container {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
-    width: 70%;
+    flex-direction: row;
 }
 
 .footer-content {
-    font-family: 'League Spartan', sans-serif;
-    font-size: 1.2em;
-    color: var(--mainLightestNavy)
-}
-
-.footer-container a {
     text-decoration: none;
+    color: var(--mainLightestNavy);
+    font-family: 'League Spartan', sans-serif;
+    font-size: 1em;
 }
 
 .footer-content:hover {
     color: var(--mainBeige);
+}
+
+@media screen and (max-width: 1150px) {
+    .snow-name-letter {
+        font-size: 100px;
+    }
+
+    .category-card-container {
+        grid-template-columns: repeat(3, 220px);
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .snow-name-letter {
+        font-size: 75px;
+    }
+
+    .store-list-header {
+        font-size: 2.5em;
+    }
+
+    .category-card-container {
+        grid-template-columns: repeat(3, 170px);
+        grid-gap: 30px;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .home-card {
+        display: flex;
+        justify-content: center;
+        margin-top: 25px;
+    }
+
+    .home-card-container {
+        width: 90vw;
+        height: 50vh;
+    }
+
+    .home-name {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .home-logo {
+        position: relative;
+        width: 90%;
+    }
+
+    .logo {
+        position: absolute;
+        width: 90%;
+        transform: translate(5%, -15%);
+        opacity: 0;
+        transition: 500ms ease;
+        object-fit:fill;
+    }
+    
+    .snow-name {
+        opacity: 0;
+    }
+
+    .mobile {
+        opacity: 1;
+        font-size: 60px;
+        margin: 0;
+        color: white;
+        font-family: 'League Spartan', sans-serif;
+        font-weight: 900;
+        z-index: 1;
+    }
+
+    .short-description {
+        transform: translate(0%, -25%);
+        font-size: 20px;
+    }
+
+    .curve {
+        display: none;
+    }
+
+    .category-header {
+        display: none;
+    }
+
+    .category-card-container {
+        margin-top: 50px;
+        width: 90vw;
+        grid-template-columns: repeat(2, 200px);
+        justify-content: center;
+        grid-gap: 50px;
+    }
+
+    .store-list {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .mobile {
+        opacity: 1;
+        font-size: 40px;
+        margin: 0;
+        color: white;
+        font-family: 'League Spartan', sans-serif;
+        font-weight: 900;
+        z-index: 1;
+    }
+
+    .short-description {
+        transform: translate(0%, -25%);
+        font-size: 12px;
+    }
+
+    .category-card-container {
+        margin-top: 50px;
+        width: 90vw;
+        grid-template-columns: repeat(2, 170px);
+        justify-content: center;
+        grid-gap: 30px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .category-card-container {
+        margin-top: 50px;
+        width: 90vw;
+        grid-template-columns: repeat(2, 150px);
+        justify-content: center;
+        grid-gap: 30px;
+    }
+    
+    .category-card {
+        padding: 15px 10px 5px 10px;
+    }
+
+    .card-title {
+    color: white;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 500;
+    font-size: 1.5em;
+    margin: 0;
+    }
+
+    .card-description {
+    color: var(--mainBeige);
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 500;
+    font-size: 1em;
+    margin: 0;
+    }
+
+    .footer {
+        height: 150px;
+        flex-direction: column;
+        align-content: space-around;
+    }
 }
