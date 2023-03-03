@@ -42,6 +42,11 @@ body {
     transition: 500ms;
 }
 
+.side-nav-content > a {
+    text-decoration: none;
+    color: black;
+}
+
 .side-nav-content {
     display: inherit;
     flex-direction: column;
