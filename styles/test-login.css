@@ -1,0 +1,82 @@
+body {
+    margin: 0;
+    background: url('/images/mountain.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.container {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-box {
+    display: flex;
+    flex-direction: column;
+    border: black 1px solid;
+    border-radius: 5%;
+    padding: 40px 70px;
+    background: transparent;
+    backdrop-filter: blur(20px);
+}
+
+.login-title {
+    text-align: center;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 600;
+}
+
+.email, .password {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-title {
+    padding-left: 5px;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 400;
+}
+
+.login-input {
+    border: none;
+    border-bottom: 1px solid black;
+    padding: 5px;
+    background: transparent;
+}
+
+.login-input:focus {
+    outline: none;
+}
+
+.forgot-link, .register-link {
+    text-decoration: none;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 600;
+    color: black;
+}
+
+.email {
+    margin-bottom: 20px;
+}
+
+.login-btn {
+    cursor: pointer;
+    width: 220px;
+    height: 35px;
+    border: none;
+    font-size: 1em;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 600;
+}
+
+#register-span {
+    font-weight: 700;
+}
+
+#register-span:hover {
+    text-decoration: underline;
+}
