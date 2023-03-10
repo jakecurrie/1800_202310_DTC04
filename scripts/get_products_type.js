@@ -2,25 +2,14 @@ const cardsPerPage = 12;
 let currentPage = 1;
 let allProducts;
 
-function displayCardsDynamically(collection) {
-  db.collection(collection)
-    .get()
-    .then((res) => {
-      allProducts = res;
-      queryProductCategory();
-    });
-}
-
-displayCardsDynamically("products");
-
 function queryProductCategory() {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const category = urlParams.get("category");
-  const productList = document.getElementById("product-list");
-  const categoryHeader = document.getElementById("category-header");
+  const productList = $("#product-list");
+  const categoryHeader = $("#category-header");
 
-  categoryHeader.innerHTML = category;
+  categoryHeader.html(category);
 
   const db = firebase.firestore();
   const productsRef = db
@@ -29,90 +18,96 @@ function queryProductCategory() {
   productsRef
     .get()
     .then((querySnapshot) => {
-      let cardCount = 0;
-      let productCards = "";
-      let categoryDocCount = querySnapshot.size;
-      querySnapshot.forEach((doc) => {
-        if (
-          cardCount >= (currentPage - 1) * cardsPerPage &&
-          cardCount < currentPage * cardsPerPage
-        ) {
-          const product = doc.data();
-          const productCard = `
-            <div class="col-6 col-lg-3">
-              <div id="product-${doc.id}" class="single-product">
-                <div class="part-1">
-                  <img class="card-img-top" src="${product.image_url}" alt="${product.product_name}">
-                  <ul>
-                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                    <li><a href="#"><i class="fa fa-link"></i></a></li>
-                  </ul>
-                </div>
-                <div class="part-2">
-                  <h3 class="product-price">$${product.price}</h3>
-                  <h4 class="product-title">${product.product_name}</h4>
-                  <h4 class="product-store">${product.store}</h4>
-                </div>
-              </div>
-            </div>
-          `;
-          productCards += productCard;
-        }
-        cardCount++;
-      });
-      productList.innerHTML = productCards;
-      return categoryDocCount;
-    })
-    .then((categoryDocCount) => {
-      const totalPages = Math.ceil(categoryDocCount / cardsPerPage);
-      generatePagination(totalPages);
+      allProducts = querySnapshot.docs;
+      generatePagination();
+      generateProductCards();
     })
     .catch((error) => {
       console.error(error);
     });
 }
 
-var prevButton = document.getElementById("prev-btn");
-var nextButton = document.getElementById("next-btn");
-
-function generatePagination(totalPages) {
-  const paginationContainer = document.getElementById("pagination-container");
+function generatePagination() {
+  const paginationContainer = $("#pagination-container");
+  const totalPages = Math.ceil(allProducts.length / cardsPerPage);
   let paginationHTML = "";
   for (let i = 1; i <= totalPages; i++) {
     if (i === currentPage) {
-      paginationHTML += `<button class="btn btn-floating text-dark bg-light">${i}</button>`;
+      paginationHTML += `<button class="btn active pagbtn">${i}</button>`;
     } else {
-      paginationHTML += `<button class="btn text-dark">${i}</button>`;
+      paginationHTML += `<button class="btn greyed pagbtn">${i}</button>`;
     }
   }
-  paginationContainer.innerHTML = paginationHTML;
+  paginationContainer.html(paginationHTML);
 
-  const paginationButtons = document.querySelectorAll(
-    "#pagination-container button"
-  );
-  paginationButtons.forEach((button, index) => {
-    button.addEventListener("click", () => {
-      currentPage = index + 1;
-      queryProductCategory();
-      generatePagination(totalPages);
-    });
+  const prevBtn = $("#prev-btn");
+  const nextBtn = $("#next-btn");
+
+  if (currentPage === 1) {
+    prevBtn.hide();
+  } else {
+    prevBtn.show();
+  }
+
+  if (currentPage === totalPages) {
+    nextBtn.hide();
+  } else {
+    nextBtn.show();
+  }
+
+  $(".pagbtn").on("click", function () {
+    currentPage = $(this).index() + 1;
+    generateProductCards();
+    generatePagination();
+    window.scrollTo(0, 0);
   });
 }
 
-function handlePrevClick() {
+function generateProductCards() {
+  const startIndex = (currentPage - 1) * cardsPerPage;
+  const endIndex = startIndex + cardsPerPage;
+  const productList = $("#product-list");
+  productList.empty();
+
+  allProducts.slice(startIndex, endIndex).forEach((doc) => {
+    const product = doc.data();
+    const productCard = `
+      <div class="col-lg-4 col-5">
+        <div id="product-${doc.id}" class="single-product">
+          <div class="part-1">
+            <img class="card-img-top" src="${product.image_url}" alt="${product.product_name}">
+            <ul>
+              <li><a href="#"><i class="fa fa-heart"></i></a></li>
+              <li><a href="#"><i class="fa fa-link"></i></a></li>
+            </ul>
+          </div>
+          <div class="part-2">
+            <h3 class="product-price">$${product.price}</h3>
+            <h4 class="product-title">${product.product_name}</h4>
+            <h4 class="product-store">${product.store}</h4>
+          </div>
+        </div>
+      </div>
+    `;
+    productList.append(productCard);
+  });
+}
+
+$("#prev-btn").on("click", function () {
   if (currentPage > 1) {
     currentPage--;
-    queryProductCategory();
+    generateProductCards();
+    generatePagination();
   }
-}
+});
 
-function handleNextClick() {
-  const totalPages = Math.ceil(categoryDocCount / cardsPerPage);
+$("#next-btn").on("click", function () {
+  const totalPages = Math.ceil(allProducts.length / cardsPerPage);
   if (currentPage < totalPages) {
     currentPage++;
-    queryProductCategory();
+    generateProductCards();
+    generatePagination();
   }
-}
+});
 
-prevButton.addEventListener("click", handlePrevClick);
-nextButton.addEventListener("click", handleNextClick);
+queryProductCategory();
