@@ -230,12 +230,6 @@ Filter
   margin-bottom: 10px;
 }
 
-.filter-panel label {
-  display: block;
-  font-size: 14px;
-  margin-bottom: 5px;
-}
-
 .filter-panel input[type="text"] {
   border: none;
   border-radius: 2px;
@@ -247,52 +241,10 @@ Filter
 .filter-panel button[type="button"] {
   background-color: var(--lightgrey);
   border: none;
-  border-radius: 2px;
+  border-radius: 5px;
   padding: 10px 20px;
   font-size: 14px;
   margin-left: 10px;
-}
-
-.filter-panel input[type="range"] {
-  width: 100%;
-  border-radius: 5px;
-  outline: none;
-}
-
-.filter-panel input[type="checkbox"] {
-  display: none;
-}
-
-.filter-panel input[type="checkbox"] + label:before {
-  content: "";
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  margin-right: 5px;
-  border: 2px solid #ddd;
-  border-radius: 2px;
-}
-
-.filter-panel input[type="checkbox"]:checked + label:before {
-  content: "\2713";
-  display: inline-block;
-  font-size: 14px;
-  line-height: 14px;
-  text-align: center;
-  color: --light;
-  background-color: #fff;
-}
-
-.filter-panel button[type="button"]:hover,
-.filter-panel button[type="button"]:active {
-  background-color: var(--grey);
-  color: var(--lightgrey);
-  cursor: pointer;
-}
-
-.filter-panel input[type="range"]:hover,
-.filter-panel input[type="range"]:active {
-  cursor: pointer;
 }
 
 /*----------------------------------------------------------------------------

@@ -21,6 +21,7 @@ function queryProductCategory() {
       allProducts = querySnapshot.docs;
       generatePagination();
       generateProductCards();
+      populateStores();
     })
     .catch((error) => {
       console.error(error);
@@ -55,11 +56,11 @@ function generatePagination() {
     nextBtn.show();
   }
 
-  $(".pagbtn").on("click", function () {
+  paginationContainer.off().on("click", ".pagbtn", function () {
     currentPage = $(this).index() + 1;
     generateProductCards();
     generatePagination();
-    window.scrollTo(0, 0);
+    console.log(currentPage);
   });
 }
 
@@ -96,6 +97,7 @@ function generateProductCards() {
 $("#prev-btn").on("click", function () {
   if (currentPage > 1) {
     currentPage--;
+    console.log(currentPage);
     generateProductCards();
     generatePagination();
   }
@@ -105,9 +107,30 @@ $("#next-btn").on("click", function () {
   const totalPages = Math.ceil(allProducts.length / cardsPerPage);
   if (currentPage < totalPages) {
     currentPage++;
+    console.log(currentPage);
     generateProductCards();
     generatePagination();
   }
 });
 
 queryProductCategory();
+
+function populateStores() {
+  const stores = new Set();
+  allProducts.forEach((doc) => {
+    const product = doc.data();
+    stores.add(product.store);
+  });
+
+  const checkboxesContainer = $("#stores-checkboxes");
+  let checkboxesHTML = "";
+  stores.forEach((store) => {
+    checkboxesHTML += `
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="${store}">
+        <label class="form-check-label" for="${store}">${store}</label>
+      </div>
+    `;
+  });
+  checkboxesContainer.html(checkboxesHTML);
+}

@@ -76,26 +76,13 @@
 
     <!--------------------------------------- main -------------------------------------->
     <main>
-      <!-- breadcrumb -->
-      <!-- <div class="breadcrumb-area">
-        <div class="container">
-          <ol class="breadcrumb">
-            <li>
-              <a href="home-page.html"><i class="fa fa-home"></i></a>
-            </li>
-            <li><a href="#">Product</a></li>
-            <li class="active">category</li>
-          </ol>
-        </div>
-      </div> -->
-
       <!--filter panel-->
       <div class="row">
         <div class="col-lg-4 d-none d-lg-block">
           <div class="filter-panel">
             <h3>Filter By</h3>
             <br />
-            <label for="price-range">Price Range</label>
+            <label for="price-range">Price Range</label><br /><br />
             <input
               type="range"
               id="price-range"
@@ -107,17 +94,13 @@
             <span id="price-value"></span>
             <br />
             <hr />
-            <label for="retailers">Retailers</label><br />
-            <input
-              type="checkbox"
-              id="retailer1"
-              name="retailer1"
-              value="retailer1"
-            />
-            <label for="retailer1">Retailer 1</label>
+
+            <label for="stores">Stores</label><br /><br />
+            <div class="container" id="stores-checkboxes"></div>
+
             <hr />
             <br />
-            <button type="button" id="reset-filter">Apply Filter</button>
+            <button type="button" id="apply-filter">Apply Filter</button>
           </div>
         </div>
         <!-- product card  -->
