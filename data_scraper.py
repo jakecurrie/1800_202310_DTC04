@@ -3,8 +3,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 import time
 import pandas as pd
+import httpx
+from bs4 import BeautifulSoup
 
-# Adjusting selenium settings to reduce script runtime
+# Adjusting selenium settings to reduce script runtime and ensure compatability with google cloud run
 options = Options()
 options.add_argument("--headless")
 options.add_argument("--disable-gpu")
@@ -12,12 +14,17 @@ options.add_argument("--no-sandbox")
 options.add_argument("enable-automation")
 options.add_argument("--disable-infobars")
 options.add_argument("--disable-dev-shm-usage")
+options.add_argument("window-size=1024,768")
+
+# Selenium will not work for some websites, for these we will use httpx to send http requests and beautifulsoup to parse through the resulting html code fetched using httpx to extract the relevant data. For this to work, we will use common browser headers which make our web traffic appear as if it is from a human instead of from an automated script. These headers will be passed as an argument while using the get method from the httpx module.
+headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:104.0) Gecko/20100101 Firefox/104.0"}
 
 # Creating a dictionary to store urls for each product type at each store
 urls = {
     "Shovels": {
         "Canadian Tire": "https://www.canadiantire.ca/en/cat/outdoor-living/snow-removal-equipment-tools/snow-shovels-rakes-DC0001703.html",
-        "Lowe's": "https://www.lowes.ca/dept/snow-shovels-snow-winter-essentials-outdoor-a1255?display=100&sort=ordernumber_i%3Adesc"},
+        "Lowe's": "https://www.lowes.ca/dept/snow-shovels-snow-winter-essentials-outdoor-a1255?display=100&sort=ordernumber_i%3Adesc",
+        "Rona": "https://www.rona.ca/en/outdoor/snow-and-ice-removal/snow-shovels"},
     "Ice Melters": {
         "Canadian Tire": "https://www.canadiantire.ca/en/cat/outdoor-living/snow-removal-equipment-tools/ice-melters-DC0001701.html",
         "Lowe's": "https://www.lowes.ca/dept/ice-melt-snow-winter-essentials-outdoor-a827?display=100&sort=ordernumber_i%3Adesc"}
@@ -28,14 +35,30 @@ selectors = {
     "Canadian Tire": {
         "parent": "[class='nl-product__content']", 
         "child_selectors": {
-            "name": "[class='shiitake-children']", "price": "[class='nl-price--total']"}},
+            "name": "[class='shiitake-children']", 
+            "price": "[class='nl-price--total']",
+            "rating": "[class='bv_text']",
+            "product_url": "[class='nl-product-card__no-button']",
+            "image_url": "img"}},
     "Lowe's": {
         "parent": "[class='plp-card-wrapper']",
         "child_selectors": {
-            "name": "[class='styles__ProductTitle-RC__sc-od4z67-9 kTOEzK card-text']", "price": "[class='price-actual']"}}
+            "name": "[class='styles__ProductTitle-RC__sc-od4z67-9 kTOEzK card-text']", 
+            "price": "[class='price-actual']",
+            "rating": "",
+            "product_url": "[class='styles__Anchor-RC__sc-od4z67-8 iZqswa']"}},
+    "Rona": {
+        "parent": "[class='product-tile js-product-tile']",
+        "child_selectors": {
+            "name": "[class='product-tile__title productLink']", 
+            "price": "[class='price-box__price__amount__integer']"},
+            "rating": "[class='bv-rating-average']",
+            "product_url": "[class='product-tile__title productLink']",
+            "image_url": "[class='product-tile__image-link productLink']"}
+
     }
 
-# Initializing the web browser to load web pages
+# Initializing the chrome web browser to load web pages with selenium
 driver = webdriver.Chrome(options=options)
 
 
