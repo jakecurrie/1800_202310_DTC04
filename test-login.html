@@ -11,6 +11,12 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/styles/test-login.css" />
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+    <script src="./scripts/firebaseAPI_TEAMDTC04.js" defer></script>
+    <script src="/scripts/login.js" defer></script>
     <title>Login</title>
   </head>
   <body>
@@ -18,27 +24,76 @@
       <div class="login-box">
         <h1 class="login-title">Login</h1>
         <form class="login-input-box" action="">
-          <div class="email">
+          <div class="login-email">
             <label class="input-title" for="">Email</label>
-            <input name="password" type="text" class="login-input" />
+            <input
+              name="email"
+              type="text"
+              id="login-email"
+              class="login-input"
+            />
           </div>
-          <div class="password">
+          <div class="login-password">
             <label class="input-title" for="">Password</label>
-            <input name="password" type="text" class="login-input" />
+            <input
+              name="password"
+              type="password"
+              id="login-password"
+              class="login-input"
+            />
           </div>
         </form>
-        <div class="forgor">
+        <div class="login-forgor">
           <a href="" class="forgot-link"><p>Forgot Password?</p></a>
         </div>
         <div class="login">
           <button type="submit" class="login-btn">Login</button>
         </div>
         <div class="register">
-          <a href="" class="register-link"
-            ><p>
-              Don't have an account? <span id="register-span">Register</span>
-            </p></a
-          >
+          <p>Don't have an account?</p>
+          <p class="register-click">Register</p>
+        </div>
+      </div>
+
+      <div class="register-box">
+        <h1 class="register-title">Register</h1>
+        <form class="register-input-box" action="">
+          <div class="register-name">
+            <label class="input-title" for="">Name</label>
+            <input
+              name="name"
+              type="text"
+              id="register-name"
+              class="register-input"
+            />
+          </div>
+          <div class="register-email">
+            <label class="input-title" for="">Email</label>
+            <input
+              name="email"
+              type="text"
+              id="register-email"
+              class="register-input"
+            />
+          </div>
+          <div class="register-password">
+            <label class="input-title" for="">Password</label>
+            <input
+              name="password"
+              type="password"
+              id="register-password"
+              class="register-input"
+            />
+          </div>
+          <div class="register-password-again">
+            <label class="input-title" for="">Password again</label>
+            <input name="password" type="password" class="register-input" />
+          </div>
+        </form>
+        <button type="submit" class="register-btn">Register</button>
+        <div class="login">
+          <p>Already have an account?</p>
+          <p class="login-click">Sign in</p>
         </div>
       </div>
     </div>
