@@ -28,17 +28,38 @@
   <body>
     <!-------------------------------- header ----------------------------------------->
     <header id="header">
-      <img
-        id="header-img"
-        class="logo"
-        src="images/logo-placeholder.png"
-        alt="logo"
-      />
+      <h5 id="nav-logo">Skyscraper</h5>
 
-      <!-- <input id="one" type="text" class="search-bar" placeholder="Search" /> -->
-      <button id="two" class="search-bar"></button>
+      <!-- search bar  -->
+      <!-- <form id="search-form" action="#">
+        <input type="text" id="search-input" placeholder="Search by category" />
+        <button type="submit" id="search-button">
+          <i class="fa fa-search"></i>
+        </button>
+      </form> -->
+
+      <div class="search-bar">
+        <div class="search-bar_input-container">
+          <input
+            class="search-bar_input"
+            type="text"
+            spellcheck="false"
+            placeholder="Search by category"
+          />
+          <i class="fa fa-search"></i>
+        </div>
+      </div>
+
       <!-- Login  -->
-      <!-- <a href="#" class="col-md-auto" id="login"> Login</a> -->
+      <a
+        href="login.html"
+        class="btn loginbtn btn-outline-secondary"
+        role="button"
+        aria-pressed="true"
+        >Login</a
+      >
+      <!-- <button type="button" class="btn btn-outline-secondary">Login</button> -->
+      <!-- <i class="fa fa-user-circle">Login</i> -->
       <!-- Hamburger Menu  -->
       <nav id="nav-bar" class="nav-bar">
         <input id="menu-btn" class="menu-btn" type="checkbox" />
@@ -55,26 +76,66 @@
 
     <!--------------------------------------- main -------------------------------------->
     <main>
-      <!--product card element-->
-      <div class="container">
-        <h2 id="category-header">huh</h2>
-        <div class="row">
-          <!-- filter toggle -->
-          <div class="col" id="filter">
-            <i class="fa fa-filter"></i>
+      <!-- breadcrumb -->
+      <!-- <div class="breadcrumb-area">
+        <div class="container">
+          <ol class="breadcrumb">
+            <li>
+              <a href="home-page.html"><i class="fa fa-home"></i></a>
+            </li>
+            <li><a href="#">Product</a></li>
+            <li class="active">category</li>
+          </ol>
+        </div>
+      </div> -->
+
+      <!--filter panel-->
+      <div class="row">
+        <div class="col-lg-4 d-none d-lg-block">
+          <div class="filter-panel">
+            <h3>Filter By</h3>
+            <br />
+            <label for="price-range">Price Range</label>
+            <input
+              type="range"
+              id="price-range"
+              name="price-range"
+              min="0"
+              max="1000"
+              step="50"
+            />
+            <span id="price-value"></span>
+            <br />
+            <hr />
+            <label for="retailers">Retailers</label><br />
+            <input
+              type="checkbox"
+              id="retailer1"
+              name="retailer1"
+              value="retailer1"
+            />
+            <label for="retailer1">Retailer 1</label>
+            <hr />
+            <br />
+            <button type="button" id="reset-filter">Apply Filter</button>
           </div>
+        </div>
+        <!-- product card  -->
+        <div class="col-lg-8 col-12">
+          <h2 id="category-header">huh</h2>
           <div class="row" id="product-list"></div>
         </div>
-        <!-- pagination -->
-        <div id="paginations" class="d-flex flex-row justify-content-center">
-          <button id="prev-btn" class="btn">
-            <i class="fa fa-angle-double-left"></i>
-          </button>
-          <div id="pagination-container" class="btn"></div>
-          <button id="next-btn" class="btn">
-            <i class="fa fa-angle-double-right"></i>
-          </button>
-        </div>
+      </div>
+
+      <!-- pagination -->
+      <div id="paginations" class="d-flex flex-row justify-content-center">
+        <button id="prev-btn" class="btn pagbtn">
+          <i class="fa fa-arrow-left"></i>
+        </button>
+        <div id="pagination-container" class="btn"></div>
+        <button id="next-btn" class="btn pagbtn">
+          <i class="fa fa-arrow-right"></i>
+        </button>
       </div>
 
       <!-- scroll to top button -->
@@ -96,7 +157,7 @@
             <div class="row">
               <div class="col-lg-6">
                 <address class="text-justify">
-                  <strong>Headquarter</strong><br />
+                  <strong>Location</strong><br />
                   555 Seymour Street, Vancouver, BC<br />
                 </address>
               </div>
