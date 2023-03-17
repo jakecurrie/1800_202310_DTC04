@@ -18,6 +18,9 @@ logIn.addEventListener('click', () => {
 });
 
 //create user through firebase
+const registerEmailInput = document.querySelector('#register-email');
+const registerPasswordInput = document.querySelector('#register-password');
+const registerNameInput = document.querySelector('#register-name');
 function createUser(email, password, name) {
     firebase.auth().createUserWithEmailAndPassword(email, password)
   .then((userCredential) => {
@@ -31,15 +34,26 @@ function createUser(email, password, name) {
   })
   .catch((error) => {
     const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorMessage)
+    console.log(errorCode)
+    if (errorCode == 'auth/invalid-email') {
+        registerEmailInput.style.borderBottom = 'solid 2px red'
+        registerPasswordInput.style.borderBottom = 'solid 1px black'
+    // if password is incorrect
+    } if (errorCode == 'auth/weak-password') {
+        registerPasswordInput.style.borderBottom = 'solid 2px red'
+        registerEmailInput.style.borderBottom = 'solid 1px black'
+    // if both are incorrect
+    } if (errorCode == 'auth/email-already-in-use') {
+        registerEmailInput.style.borderBottom = 'solid 2px red'
+        registerPasswordInput.style.borderBottom = 'solid 2px red'
+    }
   });
 }
 
 //login through firebase 
+const loginEmailInput = document.querySelector('#login-email');
+const loginPasswordInput = document.querySelector('#login-password');
 function login(email, password) {
-    const emailBorder = document.querySelector('#login-email');
-    const passwordBorder = document.querySelector('#login-password');
 
     firebase.auth().signInWithEmailAndPassword(email, password)
   .then((userCredential) => {
@@ -53,23 +67,21 @@ function login(email, password) {
     //const errorMessage = error.message;
     // if email is incorrect
     if (errorCode == 'auth/invalid-email') {
-        emailBorder.style.borderBottom = 'solid 2px red'
-        passwordBorder.style.borderBottom = 'solid 1px black'
+        loginEmailInput.style.borderBottom = 'solid 2px red'
+        loginPasswordInput.style.borderBottom = 'solid 1px black'
     // if password is incorrect
     } if (errorCode == 'auth/wrong-password') {
-        passwordBorder.style.borderBottom = 'solid 2px red'
-        emailBorder.style.borderBottom = 'solid 1px black'
+        loginPasswordInput.style.borderBottom = 'solid 2px red'
+        loginEmailInput.style.borderBottom = 'solid 1px black'
     // if both are incorrect
     } if (errorCode == 'auth/user-not-found') {
-        emailBorder.style.borderBottom = 'solid 2px red'
-        passwordBorder.style.borderBottom = 'solid 2px red'
+        loginEmailInput.style.borderBottom = 'solid 2px red'
+        loginPasswordInput.style.borderBottom = 'solid 2px red'
     }
   });
 }
 
 //when click login, it calls the login function
-const loginEmailInput = document.querySelector('#login-email');
-const loginPasswordInput = document.querySelector('#login-password');
 loginButton.addEventListener('click', () => {
     login(loginEmailInput.value, loginPasswordInput.value);
 });
@@ -85,9 +97,6 @@ const bothLoginInputBox = document.querySelectorAll('.login-input')
 });
 
 //when click register button, it calls the createUser function
-const registerEmailInput = document.querySelector('#register-email');
-const registerPasswordInput = document.querySelector('#register-password');
-const registerNameInput = document.querySelector('#register-name');
 signUpButton.addEventListener('click', () => {
     createUser(registerEmailInput.value, registerPasswordInput.value, registerNameInput.value);
 });

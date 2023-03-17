@@ -5,8 +5,8 @@ body {
     align-items: center;
     justify-content: center;
     background: url('/images/mountain.jpg');
+    background-position: center center;
     background-size: cover;
-    background-position: center;
 }
 
 .container {
