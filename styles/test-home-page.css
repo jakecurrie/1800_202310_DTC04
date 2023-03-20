@@ -1,0 +1,201 @@
+body {
+    margin: 0;
+}
+
+.title-page {
+    position: relative;
+    display: flex;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)), url(/images/mountain.jpg);
+    background-position: center center;
+    background-size: cover;
+    width: 100vw;
+    max-width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-words {
+    display: inherit;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title-snowscraper {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 10em;
+    font-weight: 900;
+    color: white;
+    margin: 0;
+}
+
+.title-description {
+    display: inline-block;
+    padding: 10px 15px 10px 15px;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 2em;
+    text-align: center;
+    color: white;
+    background-color: #263159ef;
+}
+
+.shop-category {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    max-width: 100%;
+    height: 100vh;
+}
+
+.category-title {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 5em;
+    font-weight: 500;
+    margin: 0 0 50px 0;
+}
+
+.category-grid {
+    display: grid;
+    
+    grid-template-columns: repeat(3, 400px);
+    grid-auto-rows: 150px;
+    grid-gap: 50px;
+}
+
+.store-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 200px;
+    padding-bottom: 500px;
+}
+
+.store-descrip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.store-list-header {
+    font-size: 3em;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 600;
+    text-align: center;
+    margin: 0;
+}
+
+.store-list-short {
+    font-size: 1.3em;
+    font-family: 'League Spartan', sans-serif;
+    
+}
+
+.store-logo-list {
+    background-color: rgba(0, 0, 0, 0.185);
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.store-logos {
+    width: 20%;
+    object-fit: cover;
+}
+
+.footer {
+    width: 100vw;
+    max-width: 100%;
+    height: 60px;
+    background-color: #263159;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: fixed;
+    z-index: 5;
+    width: 100vw;
+    height: 80px;
+    background-color: transparent;
+    transition: 500ms ease;
+}
+
+.logo-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.logo-section > h1{
+    margin-left: 10px;
+    font-family: 'League Spartan', sans-serif;
+    color: white;
+}
+
+.navbar-logo {
+    height: 100%;
+    opacity: 0.5;
+    transition: 500ms;
+    cursor: pointer;
+}
+
+.navbar-title {
+    display: none;
+    transition: 500ms;
+    cursor: pointer;
+}
+
+.navbar-features, .feature-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.navbar-features {
+    width: 50%;
+}
+
+.navbar-features > a {
+    text-decoration: none;
+}
+
+.feature-div {
+    width: 100%;
+}
+
+.feature-div > p {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 1.2em;
+    text-decoration: none;
+    color: white;
+}
+
+.feature-div > i{
+    margin-right: 10px;
+    font-size: 2em;
+    text-decoration: none;
+    color: white;
+}
+
+
+.footer-content {
+    text-decoration: none;
+    color: #7a7972;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 1.2em;
+}
+
+.footer-content:hover {
+    color: white;
+}

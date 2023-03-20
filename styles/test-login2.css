@@ -1,0 +1,121 @@
+body {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    /* background: url('/images/mountain.jpg');
+    background-position: 0%; */
+}
+
+.left-mountain-bg {
+    background: url('/images/mountain.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 45vw;
+    height: 100vh;
+}
+
+.login-register-container {
+    position: relative;
+    background: transparent;
+    backdrop-filter: blur(70px);
+    width: 55vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.snowscraper {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 4em;
+    font-weight: 600;
+    text-align: center;
+}
+
+.log-in {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-input-box {
+    width: 300px;
+}
+
+.login-title {
+    text-align: center;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 600;
+    padding-left: 5px;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 400;
+}
+
+.login-email, .login-password {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-email {
+    margin-bottom: 20px;
+}
+
+.input-title {
+    padding-left: 5px;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 400;
+}
+
+.login-input {
+    border: none;
+    border-bottom: 1px solid black;
+    padding: 5px;
+    background: transparent;
+}
+
+.login-input:focus {
+    outline: none;
+}
+
+.login-forgor {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.forgot-link {
+    text-decoration: none;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 600;
+    color: black;
+}
+
+.login-btn {
+    cursor: pointer;
+    width: 300px;
+    height: 35px;
+    border: none;
+    font-size: 1em;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 600;
+    background-color: rgb(207, 207, 207);
+}
+
+.register {
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 600;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.register-click {
+    margin-left: 5px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.register-click:hover {
+    text-decoration: underline;
+}
+

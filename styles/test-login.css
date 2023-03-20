@@ -5,8 +5,8 @@ body {
     align-items: center;
     justify-content: center;
     background: url('/images/mountain.jpg');
+    background-position: center center;
     background-size: cover;
-    background-position: center;
 }
 
 .container {
@@ -14,17 +14,15 @@ body {
     height: 100vh;
     position: relative;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
     overflow: hidden;
 }
 
 .login-box {
     display: flex;
+    flex-direction: column;
     position: absolute;
     left: 0%;
-    flex-direction: column;
     border: black 1px solid;
     border-radius: 5%;
     padding: 40px 70px;
