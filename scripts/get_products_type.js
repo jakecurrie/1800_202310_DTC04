@@ -1,12 +1,15 @@
 const cardsPerPage = 12;
 let currentPage = 1;
 let allProducts;
+let sliderOne;
+let sliderTwo;
+let sliderTrack;
+let sliderMaxValue;
 
 function queryProductCategory() {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const category = urlParams.get("category");
-  const productList = $("#product-list");
   const categoryHeader = $("#category-header");
 
   categoryHeader.html(category);
@@ -19,9 +22,15 @@ function queryProductCategory() {
     .get()
     .then((querySnapshot) => {
       allProducts = querySnapshot.docs;
+      const priceRange = allProducts.map((doc) => doc.data().price);
+      const priceMin = Math.min(...priceRange);
+      const priceMax = Math.max(...priceRange);
+      // console.log("min price is", priceMin);
+      // console.log("max price is", priceMax);
       generatePagination();
       generateProductCards();
       populateStores();
+      generatePriceRangeSlider(priceMin, priceMax);
     })
     .catch((error) => {
       console.error(error);
@@ -60,7 +69,7 @@ function generatePagination() {
     currentPage = $(this).index() + 1;
     generateProductCards();
     generatePagination();
-    console.log(currentPage);
+    window.scrollTo(0, 0);
   });
 }
 
@@ -100,6 +109,7 @@ $("#prev-btn").on("click", function () {
     console.log(currentPage);
     generateProductCards();
     generatePagination();
+    window.scrollTo(0, 0);
   }
 });
 
@@ -110,11 +120,13 @@ $("#next-btn").on("click", function () {
     console.log(currentPage);
     generateProductCards();
     generatePagination();
+    window.scrollTo(0, 0);
   }
 });
 
 queryProductCategory();
 
+//filter panel - populate store
 function populateStores() {
   const stores = new Set();
   allProducts.forEach((doc) => {
@@ -133,4 +145,56 @@ function populateStores() {
     `;
   });
   checkboxesContainer.html(checkboxesHTML);
+}
+
+//filter panel - double range price slider
+function generatePriceRangeSlider(priceMin, priceMax) {
+  $(".double-range-slider").html(
+    `<div class="wrapper">
+      <div class="slider-container">
+        <div class="slider-track"></div>
+        <input type="range" min="${priceMin}" max="${priceMax}" value="${priceMin}" id="slider-1" />
+        <input type="range" min="${priceMin}" max="${priceMax}" value="${priceMax}" id="slider-2" />
+      </div>
+      <div class="slider-values">
+        <span id="price-min">Min $${priceMin}</span>
+        <span id="price-max">Max $${priceMax}</span>
+      </div>
+    </div>`
+  );
+  sliderOne = $("#slider-1");
+  sliderTwo = $("#slider-2");
+  sliderTrack = $(".slider-track");
+  sliderMaxValue = sliderOne.attr("max");
+
+  slideOne();
+  slideTwo();
+
+  sliderOne.on("input", slideOne);
+  sliderTwo.on("input", slideTwo);
+}
+
+function slideOne() {
+  if (parseInt(sliderTwo.val()) - parseInt(sliderOne.val()) <= 10) {
+    sliderOne.val(parseInt(sliderTwo.val()) - 10);
+  }
+  $("#price-min").text("Min: $" + sliderOne.val());
+  fillColor();
+}
+
+function slideTwo() {
+  if (parseInt(sliderTwo.val()) - parseInt(sliderOne.val()) <= 10) {
+    sliderTwo.val(parseInt(sliderOne.val()) + 10);
+  }
+  $("#price-max").text("Max: $" + sliderTwo.val());
+  fillColor();
+}
+
+function fillColor() {
+  percent1 = (sliderOne.val() / sliderMaxValue) * 100;
+  percent2 = (sliderTwo.val() / sliderMaxValue) * 100;
+  sliderTrack.css(
+    "background",
+    `linear-gradient(to right, #dadae5 ${percent1}% , #3264fe ${percent1}% , #3264fe ${percent2}%, #dadae5 ${percent2}%)`
+  );
 }
