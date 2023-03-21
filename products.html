@@ -31,13 +31,6 @@
       <h5 id="nav-logo">Skyscraper</h5>
 
       <!-- search bar  -->
-      <!-- <form id="search-form" action="#">
-        <input type="text" id="search-input" placeholder="Search by category" />
-        <button type="submit" id="search-button">
-          <i class="fa fa-search"></i>
-        </button>
-      </form> -->
-
       <div class="search-bar">
         <div class="search-bar_input-container">
           <input
@@ -82,25 +75,19 @@
           <div class="filter-panel">
             <h3>Filter By</h3>
             <br />
+            <!-- by price range -->
             <label for="price-range">Price Range</label><br /><br />
-            <input
-              type="range"
-              id="price-range"
-              name="price-range"
-              min="0"
-              max="1000"
-              step="50"
-            />
-            <span id="price-value"></span>
+            <div class="row double-range-slider"></div>
             <br />
             <hr />
-
-            <label for="stores">Stores</label><br /><br />
+            <!-- by stores -->
+            <label for="stores">Stores</label><br />
             <div class="container" id="stores-checkboxes"></div>
-
+            <br />
             <hr />
             <br />
             <button type="button" id="apply-filter">Apply Filter</button>
+            <!-- by reviews -->
           </div>
         </div>
         <!-- product card  -->
