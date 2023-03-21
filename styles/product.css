@@ -215,7 +215,7 @@ Back to top button
 }
 
 /*----------------------------------------------------------------------------
-Filter
+Filter panel
 ------------------------------------------------------------------------------*/
 .filter-panel {
   width: 100%;
@@ -237,6 +237,21 @@ Filter
   padding: 10px 20px;
   font-size: 14px;
   margin-left: 10px;
+}
+
+@media (min-width: 768px) {
+  #btn-filter {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .filter-panel {
+    display: none;
+  }
+  #btn-filter {
+    display: block;
+  }
 }
 
 /*----------------------------------------------------------------------------

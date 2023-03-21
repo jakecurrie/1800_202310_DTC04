@@ -28,7 +28,7 @@
   <body>
     <!-------------------------------- header ----------------------------------------->
     <header id="header">
-      <h5 id="nav-logo">Skyscraper</h5>
+      <h5 id="nav-logo">Snowscraper</h5>
 
       <!-- search bar  -->
       <div class="search-bar">
@@ -44,15 +44,14 @@
       </div>
 
       <!-- Login  -->
-      <a
+      <!-- <a
         href="login.html"
         class="btn loginbtn btn-outline-secondary"
         role="button"
         aria-pressed="true"
         >Login</a
-      >
-      <!-- <button type="button" class="btn btn-outline-secondary">Login</button> -->
-      <!-- <i class="fa fa-user-circle">Login</i> -->
+      > -->
+
       <!-- Hamburger Menu  -->
       <nav id="nav-bar" class="nav-bar">
         <input id="menu-btn" class="menu-btn" type="checkbox" />
@@ -60,9 +59,9 @@
           ><span class="hamburger"></span
         ></label>
         <ul class="row menu">
-          <li><a class="col-md-auto menu-link" href="">Lorem</a></li>
-          <li><a class="col-md-auto menu-link" href="">Lorem</a></li>
-          <li><a class="col-md-auto menu-link" href="">Lorem</a></li>
+          <li><a class="col-md-auto menu-link" href="">Logout</a></li>
+          <li><a class="col-md-auto menu-link" href="">Wishlist</a></li>
+          <li><a class="col-md-auto menu-link" href="">Help</a></li>
         </ul>
       </nav>
     </header>
@@ -81,7 +80,7 @@
             <br />
             <hr />
             <!-- by stores -->
-            <label for="stores">Stores</label><br />
+            <label for="stores">Stores</label><br /><br />
             <div class="container" id="stores-checkboxes"></div>
             <br />
             <hr />
@@ -93,6 +92,17 @@
         <!-- product card  -->
         <div class="col-lg-8 col-12">
           <h2 id="category-header">huh</h2>
+          <button
+            type="button"
+            id="btn-filter"
+            class="btn btn-primary"
+            data-toggle="button"
+            aria-pressed="false"
+            autocomplete="off"
+          >
+            Filter
+          </button>
+
           <div class="row" id="product-list"></div>
         </div>
       </div>

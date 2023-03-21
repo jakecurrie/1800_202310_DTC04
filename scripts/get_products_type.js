@@ -37,6 +37,7 @@ function queryProductCategory() {
     });
 }
 
+//-----------------------pagination----------------------------
 function generatePagination() {
   const paginationContainer = $("#pagination-container");
   const totalPages = Math.ceil(allProducts.length / cardsPerPage);
@@ -53,12 +54,14 @@ function generatePagination() {
   const prevBtn = $("#prev-btn");
   const nextBtn = $("#next-btn");
 
+  //hide the previous button on the first page
   if (currentPage === 1) {
     prevBtn.hide();
   } else {
     prevBtn.show();
   }
 
+  //hide the next button on the last page
   if (currentPage === totalPages) {
     nextBtn.hide();
   } else {
@@ -73,6 +76,7 @@ function generatePagination() {
   });
 }
 
+//-----------------------product cards ---------------------------
 function generateProductCards() {
   const startIndex = (currentPage - 1) * cardsPerPage;
   const endIndex = startIndex + cardsPerPage;
@@ -126,6 +130,8 @@ $("#next-btn").on("click", function () {
 
 queryProductCategory();
 
+//-----------------------filters ---------------------------
+
 //filter panel - populate store
 function populateStores() {
   const stores = new Set();
@@ -139,7 +145,7 @@ function populateStores() {
   stores.forEach((store) => {
     checkboxesHTML += `
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="${store}">
+        <input class="form-check-input" type="checkbox" id="${store}" checked>
         <label class="form-check-label" for="${store}">${store}</label>
       </div>
     `;
@@ -198,3 +204,39 @@ function fillColor() {
     `linear-gradient(to right, #dadae5 ${percent1}% , #3264fe ${percent1}% , #3264fe ${percent2}%, #dadae5 ${percent2}%)`
   );
 }
+
+//filter panel - apply filters
+function applyFilter() {
+  const storeCheckboxes = $(".form-check-input:checked");
+  const selectedStores = [];
+  storeCheckboxes.each(function () {
+    selectedStores.push($(this).attr("id"));
+  });
+
+  const filteredProducts = allProducts.filter((doc) => {
+    const product = doc.data();
+    const productPrice = parseFloat(product.price);
+    const selectedPriceMin = parseFloat($("#slider-1").val());
+    const selectedPriceMax = parseFloat($("#slider-2").val());
+    var filterStores = false;
+    var filterPrices = false;
+
+    if (selectedStores.length === 0 || selectedStores.includes(product.store)) {
+      filterStores = true;
+    }
+    if (productPrice >= selectedPriceMin && productPrice <= selectedPriceMax) {
+      filterPrices = true;
+    }
+
+    return filterStores && filterPrices;
+  });
+
+  allProducts = filteredProducts;
+  currentPage = 1;
+  generatePagination();
+  generateProductCards();
+}
+
+$("#apply-filter").on("click", function () {
+  applyFilter();
+});
