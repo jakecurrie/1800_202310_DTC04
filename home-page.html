@@ -4,112 +4,102 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="./scripts/home-main.js" defer></script>
-    <script
-      src="https://kit.fontawesome.com/294e21ede5.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="./styles/home-style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;400;500;600;900&family=Tilt+Warp&display=swap"
       rel="stylesheet"
     />
-    <title>Snowscaper</title>
+    <link rel="stylesheet" href="/styles/home-page.css" />
+    <script
+      src="https://kit.fontawesome.com/294e21ede5.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/scripts/home-page.js" defer></script>
+    <title>Snowmaker</title>
   </head>
   <body>
-    <!-- navbar -->
-    <section class="side-navbar">
-      <div class="hamburger">
-        <i class="fa-solid fa-bars"></i>
-      </div>
-      <div class="side-nav-container">
+    <section class="navbar">
+      <div class="logo-section">
         <img
-          draggable="false"
-          src="./images/Snowscraper Logos/Logo Mountain with Star Transparent.png"
+          src="/images/Snowscraper Logos/Logo Mountain with Star Transparent.png"
           alt="logo"
-          class="nav-logo"
+          class="navbar-logo"
         />
-        <div class="side-nav-content">
-          <a id="refer-login" href="./test-login.html">
-            <div class="content-div login">
-              <i class="fa-solid fa-user"></i>
-              <p>My Account</p>
-            </div>
-          </a>
-          <a id="refer-wishlist" href="./wishlist.html">
-            <div class="content-div wishlist">
-              <i class="fa-regular fa-heart"></i>
-              <p>Wishlist</p>
-            </div>
-          </a>
-          <a id="refer-category" href="">
-            <div class="content-div product">
-              <i class="fa-solid fa-shop"></i>
-              <p>Shop Categories</p>
-            </div>
-          </a>
-        </div>
+        <h1 class="navbar-title">SNOWSCRAPER</h1>
+      </div>
+      <div class="navbar-features">
+        <a id="refer-category" href="">
+          <div class="feature-div product">
+            <p>Shop</p>
+          </div>
+        </a>
+        <a id="refer-wishlist" href="./wishlist.html">
+          <div class="feature-div wishlist">
+            <p>Wishlist</p>
+          </div>
+        </a>
+        <a id="refer-login" href="./test-login.html">
+          <div class="feature-div login">
+            <p>My Account</p>
+          </div>
+        </a>
       </div>
     </section>
-    <!-- title section -->
-    <section class="home-card">
-      <div class="home-card-container">
-        <div class="home-logo">
-          <img
-            draggable="false"
-            src="./images/Snowscraper Logos/Logo Mountain with Star Transparent.png"
-            alt="snowscraper logo"
-            class="logo"
-          />
-        </div>
-        <div class="home-name">
-          <div class="snow-name"></div>
-          <h1 class="mobile">SNOWSCRAPER</h1>
-          <p class="short-description">
-            All your winter needs, all in one website
-          </p>
-        </div>
-        <div class="home-curve">
-          <div class="curve"></div>
-        </div>
+
+    <section class="title-page">
+      <div class="title-words">
+        <h1 class="title-snowscraper">SNOWSCRAPER</h1>
+        <p class="title-description">
+          All your winter needs, all in one website
+        </p>
       </div>
+      <div class="title-square"></div>
     </section>
-    <!-- category section -->
-    <section class="category-body">
-      <div class="category-title">
-        <h1 class="category-header">CATEGORIES</h1>
-      </div>
-      <div class="category-card-container">
-        <div class="category-card">
-          <p class="card-title">Shovels</p>
-          <p class="card-description">Shovels are very cool</p>
-          <a
-            href="products.html?category=Shovels"
-            class="btn btn-primary stretched-link"
-            >Click Me</a
-          >
+    <section class="shop-category">
+      <h1 class="category-title">CATEGORIES</h1>
+      <div class="category-grid">
+        <div class="grid-card">
+          <h1 class="card-title">Shovels</h1>
+          <img src="/images/Item preview images/shovel.png" alt="" class="card-image">
+          <button class="card-shopnow" onclick="location.href = 'products.html?category=Shovels';">
+            Shop now
+          </button>
         </div>
-        <div class="category-card">
-          <p class="card-title">Road Salt</p>
-          <p class="card-description">Road Salt are very cool</p>
+        <div class="grid-card">
+          <h1 class="card-title">Road Salt</h1>
+          <img src="/images/Item preview images/road salt.png" alt="" class="card-image">
+          <button class="card-shopnow" onclick="location.href = 'products.html?category=RoadSalt';">
+            Shop now
+          </button>
         </div>
-        <div class="category-card">
-          <p class="card-title">Tire Chains</p>
-          <p class="card-description">Tire Chains are very cool</p>
+        <div class="grid-card">
+          <h1 class="card-title">Heaters</h1>
+          <img src="/images/Item preview images/heater.png" alt="" class="card-image">
+          <button class="card-shopnow" onclick="location.href = 'products.html?category=Heaters';">
+            Shop now
+          </button>
         </div>
-        <div class="category-card">
-          <p class="card-title">Hand Warmers</p>
-          <p class="card-description">Hand Warmers are very cool</p>
+        <div class="grid-card">
+          <h1 class="card-title">Tire Chains</h1>
+          <img src="/images/Item preview images/tire chains.jpg" alt="" class="card-image">
+          <button class="card-shopnow" onclick="location.href = 'products.html?category=TireChains';">
+            Shop now
+          </button>
         </div>
-        <div class="category-card">
-          <p class="card-title">Flashlights</p>
-          <p class="card-description">Flashlights are very cool</p>
+        <div class="grid-card">
+          <h1 class="card-title">Item</h1>
+          <img src="/images/Item preview images/question ping.png" alt="" class="card-image">
+          <button class="card-shopnow" onclick="location.href = 'products.html?category=Item';">
+            Shop now
+          </button>
         </div>
-        <div class="category-card">
-          <p class="card-title">Random Items</p>
-          <p class="card-description">Random Items are very cool</p>
+        <div class="grid-card">
+          <h1 class="card-title">Item</h1>
+          <img src="/images/Item preview images/question ping.png" alt="" class="card-image">
+          <button class="card-shopnow" onclick="location.href = 'products.html?category=Item';">
+            Shop now
+          </button>
         </div>
       </div>
     </section>
@@ -138,11 +128,10 @@
         />
       </div>
     </section>
-    <!-- footer section -->
     <section class="footer">
       <a href="./home-page.html" class="footer-content">About us</a>
+      <a href="./home-page.html" class="footer-content">FAQ</a>
       <a href="./home-page.html" class="footer-content">Terms of Service</a>
-      <a href="./home-page.html" class="footer-content">Something</a>
       <a href="./home-page.html" class="footer-content">Something</a>
     </section>
   </body>

@@ -4,89 +4,98 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="./scripts/home-main.js" defer></script>
-    <script
-      src="https://kit.fontawesome.com/294e21ede5.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="./styles/home-style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;400;500;600;900&family=Tilt+Warp&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="/styles/test-login.css" />
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
-    <link
-      type="text/css"
-      rel="stylesheet"
-      href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css"
-    />
-    <title>Snowscaper</title>
+    <script src="./scripts/firebaseAPI_TEAMDTC04.js" defer></script>
+    <script src="/scripts/login.js" defer></script>
+    <title>Login</title>
   </head>
   <body>
-    <!-- navbar -->
-    <section class="side-navbar">
-      <div class="hamburger">
-        <i class="fa-solid fa-bars"></i>
-      </div>
-      <div class="side-nav-container">
-        <img
-          draggable="false"
-          src="./images/Snowscraper Logos/Logo Mountain with Star Transparent.png"
-          alt="logo"
-          class="nav-logo"
-        />
-        <div class="side-nav-content">
-          <div class="content-div login">
-            <i class="fa-solid fa-user"></i>
-            <p>My Account</p>
+    <div class="container">
+      <div class="login-box">
+        <h1 class="login-title">Login</h1>
+        <form class="login-input-box" action="">
+          <div class="login-email">
+            <label class="input-title" for="">Email</label>
+            <input
+              name="email"
+              type="text"
+              id="login-email"
+              class="login-input"
+            />
           </div>
-          <div class="content-div wishlist">
-            <i class="fa-regular fa-heart"></i>
-            <p>Wishlist</p>
+          <div class="login-password">
+            <label class="input-title" for="">Password</label>
+            <input
+              name="password"
+              type="password"
+              id="login-password"
+              class="login-input"
+            />
           </div>
-          <div class="content-div product">
-            <i class="fa-solid fa-shop"></i>
-            <p>Shop Categories</p>
-          </div>
+        </form>
+        <div class="login-forgor">
+          <a href="" class="forgot-link"><p>Forgot Password?</p></a>
         </div>
-      </div>
-    </section>
-    <!-- title section -->
-    <section class="home-card">
-      <div class="home-card-container">
-        <div class="home-logo">
-          <img
-            draggable="false"
-            src="./images/Snowscraper Logos/Logo Mountain with Star Transparent.png"
-            alt="snowscraper logo"
-            class="logo"
-          />
+        <div class="login">
+          <button type="submit" class="login-btn">Login</button>
         </div>
-        <div class="home-name">
-          <div class="snow-name"></div>
-          <h1 class="mobile">SNOWSCRAPER</h1>
-          <div id="firebaseui-auth-container"></div>
-          <div id="loader">Loading...</div>
-        </div>
-        <div class="home-curve">
-          <div class="curve"></div>
+        <div class="register">
+          <p>Don't have an account?</p>
+          <p class="register-click">Register</p>
         </div>
       </div>
-    </section>
 
-    <section class="footer">
-      <a href="./home-page.html" class="footer-content">About us</a>
-      <a href="./home-page.html" class="footer-content">Terms of Service</a>
-      <a href="./home-page.html" class="footer-content">Something</a>
-      <a href="./home-page.html" class="footer-content">Something</a>
-    </section>
-
-    <script src="./scripts/firebaseAPI_TEAMDTC04.js"></script>
-    <script src="./scripts/authentication.js"></script>
+      <div class="register-box">
+        <h1 class="register-title">Register</h1>
+        <form class="register-input-box" action="">
+          <div class="register-name">
+            <label class="input-title" for="">Name</label>
+            <input
+              name="name"
+              type="text"
+              id="register-name"
+              class="register-input"
+            />
+          </div>
+          <div class="register-email">
+            <label class="input-title" for="">Email</label>
+            <input
+              name="email"
+              type="text"
+              id="register-email"
+              class="register-input"
+            />
+          </div>
+          <div class="register-password">
+            <label class="input-title" for="">Password</label>
+            <input
+              name="password"
+              type="password"
+              id="register-password"
+              class="register-input"
+            />
+          </div>
+          <div class="register-password-again">
+            <label class="input-title" for="">Password again</label>
+            <input name="password" type="password" class="register-input" />
+          </div>
+        </form>
+        <button type="submit" class="register-btn">Register</button>
+        <div class="login">
+          <p>Already have an account?</p>
+          <p class="login-click">Sign in</p>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
