@@ -1,22 +1,28 @@
 body {
     margin: 0;
-    background: url('/images/mountain.jpg');
-    background-size: cover;
-    background-position: center;
-}
-
-.container {
-    height: 100vh;
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background: url('/images/mountain.jpg');
+    background-position: center center;
+    background-size: cover;
+}
+
+.container {
+    width: 380px;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
 }
 
 .login-box {
     display: flex;
     flex-direction: column;
+    position: absolute;
+    left: 0%;
     border: black 1px solid;
     border-radius: 5%;
     padding: 40px 70px;
@@ -30,9 +36,13 @@ body {
     font-weight: 600;
 }
 
-.email, .password {
+.login-email, .login-password {
     display: flex;
     flex-direction: column;
+}
+
+.login-email {
+    margin-bottom: 20px;
 }
 
 .input-title {
@@ -59,10 +69,6 @@ body {
     color: black;
 }
 
-.email {
-    margin-bottom: 20px;
-}
-
 .login-btn {
     cursor: pointer;
     width: 220px;
@@ -73,10 +79,85 @@ body {
     font-weight: 600;
 }
 
-#register-span {
+.register {
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 600;
+    display: flex;
+    flex-direction: row;
+}
+
+.register-click {
+    margin-left: 5px;
+    cursor: pointer;
     font-weight: 700;
 }
 
-#register-span:hover {
+.register-click:hover {
+    text-decoration: underline;
+}
+
+
+.register-box {
+    display: flex;
+    position: absolute;
+    left: 100%;
+    flex-direction: column;
+    border: black 1px solid;
+    border-radius: 5%;
+    padding: 40px 70px;
+    background: transparent;
+    backdrop-filter: blur(20px);
+}
+
+.register-title {
+    text-align: center;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 600;
+}
+
+.register-name, .register-email, .register-password, .register-password-again {
+    display: flex;
+    flex-direction: column;
+}
+
+.register-name, .register-email, .register-password, .register-password-again {
+    margin-bottom: 20px;
+}
+
+.register-input {
+    border: none;
+    border-bottom: 1px solid black;
+    padding: 5px;
+    background: transparent;
+}
+
+.register-input:focus {
+    outline: none;
+}
+
+.register-btn {
+    cursor: pointer;
+    width: 220px;
+    height: 35px;
+    border: none;
+    font-size: 1em;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 600;
+}
+
+.login {
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 600;
+    display: flex;
+    flex-direction: row;
+}
+
+.login-click {
+    margin-left: 5px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.login-click:hover {
     text-decoration: underline;
 }

@@ -28,16 +28,9 @@
   <body>
     <!-------------------------------- header ----------------------------------------->
     <header id="header">
-      <h5 id="nav-logo">Skyscraper</h5>
+      <h5 id="nav-logo">Snowscraper</h5>
 
       <!-- search bar  -->
-      <!-- <form id="search-form" action="#">
-        <input type="text" id="search-input" placeholder="Search by category" />
-        <button type="submit" id="search-button">
-          <i class="fa fa-search"></i>
-        </button>
-      </form> -->
-
       <div class="search-bar">
         <div class="search-bar_input-container">
           <input
@@ -51,15 +44,14 @@
       </div>
 
       <!-- Login  -->
-      <a
+      <!-- <a
         href="login.html"
         class="btn loginbtn btn-outline-secondary"
         role="button"
         aria-pressed="true"
         >Login</a
-      >
-      <!-- <button type="button" class="btn btn-outline-secondary">Login</button> -->
-      <!-- <i class="fa fa-user-circle">Login</i> -->
+      > -->
+
       <!-- Hamburger Menu  -->
       <nav id="nav-bar" class="nav-bar">
         <input id="menu-btn" class="menu-btn" type="checkbox" />
@@ -67,62 +59,50 @@
           ><span class="hamburger"></span
         ></label>
         <ul class="row menu">
-          <li><a class="col-md-auto menu-link" href="">Lorem</a></li>
-          <li><a class="col-md-auto menu-link" href="">Lorem</a></li>
-          <li><a class="col-md-auto menu-link" href="">Lorem</a></li>
+          <li><a class="col-md-auto menu-link" href="">Logout</a></li>
+          <li><a class="col-md-auto menu-link" href="">Wishlist</a></li>
+          <li><a class="col-md-auto menu-link" href="">Help</a></li>
         </ul>
       </nav>
     </header>
 
     <!--------------------------------------- main -------------------------------------->
     <main>
-      <!-- breadcrumb -->
-      <!-- <div class="breadcrumb-area">
-        <div class="container">
-          <ol class="breadcrumb">
-            <li>
-              <a href="home-page.html"><i class="fa fa-home"></i></a>
-            </li>
-            <li><a href="#">Product</a></li>
-            <li class="active">category</li>
-          </ol>
-        </div>
-      </div> -->
-
       <!--filter panel-->
       <div class="row">
         <div class="col-lg-4 d-none d-lg-block">
           <div class="filter-panel">
             <h3>Filter By</h3>
             <br />
-            <label for="price-range">Price Range</label>
-            <input
-              type="range"
-              id="price-range"
-              name="price-range"
-              min="0"
-              max="1000"
-              step="50"
-            />
-            <span id="price-value"></span>
+            <!-- by price range -->
+            <label for="price-range">Price Range</label><br /><br />
+            <div class="row double-range-slider"></div>
             <br />
             <hr />
-            <label for="retailers">Retailers</label><br />
-            <input
-              type="checkbox"
-              id="retailer1"
-              name="retailer1"
-              value="retailer1"
-            />
-            <label for="retailer1">Retailer 1</label>
+            <!-- by stores -->
+            <label for="stores">Stores</label><br /><br />
+            <div class="container" id="stores-checkboxes"></div>
+            <br />
             <hr />
             <br />
-            <button type="button" id="reset-filter">Apply Filter</button>
+            <button type="button" id="apply-filter">Apply Filter</button>
+            <!-- by reviews -->
           </div>
         </div>
         <!-- product card  -->
         <div class="col-lg-8 col-12">
           <h2 id="category-header">huh</h2>
+          <button
+            type="button"
+            id="btn-filter"
+            class="btn btn-primary"
+            data-toggle="button"
+            aria-pressed="false"
+            autocomplete="off"
+          >
+            Filter
+          </button>
+
           <div class="row" id="product-list"></div>
         </div>
       </div>
