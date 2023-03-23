@@ -6,6 +6,9 @@ let sliderTwo;
 let sliderTrack;
 let sliderMaxValue;
 
+/*-----------------------------------------------------------------------
+query product category
+-----------------------------------------------------------------------*/
 function queryProductCategory() {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -37,7 +40,9 @@ function queryProductCategory() {
     });
 }
 
-//-----------------------pagination----------------------------
+/*-----------------------------------------------------------------------
+pagination
+-----------------------------------------------------------------------*/
 function generatePagination() {
   const paginationContainer = $("#pagination-container");
   const totalPages = Math.ceil(allProducts.length / cardsPerPage);
@@ -76,7 +81,9 @@ function generatePagination() {
   });
 }
 
-//-----------------------product cards ---------------------------
+/*-----------------------------------------------------------------------
+product card
+-----------------------------------------------------------------------*/
 function generateProductCards() {
   const startIndex = (currentPage - 1) * cardsPerPage;
   const endIndex = startIndex + cardsPerPage;
@@ -130,7 +137,9 @@ $("#next-btn").on("click", function () {
 
 queryProductCategory();
 
-//-----------------------filters ---------------------------
+/*-----------------------------------------------------------------------
+filters
+-----------------------------------------------------------------------*/
 
 //filter panel - populate store
 function populateStores() {
