@@ -217,18 +217,22 @@ Search bar
   display: none;
   margin-left: 170px;
   width: 50vw;
-  background-color: #f9f9fb;
+  background-color: white;
 }
 .results-list {
   list-style-type: none;
   padding: 0;
-  margin: 20px;
+  margin: 5px;
+}
+li.result-item {
+  background-color: #f9f9fb;
+  padding: 5px;
 }
 
 .results-list li {
   position: relative;
   display: inline-block;
-  padding: 0 5px;
+  margin: 15px 5px;
 }
 
 .results-list li::after {

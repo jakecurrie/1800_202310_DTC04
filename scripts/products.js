@@ -42,7 +42,7 @@ function renderList(results) {
         window.location.href = `products.html?category=${category}`;
       });
       if (results.indexOf(searchCategory) < results.length - 1) {
-        resultItem.append(",", " ", " ");
+        resultItem.append(" ", " ");
       }
       list.append(resultItem);
     }
@@ -55,6 +55,15 @@ function noResults() {
   );
   $("#list").append(errorMessage);
 }
+
+// when user clicks outside search bar and results container
+$(document).on("click", (event) => {
+  const target = $(event.target);
+  if (!target.is(".search-bar") && !target.is(".results-container")) {
+    resultsContainer.hide(); //clear search bar functions
+    searchInput.val(""); //clear search input
+  }
+});
 
 /*-----------------------------------------------------------------------
 Hamburger toggle
