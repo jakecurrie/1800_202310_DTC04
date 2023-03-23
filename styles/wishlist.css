@@ -92,6 +92,35 @@ body {
 }
 
 .title-welcome {
-    padding: 5px 0 5px 0;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 400;
+    font-size: 1.5em;
+    padding: 10px 0 10px 0;
     color: black;
+}
+
+.content-container {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.content-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 222px;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.card-image {
+    width: 100%;
+    object-fit: cover
+}
+
+.card-title {
+    margin: 10px 0 0 0;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 400;
+    font-size: 1.2em;
 }
