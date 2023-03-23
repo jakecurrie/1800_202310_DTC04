@@ -1,0 +1,97 @@
+body {
+    margin: 0;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: fixed;
+    z-index: 5;
+    width: 100vw;
+    height: 80px;
+    background-color: #263159;
+    transition: 500ms ease;
+    box-shadow: 0 2px 20px rgb(50 50 50 / 10%)
+}
+
+.logo-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.logo-section > h1{
+    margin-left: 10px;
+    font-family: 'League Spartan', sans-serif;
+    color: white;
+}
+
+.navbar-logo {
+    height: 100%;
+    opacity: 1;
+    transition: 500ms;
+    cursor: pointer;
+}
+
+.navbar-title {
+    cursor: pointer;
+}
+
+.navbar-features, .feature-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.navbar-features {
+    width: 50%;
+}
+
+.navbar-features > a {
+    text-decoration: none;
+}
+
+.feature-div {
+    width: 100%;
+}
+
+.feature-div > p {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 1.2em;
+    text-decoration: none;
+    color: white;
+}
+
+.feature-div > i{
+    margin-right: 10px;
+    font-size: 2em;
+    text-decoration: none;
+    color: white;
+}
+
+.wishlist-content {
+    width: 100vw;
+    padding-top: 80px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.wishlist-container {
+    width: 80vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-title {
+    width: 100%;
+    border-bottom: 1px solid black ;
+}
+
+.title-welcome {
+    padding: 5px 0 5px 0;
+    color: black;
+}
