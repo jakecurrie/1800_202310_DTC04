@@ -289,7 +289,7 @@ Filter panel
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  padding: 50px;
+  padding: 30px;
   margin-right: 20px;
 }
 .filter-panel h3 {
@@ -305,6 +305,23 @@ Filter panel
   padding: 10px 20px;
   font-size: 14px;
   margin-left: 10px;
+}
+
+.filter-section {
+  padding: 15px 0px;
+  margin: 0;
+  border-bottom: 1px solid var(--lightgrey);
+  margin-bottom: 10px;
+}
+
+.filter-heading {
+  font-weight: 600;
+  padding-bottom: 15px;
+}
+
+#apply-filter {
+  background-color: #eeeeee;
+  border-radius: 15px;
 }
 
 @media (min-width: 768px) {
