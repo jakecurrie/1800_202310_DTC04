@@ -99,7 +99,7 @@ function generateProductCards() {
             <img class="card-img-top" src="${product.image_url}" alt="${product.product_name}">
             <ul>
               <li><a href="#"><i class="fa fa-heart"></i></a></li>
-              <li><a href="#"><i class="fa fa-link"></i></a></li>
+              <li><a href="${product.image_url}"target="_blank"><i class="fa fa-link"></i></a></li>
             </ul>
           </div>
           <div class="part-2">
@@ -114,6 +114,7 @@ function generateProductCards() {
   });
 }
 
+//update product cards when user clicks the previous button
 $("#prev-btn").on("click", function () {
   if (currentPage > 1) {
     currentPage--;
@@ -124,6 +125,7 @@ $("#prev-btn").on("click", function () {
   }
 });
 
+//update product cards when user clicks the next button
 $("#next-btn").on("click", function () {
   const totalPages = Math.ceil(allProducts.length / cardsPerPage);
   if (currentPage < totalPages) {

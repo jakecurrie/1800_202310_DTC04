@@ -13,6 +13,7 @@ const resultsContainer = $(".results-container");
 
 searchInput.on("input", (input) => {
   let value = input.target.value.trim().toLowerCase();
+  resultsContainer.show(); //show all product categories when user starts to type
 
   if (value.length > 0) {
     renderList(
@@ -49,12 +50,28 @@ function renderList(results) {
   }
 }
 
+//error message if no results found for search input
 function noResults() {
-  const errorMessage = $("<li>", { class: "error-message" }).text(
+  const errorMessage = $("<li>", { class: "error-message no-hover" }).text(
     "No results found. Try another search"
   );
   $("#list").append(errorMessage);
 }
+
+//direct user to the first search result item when they hit enter on the search input
+searchInput.on("keydown", (event) => {
+  if (event.key === "Enter") {
+    let value = searchInput.val().trim().toLowerCase();
+    const results = searchCategories.filter((searchCategory) => {
+      return searchCategory.name.toLowerCase().trim().includes(value);
+    });
+    if (results.length > 0) {
+      const category = results[0].name;
+      window.location.href = `products.html?category=${category}`;
+    }
+    event.preventDefault();
+  }
+});
 
 // when user clicks outside search bar and results container
 $(document).on("click", (event) => {

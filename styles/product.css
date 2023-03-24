@@ -189,10 +189,12 @@ Search bar
   padding: 6px;
   background: #eeeeee;
   border: solid 2px #eeeeee;
+  border-radius: 15px;
 }
 
 .search-bar_input-container:focus-within {
   background: #ffffff;
+  border-radius: 15px;
 }
 
 .search-bar_input {
@@ -202,11 +204,13 @@ Search bar
   width: 100%;
   padding: 0 6px;
   background: transparent;
+  border-radius: 15px;
 }
 
 .search-bar {
   position: relative;
   display: inline-block;
+  border-radius: 15px;
 }
 
 .results-container {
@@ -218,6 +222,8 @@ Search bar
   margin-left: 170px;
   width: 50vw;
   background-color: white;
+  border-radius: 15px;
+  box-shadow: 10px 20px 20px rgb(50 50 50 / 5%);
 }
 .results-list {
   list-style-type: none;
@@ -227,6 +233,7 @@ Search bar
 li.result-item {
   background-color: #f9f9fb;
   padding: 5px;
+  cursor: pointer;
 }
 
 .results-list li {
@@ -235,7 +242,7 @@ li.result-item {
   margin: 15px 5px;
 }
 
-.results-list li::after {
+.results-list li:not(.error-message)::after {
   content: "";
   position: absolute;
   width: 100%;
@@ -248,12 +255,12 @@ li.result-item {
   transition: transform 0.25s ease-out;
 }
 
-.results-list li:hover::after {
+.results-list li:not(.error-message):hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
 }
 
-.results-list li:hover {
+.results-list li:not(.error-message):hover {
   color: var(--grey);
 }
 
