@@ -66,7 +66,9 @@
           <br /><br />
           <li><a class="col-md-auto menu-link" href="">Logout</a></li>
           <br /><br />
-          <li><a class="col-md-auto menu-link" href="">Wishlist</a></li>
+          <li>
+            <a class="col-md-auto menu-link" href="wishlist.html">Wishlist</a>
+          </li>
           <br /><br />
           <li><a class="col-md-auto menu-link" href="">Help</a></li>
           <br /><br />
@@ -80,23 +82,28 @@
       <div class="row">
         <div class="col-lg-4 d-none d-lg-block">
           <div class="filter-panel">
-            <h3>Filter By</h3>
-            <br />
+            <div class="row filter-section">
+              <h3>Filter By</h3>
+            </div>
             <!-- by price range -->
-            <label for="price-range">Price Range</label><br /><br />
-            <div class="row double-range-slider"></div>
-            <br />
-            <hr />
+            <div class="row filter-section">
+              <label for="price-range" class="filter-heading"
+                >Price Range</label
+              >
+              <div class="double-range-slider"></div>
+            </div>
             <!-- by stores -->
-            <label for="stores">Stores</label><br /><br />
-            <div class="container" id="stores-checkboxes"></div>
-            <br />
-            <hr />
-            <br />
-            <button type="button" id="apply-filter">Apply Filter</button>
+            <div class="row filter-section">
+              <label for="stores" class="filter-heading">Stores</label>
+              <div class="container" id="stores-checkboxes"></div>
+            </div>
+            <div class="row filter-btn">
+              <button type="button" id="apply-filter">Apply Filter</button>
+            </div>
             <!-- by reviews -->
           </div>
         </div>
+
         <!-- product card  -->
         <div class="col-lg-8 col-12">
           <h2 id="category-header">huh</h2>
