@@ -231,13 +231,17 @@ body {
     color: white;
 }
 
-.feature-div > i{
-    margin-right: 10px;
-    font-size: 2em;
-    text-decoration: none;
-    color: white;
+#refer-login {
+    position: relative;
 }
 
+.fa-arrow-right-from-bracket {
+    display: none;
+    position: relative;
+    font-size: 1.3em;
+    color: white;
+    margin-left: 10px;
+}
 
 .footer-content {
     text-decoration: none;

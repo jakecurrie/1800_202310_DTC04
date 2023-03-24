@@ -3,8 +3,8 @@ Search bar
 -----------------------------------------------------------------------*/
 const searchCategories = [
   { name: "Shovels" },
-  { name: "Road Salt" },
-  { name: "Heaters" },
+  { name: "Ice Melters" },
+  { name: "Ice Scrapers" },
   { name: "Tire Chains" },
 ];
 
@@ -13,7 +13,6 @@ const resultsContainer = $(".results-container");
 
 searchInput.on("input", (input) => {
   let value = input.target.value.trim().toLowerCase();
-  resultsContainer.show(); //show all product categories when user starts to type
 
   if (value.length > 0) {
     renderList(
@@ -23,6 +22,7 @@ searchInput.on("input", (input) => {
     );
     resultsContainer.show();
   } else {
+    renderList(searchCategories);
     resultsContainer.hide();
   }
 });
