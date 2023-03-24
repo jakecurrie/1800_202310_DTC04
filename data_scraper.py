@@ -1,10 +1,9 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+from selenium.common import exceptions
 import time
 import pandas as pd
-import httpx
-from bs4 import BeautifulSoup
 
 # Adjusting selenium settings to reduce script runtime and ensure compatability with google cloud run
 options = Options()
@@ -27,7 +26,12 @@ urls = {
         "Rona": "https://www.rona.ca/en/outdoor/snow-and-ice-removal/snow-shovels"},
     "Ice Melters": {
         "Canadian Tire": "https://www.canadiantire.ca/en/cat/outdoor-living/snow-removal-equipment-tools/ice-melters-DC0001701.html",
-        "Lowe's": "https://www.lowes.ca/dept/ice-melt-snow-winter-essentials-outdoor-a827?display=100&sort=ordernumber_i%3Adesc"}
+        "Lowe's": "https://www.lowes.ca/dept/ice-melt-snow-winter-essentials-outdoor-a827?display=100&sort=ordernumber_i%3Adesc",
+        "Rona": "https://www.rona.ca/en/outdoor/snow-and-ice-removal/ice-melters-and-salt"},
+    "Heaters": {
+        "Canadian Tire": "https://www.canadiantire.ca/en/cat/home-pets/heating-cooling-air-quality/heaters-DC0000829.html",
+        "Lowe's": "https://www.lowes.ca/dept/portable-space-heaters-heaters-heating-cooling-a1100?display=24&sort=ordernumber_i%3Adesc&query=*%3A*",
+        "Rona": "https://www.rona.ca/en/heating-cooling-and-ventilation/heating/portable-heaters"}
     }
 
 # Creating a dictionary to store class names used to identify and extract data for each website
@@ -45,18 +49,19 @@ selectors = {
         "child_selectors": {
             "name": "[class='styles__ProductTitle-RC__sc-od4z67-9 kTOEzK card-text']", 
             "price": "[class='price-actual']",
-            "rating": "",
-            "product_url": "[class='styles__Anchor-RC__sc-od4z67-8 iZqswa']"}},
+            "rating": "[class='styles__RatingAnchor-RC__sc-xgzn8s-1 CAZhS']",
+            "product_url": "[class='styles__Anchor-RC__sc-od4z67-8 iZqswa']",
+            "image_url": "[class='styles__Image-RC__sc-od4z67-13 bcOZKh']"}},
     "Rona": {
         "parent": "[class='product-tile js-product-tile']",
         "child_selectors": {
             "name": "[class='product-tile__title productLink']", 
-            "price": "[class='price-box__price__amount__integer']"},
+            "price": "[class='price-box__price__amount__integer']",
             "rating": "[class='bv-rating-average']",
             "product_url": "[class='product-tile__title productLink']",
             "image_url": "[class='product-tile__image-link productLink']"}
-
-    }
+        }
+}
 
 # Initializing the chrome web browser to load web pages with selenium
 driver = webdriver.Chrome(options=options)
@@ -82,7 +87,7 @@ def scrape_url(store, product_type, url):
     scraped_data = []
     # instructing the web browser to load the url, then wait 10 seconds for page to fully load
     driver.get(url)
-    time.sleep(10)
+    time.sleep(15)
     # grabbing a list of product elements on the page that match the parent css selector. The parent css selector is the
     # class name associated with each individual product card on the website. Each selected element contains the html
     # code for a product card element and all of its child elements which contain the data we need
@@ -90,10 +95,19 @@ def scrape_url(store, product_type, url):
     # looping through the list of product elements. For each product, we find the html elements in the product card
     # that have the class names of interest (listed in child_selectors dictionary) and extract their text or href values
     for product_element in all_product_elements:
-        product_name = product_element.find_element(By.CSS_SELECTOR, child_selectors['name']).text
-        product_price = product_element.find_element(By.CSS_SELECTOR, child_selectors['price']).text
-        result = {"name": product_name, "product type": product_type, "store": store, "price": product_price}
-        scraped_data.append(result)
+        try:
+            product_name = product_element.find_element(By.CSS_SELECTOR, child_selectors['name']).text
+            product_price = product_element.find_element(By.CSS_SELECTOR, child_selectors['price']).text
+            product_rating = product_element.find_element(By.CSS_SELECTOR, child_selectors['rating']).text
+            product_url = product_element.find_element(By.CSS_SELECTOR, child_selectors['product_url']).get_attribute("href")
+            image_url = product_element.find_element(By.CSS_SELECTOR, child_selectors['image_url']).get_attribute("src")
+        except exceptions.NoSuchElementException:
+            print("element error")
+            del product_element
+        else:
+            result = {"name": product_name, "product type": product_type, "store": store, "price": product_price, "rating": product_rating,
+                    "product_url": product_url, "image_url": image_url}
+            scraped_data.append(result)
 
     return scraped_data
 
