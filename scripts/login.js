@@ -6,6 +6,7 @@ const logIn = document.querySelector('.login-click');
 const loginButton = document.querySelector('.login-btn');
 const signUpButton = document.querySelector('.register-btn');
 
+
 //when clicked 'register' or 'log in' it switches box
 signUp.addEventListener('click', () => {
     logInPage.style.left = '-100%';
@@ -31,6 +32,9 @@ function createUser(email, password, name) {
         name: name,
         email: user.email
     })
+    //When successfully registered, login and redirect to home page
+    console.log("REGISTERED");
+    login(registerEmailInput.value, registerPasswordInput.value)
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -54,13 +58,11 @@ function createUser(email, password, name) {
 const loginEmailInput = document.querySelector('#login-email');
 const loginPasswordInput = document.querySelector('#login-password');
 function login(email, password) {
-
     firebase.auth().signInWithEmailAndPassword(email, password)
   .then((userCredential) => {
     // Signed in
     const user = userCredential.user;
-    console.log("UR SIGNED IN")
-    // ...
+    window.location.href = "./home-page.html";
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -110,3 +112,4 @@ const bothRegisterInputBox = document.querySelectorAll('.register-input')
         } 
     })    
 });
+

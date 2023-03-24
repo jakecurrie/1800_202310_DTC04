@@ -198,6 +198,7 @@ body {
 }
 
 .navbar-title {
+    font-size: 1.8em;
     display: none;
     transition: 500ms;
     cursor: pointer;
@@ -215,6 +216,7 @@ body {
 }
 
 .navbar-features > a {
+    cursor: pointer;
     text-decoration: none;
 }
 
@@ -224,7 +226,7 @@ body {
 
 .feature-div > p {
     font-family: 'League Spartan', sans-serif;
-    font-size: 1.2em;
+    font-size: 1.5em;
     text-decoration: none;
     color: white;
 }

@@ -11,10 +11,11 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/styles/home-page.css" />
-    <script
-      src="https://kit.fontawesome.com/294e21ede5.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+    <script src="./scripts/firebaseAPI_TEAMDTC04.js" defer></script>
     <script src="/scripts/home-page.js" defer></script>
     <title>Snowmaker</title>
   </head>
@@ -29,19 +30,19 @@
         <h1 class="navbar-title">SNOWSCRAPER</h1>
       </div>
       <div class="navbar-features">
-        <a id="refer-category" href="">
+        <a id="refer-category">
           <div class="feature-div product">
-            <p>Shop</p>
+            <p class="navbar-button" id="shop">Shop</p>
           </div>
         </a>
         <a id="refer-wishlist" href="./wishlist.html">
           <div class="feature-div wishlist">
-            <p>Wishlist</p>
+            <p class="navbar-button" id="wishlist">Wishlist</p>
           </div>
         </a>
         <a id="refer-login" href="./login.html">
           <div class="feature-div login">
-            <p>My Account</p>
+            <p class="navbar-button" id="login"></p>
           </div>
         </a>
       </div>

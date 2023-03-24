@@ -37,6 +37,7 @@ body {
 
 .navbar-title {
     cursor: pointer;
+    font-size: 1.8em;
 }
 
 .navbar-features, .feature-div {
@@ -60,7 +61,7 @@ body {
 
 .feature-div > p {
     font-family: 'League Spartan', sans-serif;
-    font-size: 1.2em;
+    font-size: 1.5em;
     text-decoration: none;
     color: white;
 }
