@@ -3,9 +3,9 @@ const navbar = document.querySelector('.navbar');
 const logo = document.querySelector('.navbar-logo');
 const navbarTitle = document.querySelector('.navbar-title');
 
-// Show navbar when scrolled
-window.addEventListener('scroll', () => {
-  yPos = window.scrollY;
+// Show navbar when window is at 100px
+function showNavBar() {
+  yPos = window.pageYOffset;
   if (yPos < 100) {
     navbar.style.backgroundColor = 'transparent';
     navbarTitle.style.display = 'none';
@@ -15,7 +15,11 @@ window.addEventListener('scroll', () => {
     navbarTitle.style.display = 'block';
     logo.style.opacity = '1';
   }
-});
+}
+
+// when website is loaded / scrolled, call the shownavbar function
+window.addEventListener('load', showNavBar);
+window.addEventListener('scroll', showNavBar);
 
 //When clicked on shop, it scrolls down to the item categories
 function scrollIntoCategory() {
