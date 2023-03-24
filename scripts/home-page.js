@@ -46,18 +46,22 @@ function userLoginStatus() {
       currentUser.onSnapshot((doc) => {
         myAccountBtn.innerHTML = doc.data().name;
       });
+      //if logged in, show the log out button
       const logoutBtn = document.querySelector('.fa-arrow-right-from-bracket');
       logoutBtn.style.display = 'block';
       //hover event listeners
+      // when hover over account name, change to the text log oout
       const loginText = document.querySelector('#login');
       loginText.addEventListener('mouseover', () => {
         loginText.innerHTML = 'Logout';
       });
+      // when hover out, changes the text to the user name
       loginText.addEventListener('mouseout', () => {
         currentUser.onSnapshot((doc) => {
           myAccountBtn.innerHTML = doc.data().name;
         });
         //click event listener
+        // when clicked log out, log out
         loginText.addEventListener('click', () => {
           firebase
             .auth()
@@ -71,7 +75,9 @@ function userLoginStatus() {
         });
       });
     } else {
+      // change the account name to login if not logged in
       myAccountBtn.innerHTML = 'Login';
+      // if not logged in, show the text log in and change the href attribute to login page
       const loginBox = document.querySelector('#refer-login');
       loginBox.setAttribute('href', './login.html');
     }

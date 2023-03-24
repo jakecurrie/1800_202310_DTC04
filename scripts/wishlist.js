@@ -25,7 +25,7 @@ function showUserName() {
       const logoutBtn = document.querySelector('.fa-arrow-right-from-bracket');
       logoutBtn.style.display = 'block';
       //hover event listeners
-      // when hover over account name, change to the text log oout
+      // when hover over account name, change to the text log out
       const loginText = document.querySelector('#login');
       loginText.addEventListener('mouseover', () => {
         loginText.innerHTML = 'Logout';

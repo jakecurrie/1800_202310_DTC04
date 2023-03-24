@@ -253,3 +253,108 @@ body {
 .footer-content:hover {
     color: white;
 }
+
+@media screen and (max-width: 1200px) {
+    .title-snowscraper {
+        font-size: 8em;
+    }
+
+    .title-description {
+        font-size: 1.5em;
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(3, 250px);
+        grid-gap: 50px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .title-snowscraper {
+        font-size: 7em;
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(3, 200px);
+        grid-gap: 50px;
+    }
+
+    .grid-card {
+        height: 300px;
+    }
+
+    .card-image {
+        height: 150px;
+    }
+
+    .card-shopnow {
+        width: 150px;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .title-snowscraper {
+        font-size: 6em;
+    }
+
+    .title-description {
+        font-size: 1.2em;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .title-snowscraper {
+        font-size: 4.5em;
+    }
+
+    .title-description {
+        font-size: 1em;
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(3, 175px);
+        grid-gap: 25px;
+    }
+
+    .grid-card {
+        height: 270px;
+    }
+
+    .card-image {
+        height: 130px;
+    }
+
+    .card-shopnow {
+        width: 120px;
+        height: 40px;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .navbar-features {
+        /* display: none; */
+        position: absolute;
+        top: 80px;
+        right: 0px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 125px;
+        background-color: rgb(38, 49, 89);
+    }
+
+    .feature-div {
+        display: flex;
+        justify-content: unset;
+        align-items: unset;
+
+    }
+
+    .category-title {
+        font-size: 4em;
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(2, 200px);
+    }
+}
