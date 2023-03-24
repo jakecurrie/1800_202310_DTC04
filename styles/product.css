@@ -64,7 +64,15 @@ Header
 }
 .nav-bar {
   display: flex;
-  align-items: center;
+  position: relative;
+}
+
+.navbar-brand {
+  color: var(--dark);
+}
+
+.navbar-brand:hover {
+  color: var(--lightgrey);
 }
 .hamburger {
   display: block;
@@ -114,37 +122,52 @@ Header
   display: none;
 }
 .menu-btn:checked ~ .menu {
-  max-height: 85vh;
-  width: 100vw;
-  max-width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
+  height: 250px;
+  width: 200px;
+  position: absolute;
+  top: 10vh;
+  box-shadow: 10px 20px 20px rgb(50 50 50 / 10%);
+  right: 1vw;
 }
 
 .menu {
   list-style: none;
-  text-align: center;
-  background-color: var(--white);
+  background-color: #f9f9fb;
+  backdrop-filter: blur(20px);
+  /* border: 1px solid var(--lightgrey); */
+  border-radius: 5%;
   z-index: 11;
 }
 .loginbtn {
   margin-left: auto;
 }
-.menu-icon {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
+
 .menu-link {
-  color: inherit;
-  text-decoration: inherit;
-  display: block;
-  padding: 1.5em;
+  text-align: justify;
+  display: inline-block;
+  position: relative;
+  color: var(--grey);
 }
 
+.menu-link::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--lightgrey);
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.menu-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
 .menu-link:hover {
-  color: grey;
+  color: var(--grey);
 }
 
 /*----------------------------------------------------------------------------
@@ -153,26 +176,10 @@ Search bar
 .search-bar {
   position: relative;
   width: 100%;
-  margin-right: 10px;
-}
-
-.search-bar,
-.search-bar__input {
-  font-family: sans-serif;
-}
-
-.search-bar,
-.search-bar * {
-  transition: background 0.15s, box-shadow 0.15s;
 }
 
 .search-bar:focus-within {
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-}
-
-.search-bar,
-.search-bar_input-container {
-  border-radius: 5px;
 }
 
 .search-bar_input-container {
@@ -181,10 +188,13 @@ Search bar
   width: 100%;
   padding: 6px;
   background: #eeeeee;
+  border: solid 2px #eeeeee;
+  border-radius: 15px;
 }
 
 .search-bar_input-container:focus-within {
   background: #ffffff;
+  border-radius: 15px;
 }
 
 .search-bar_input {
@@ -194,6 +204,64 @@ Search bar
   width: 100%;
   padding: 0 6px;
   background: transparent;
+  border-radius: 15px;
+}
+
+.search-bar {
+  position: relative;
+  display: inline-block;
+  border-radius: 15px;
+}
+
+.results-container {
+  position: absolute;
+  top: calc(80% + 2px);
+  left: 0;
+  z-index: 1;
+  display: none;
+  margin-left: 170px;
+  width: 50vw;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 10px 20px 20px rgb(50 50 50 / 5%);
+}
+.results-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 5px;
+}
+li.result-item {
+  background-color: #f9f9fb;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.results-list li {
+  position: relative;
+  display: inline-block;
+  margin: 15px 5px;
+}
+
+.results-list li:not(.error-message)::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--lightgrey);
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.results-list li:not(.error-message):hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.results-list li:not(.error-message):hover {
+  color: var(--grey);
 }
 
 /*----------------------------------------------------------------------------
@@ -268,28 +336,19 @@ input[type="range"]:active::-webkit-slider-thumb {
 }
 
 .slider-values {
-  /* width: 100%; */
   display: flex;
   justify-content: space-between;
-  /* font-size: 1.5rem; */
-  /* margin-top: 1rem; */
-  /* font-weight: bold; */
 }
 
 .slider-container {
   position: relative;
-  /* width: 100%; */
   height: 30px;
-  /* margin-top: 30px; */
 }
 input[type="range"] {
-  /* -webkit-appearance: none;
-  -moz-appearance: none; */
   appearance: none;
   width: 100%;
   outline: none;
   position: absolute;
-  /* margin: auto; */
   top: 0;
   bottom: 0;
   background-color: transparent;

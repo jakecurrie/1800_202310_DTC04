@@ -11,10 +11,11 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/styles/home-page.css" />
-    <script
-      src="https://kit.fontawesome.com/294e21ede5.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+    <script src="./scripts/firebaseAPI_TEAMDTC04.js" defer></script>
     <script src="/scripts/home-page.js" defer></script>
     <title>Snowmaker</title>
   </head>
@@ -29,19 +30,19 @@
         <h1 class="navbar-title">SNOWSCRAPER</h1>
       </div>
       <div class="navbar-features">
-        <a id="refer-category" href="">
+        <a id="refer-category">
           <div class="feature-div product">
-            <p>Shop</p>
+            <p class="navbar-button" id="shop">Shop</p>
           </div>
         </a>
         <a id="refer-wishlist" href="./wishlist.html">
           <div class="feature-div wishlist">
-            <p>Wishlist</p>
+            <p class="navbar-button" id="wishlist">Wishlist</p>
           </div>
         </a>
-        <a id="refer-login" href="./test-login.html">
+        <a id="refer-login" href="./login.html">
           <div class="feature-div login">
-            <p>My Account</p>
+            <p class="navbar-button" id="login"></p>
           </div>
         </a>
       </div>
@@ -59,48 +60,72 @@
     <section class="shop-category">
       <h1 class="category-title">CATEGORIES</h1>
       <div class="category-grid">
-        <div class="grid-card">
-          <h1 class="card-title">Shovels</h1>
-          <img src="/images/Item preview images/shovel.png" alt="" class="card-image">
-          <button class="card-shopnow" onclick="location.href = 'products.html?category=Shovels';">
-            Shop now
-          </button>
-        </div>
-        <div class="grid-card">
-          <h1 class="card-title">Road Salt</h1>
-          <img src="/images/Item preview images/road salt.png" alt="" class="card-image">
-          <button class="card-shopnow" onclick="location.href = 'products.html?category=RoadSalt';">
-            Shop now
-          </button>
-        </div>
-        <div class="grid-card">
-          <h1 class="card-title">Heaters</h1>
-          <img src="/images/Item preview images/heater.png" alt="" class="card-image">
-          <button class="card-shopnow" onclick="location.href = 'products.html?category=Heaters';">
-            Shop now
-          </button>
-        </div>
-        <div class="grid-card">
-          <h1 class="card-title">Tire Chains</h1>
-          <img src="/images/Item preview images/tire chains.jpg" alt="" class="card-image">
-          <button class="card-shopnow" onclick="location.href = 'products.html?category=TireChains';">
-            Shop now
-          </button>
-        </div>
-        <div class="grid-card">
-          <h1 class="card-title">Item</h1>
-          <img src="/images/Item preview images/question ping.png" alt="" class="card-image">
-          <button class="card-shopnow" onclick="location.href = 'products.html?category=Item';">
-            Shop now
-          </button>
-        </div>
-        <div class="grid-card">
-          <h1 class="card-title">Item</h1>
-          <img src="/images/Item preview images/question ping.png" alt="" class="card-image">
-          <button class="card-shopnow" onclick="location.href = 'products.html?category=Item';">
-            Shop now
-          </button>
-        </div>
+        <a href="/products.html?category=Shovels" class="grid-link">
+          <div class="grid-card">
+            <h1 class="card-title">Shovels</h1>
+            <img
+              src="/images/Item preview images/shovel.png"
+              alt=""
+              class="card-image"
+            />
+            <button class="card-shopnow">Shop now</button>
+          </div>
+        </a>
+        <a href="/products.html?category=RoadSalt" class="grid-link">
+          <div class="grid-card">
+            <h1 class="card-title">Road Salt</h1>
+            <img
+              src="/images/Item preview images/road salt.png"
+              alt=""
+              class="card-image"
+            />
+            <button class="card-shopnow">Shop now</button>
+          </div>
+        </a>
+        <a href="/products.html?category=Heaters" class="grid-link">
+          <div class="grid-card">
+            <h1 class="card-title">Heaters</h1>
+            <img
+              src="/images/Item preview images/heater.png"
+              alt=""
+              class="card-image"
+            />
+            <button class="card-shopnow">Shop now</button>
+          </div>
+        </a>
+        <a href="/products.html?category=TireChains" class="grid-link">
+          <div class="grid-card">
+            <h1 class="card-title">Tire Chains</h1>
+            <img
+              src="/images/Item preview images/tire chains.jpg"
+              alt=""
+              class="card-image"
+            />
+            <button class="card-shopnow">Shop now</button>
+          </div>
+        </a>
+        <a href="/products.html?category=Item" class="grid-link">
+          <div class="grid-card">
+            <h1 class="card-title">Item</h1>
+            <img
+              src="/images/Item preview images/question ping.png"
+              alt=""
+              class="card-image"
+            />
+            <button class="card-shopnow">Shop now</button>
+          </div>
+        </a>
+        <a href="/products.html?category=Item" class="grid-link">
+          <div class="grid-card">
+            <h1 class="card-title">Item</h1>
+            <img
+              src="/images/Item preview images/question ping.png"
+              alt=""
+              class="card-image"
+            />
+            <button class="card-shopnow">Shop now</button>
+          </div>
+        </a>
       </div>
     </section>
     <section class="store-list">
