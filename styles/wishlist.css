@@ -47,6 +47,14 @@ body {
     align-items: center;
 }
 
+.navbar-features-mobile {
+    display: none;
+}
+
+.hamburger {
+    display: none;
+}
+
 .navbar-features {
     width: 50%;
 }
@@ -82,12 +90,11 @@ body {
     width: 100vw;
     padding-top: 80px;
     display: flex;
-    align-content: center;
     justify-content: center;
 }
 
 .wishlist-container {
-    width: 80vw;
+    width: 80%;
     display: flex;
     flex-direction: column;
 }
@@ -106,6 +113,11 @@ body {
 }
 
 .content-container {
+    display: grid;
+    grid-template-columns: repeat(4, 222px);
+    justify-content: center;
+    grid-gap: 100px;
+    overflow: hidden;
     margin-top: 20px;
     width: 100%;
 }
@@ -129,4 +141,73 @@ body {
     font-family: 'League Spartan', sans-serif;
     font-weight: 400;
     font-size: 1.2em;
+}
+
+@media screen and (max-width: 750px) {
+    body::-webkit-scrollbar {
+        display: none;
+    }
+
+    .logo-section {
+        position: relative;
+    }
+
+    .navbar-features {
+        display: none;
+    }
+
+    .navbar-features-mobile {
+        position: absolute;
+        transition: 500ms;
+        top: 80px;
+        right: -125px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 125px;
+        height: 100vh;
+        background-color: rgb(38, 49, 89);
+    }
+
+    .hamburger {
+        display: block;
+        cursor: pointer;
+        visibility: visible;
+        position: absolute;
+        top: 20px;
+        right: 25px;
+        color: white;
+        font-size: 2em;
+    }
+
+    .feature-div {
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .navbar-features-mobile > a {
+        text-decoration: none;
+    }
+
+    .navbar-icons {
+        visibility: visible;
+        height: 100%;
+        color: white;
+        font-size: 2em;
+    }
+
+   .logout-icon {
+        visibility: hidden;
+    }
+
+    .category-title {
+        font-size: 4em;
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(2, 200px);
+    }
 }

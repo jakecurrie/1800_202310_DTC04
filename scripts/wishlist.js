@@ -59,4 +59,22 @@ function showUserName() {
   });
 }
 
+// Hamburger menu 
+const hamburger = document.querySelector(".hamburger")
+hamburger.addEventListener('click', (event) => {
+  let hamOrX = event.target.getAttribute("class")
+  const sideNav = document.querySelector(".navbar-features-mobile")
+  console.log(sideNav);
+  if (hamOrX == "fa-solid fa-bars") {
+      event.target.className = "fa-solid fa-xmark"
+      sideNav.style.boxShadow = "2px 2px 2px 2px rgba(0, 0, 0, 0.281)"
+      sideNav.style.right = "0"
+  } else {
+      event.target.className = "fa-solid fa-bars"
+      sideNav.style.boxShadow = "none"
+      sideNav.style.right = "-125px"
+  }
+})
+
+
 showUserName();
