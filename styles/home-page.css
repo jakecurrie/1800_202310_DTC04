@@ -348,9 +348,7 @@ html {
         width: 120px;
         height: 40px;
     }
-}
 
-@media screen and (max-width: 750px) {
     body::-webkit-scrollbar {
         display: none;
     }
@@ -416,5 +414,59 @@ html {
 
     .category-grid {
         grid-template-columns: repeat(2, 200px);
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .title-snowscraper {
+        font-size: 3.5em;
+    }
+
+    .title-description {
+        font-size: 1em;
+    }
+
+    .store-list-header {
+        font-size: 2.5em;
+    }
+
+    .store-list-short {
+        font-size: 1.2em;
+    }
+
+}
+
+@media screen and (max-width: 450px) {
+    .title-snowscraper {
+        font-size: 2.8em;
+    }
+
+    .title-description {
+        font-size: 1em;
+    }
+
+    .navbar-title {
+        font-size: 1.5em;
+    }
+
+    .store-list-header {
+        font-size: 2.5em;
+    }
+
+    .store-list-short {
+        font-size: 1.2em;
+    }
+
+    .shop-category {
+        margin-top: 50px;
+    }
+
+    .category-title {
+        margin: 0 0 50px 0;
+        font-size: 3em;
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(1, 200px);
     }
 }

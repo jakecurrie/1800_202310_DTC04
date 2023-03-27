@@ -432,16 +432,37 @@ Product Card
   }
 }
 
+/* media query for product cards and product section */
+
 @media (max-width: 991px) {
   .product-card {
     max-width: 48%;
   }
+
+  .row {
+    justify-content: space-around;
+  }
+
+  .single-product {
+    margin: 10px;
+  }
+}
+
+
+@media (max-width: 700px) {
   .single-product .part-1 {
     width: 160px;
     height: 176px;
   }
-  .single-product {
-    margin: 10px;
+}
+
+@media (max-width: 500px) {
+  .row {
+    justify-content:center;
+  }
+
+  .single-product .part-1 {
+    width: 100%;
   }
 }
 
@@ -688,3 +709,5 @@ Footer
 .social-icons a.instagram:hover {
   background-color: #ea4c89;
 }
+
+/* Manual Media Queries -sjb */
