@@ -32,4 +32,5 @@ COPY . /webscraper
 EXPOSE 8080
 
 # Set the entrypoint to run the web server on container startup
-ENTRYPOINT ["python", "main.py"]
+CMD ["python", "main.py"]
+
