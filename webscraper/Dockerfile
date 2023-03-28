@@ -1,22 +1,16 @@
 # Use Python 3.8 image
-FROM python:3.8
+FROM python:3.8-buster
 
-# Install system dependencies
+# Install Firefox and GeckoDriver
 RUN apt-get update \
-    && apt-get install -y wget gnupg2 unzip
+    && apt-get install -y firefox-esr \
+    && wget -q https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz \
+    && tar -xzf geckodriver-v0.30.0-linux64.tar.gz \
+    && mv geckodriver /usr/local/bin \
+    && rm geckodriver-v0.30.0-linux64.tar.gz
 
-# Install Chrome
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
-    && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
-    && apt-get update \
-    && apt-get install -y google-chrome-stable
-
-# Set up Chrome driver
-RUN LATEST=$(wget -q -O - https://chromedriver.storage.googleapis.com/LATEST_RELEASE) \
-    && wget -q https://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip \
-    && unzip chromedriver_linux64.zip \
-    && mv chromedriver /usr/local/bin/ \
-    && rm chromedriver_linux64.zip
+# Set environment variable for running headless
+ENV DISPLAY=:99
 
 # Copy the requirements file
 COPY requirements.txt /webscraper/requirements.txt
@@ -28,9 +22,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy local code to container image
 COPY . /webscraper
 
-# Expose port 8080 for the web server
-EXPOSE 8080
+# Expose ports for the web server
+EXPOSE ${PORT}
 
 # Set the entrypoint to run the web server on container startup
 CMD ["python", "main.py"]
-
