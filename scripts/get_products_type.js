@@ -1,6 +1,7 @@
 const cardsPerPage = 12;
 let currentPage = 1;
 let allProducts;
+let originalProducts;
 let sliderOne;
 let sliderTwo;
 let sliderTrack;
@@ -25,6 +26,7 @@ function queryProductCategory() {
     .get()
     .then((querySnapshot) => {
       allProducts = querySnapshot.docs;
+      originalProducts = [...allProducts];
       const priceRange = allProducts.map((doc) => doc.data().price);
       const priceMin = Math.min(...priceRange);
       const priceMax = Math.max(...priceRange);
@@ -224,6 +226,8 @@ function applyFilter() {
     selectedStores.push($(this).attr("id"));
   });
 
+  allProducts = [...originalProducts];
+
   const filteredProducts = allProducts.filter((doc) => {
     const product = doc.data();
     const productPrice = parseFloat(product.price);
@@ -241,6 +245,8 @@ function applyFilter() {
 
     return filterStores && filterPrices;
   });
+
+  console.log("filtered products length: ", filteredProducts.length);
 
   allProducts = filteredProducts;
   currentPage = 1;

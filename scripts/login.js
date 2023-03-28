@@ -38,7 +38,6 @@ function createUser(email, password, name) {
   })
   .catch((error) => {
     const errorCode = error.code;
-    console.log(errorCode)
     if (errorCode == 'auth/invalid-email') {
         registerEmailInput.style.borderBottom = 'solid 2px red'
         registerPasswordInput.style.borderBottom = 'solid 1px black'

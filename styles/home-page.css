@@ -2,6 +2,14 @@ body {
     margin: 0;
 }
 
+html {
+    overflow-y: overlay;
+}
+
+.hidden-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
 .title-page {
     position: relative;
     display: flex;
@@ -177,6 +185,10 @@ body {
     transition: 500ms ease;
 }
 
+.navbar-icons {
+    visibility: hidden;
+}
+
 .logo-section {
     display: flex;
     flex-direction: row;
@@ -204,11 +216,19 @@ body {
     cursor: pointer;
 }
 
+.navbar-features-mobile {
+    display: none;
+}
+
 .navbar-features, .feature-div {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
+}
+
+.hamburger {
+    display: none;
 }
 
 .navbar-features {
@@ -252,4 +272,201 @@ body {
 
 .footer-content:hover {
     color: white;
+}
+
+@media screen and (max-width: 1200px) {
+    .title-snowscraper {
+        font-size: 8em;
+    }
+
+    .title-description {
+        font-size: 1.5em;
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(3, 250px);
+        grid-gap: 50px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .title-snowscraper {
+        font-size: 7em;
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(3, 200px);
+        grid-gap: 50px;
+    }
+
+    .grid-card {
+        height: 300px;
+    }
+
+    .card-image {
+        height: 150px;
+    }
+
+    .card-shopnow {
+        width: 150px;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .title-snowscraper {
+        font-size: 6em;
+    }
+
+    .title-description {
+        font-size: 1.2em;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .title-snowscraper {
+        font-size: 4.5em;
+    }
+
+    .title-description {
+        font-size: 1em;
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(3, 175px);
+        grid-gap: 25px;
+    }
+
+    .grid-card {
+        height: 270px;
+    }
+
+    .card-image {
+        height: 130px;
+    }
+
+    .card-shopnow {
+        width: 120px;
+        height: 40px;
+    }
+
+    body::-webkit-scrollbar {
+        display: none;
+    }
+
+    .logo-section {
+        position: relative;
+    }
+
+    .navbar-features {
+        display: none;
+    }
+
+    .navbar-features-mobile {
+        position: absolute;
+        transition: 500ms;
+        top: 80px;
+        right: -125px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 125px;
+        height: 100vh;
+        background-color: rgb(38, 49, 89);
+    }
+
+    .hamburger {
+        display: block;
+        cursor: pointer;
+        visibility: visible;
+        position: absolute;
+        top: 20px;
+        right: 25px;
+        color: white;
+        font-size: 2em;
+    }
+
+    .feature-div {
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .navbar-features-mobile > a {
+        text-decoration: none;
+    }
+
+    .navbar-icons {
+        visibility: visible;
+        height: 100%;
+        color: white;
+        font-size: 2em;
+    }
+
+   .logout-icon {
+        visibility: hidden;
+    }
+
+    .category-title {
+        font-size: 4em;
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(2, 200px);
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .title-snowscraper {
+        font-size: 3.5em;
+    }
+
+    .title-description {
+        font-size: 1em;
+    }
+
+    .store-list-header {
+        font-size: 2.5em;
+    }
+
+    .store-list-short {
+        font-size: 1.2em;
+    }
+
+}
+
+@media screen and (max-width: 450px) {
+    .title-snowscraper {
+        font-size: 2.8em;
+    }
+
+    .title-description {
+        font-size: 1em;
+    }
+
+    .navbar-title {
+        font-size: 1.5em;
+    }
+
+    .store-list-header {
+        font-size: 2.5em;
+    }
+
+    .store-list-short {
+        font-size: 1.2em;
+    }
+
+    .shop-category {
+        margin-top: 50px;
+    }
+
+    .category-title {
+        margin: 0 0 50px 0;
+        font-size: 3em;
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(1, 200px);
+    }
 }
