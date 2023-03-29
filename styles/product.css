@@ -73,7 +73,7 @@ Header
 }
 
 .navbar-brand {
-  font-family: 'League Spartan', sans-serif;
+  font-family: "League Spartan", sans-serif;
   font-size: 1.8em;
   font-weight: 700;
   margin-left: 10px;
@@ -89,7 +89,7 @@ Header
   width: 1.5rem;
   height: 0.125rem;
   background: white;
-  transition:  0.2s ease-out;
+  transition: 0.2s ease-out;
   z-index: 12;
 }
 .hamburger:before,
@@ -196,13 +196,13 @@ Search bar
   box-sizing: border-box;
   width: 100%;
   padding: 6px;
-  background: #19213b;;
-  border: solid 2px #263159;;
+  background: #19213b;
+  border: solid 2px #263159;
   border-radius: 15px;
 }
 
 .search-bar_input-container:focus-within {
-  background: #ffffff;;
+  background: #ffffff;
   border-radius: 15px;
 }
 
@@ -448,7 +448,6 @@ Product Card
   }
 }
 
-
 @media (max-width: 700px) {
   .single-product .part-1 {
     width: 160px;
@@ -458,7 +457,7 @@ Product Card
 
 @media (max-width: 500px) {
   .row {
-    justify-content:center;
+    justify-content: center;
   }
 
   .single-product .part-1 {
