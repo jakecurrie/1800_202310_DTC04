@@ -1,7 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.options import Options
 from selenium.common import exceptions
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
 import time
 from google.cloud import firestore
 
@@ -10,9 +13,6 @@ options = Options()
 options.add_argument("--headless")
 options.add_argument("--disable-gpu")
 options.add_argument("--no-sandbox")
-options.add_argument("enable-automation")
-options.add_argument("--disable-infobars")
-options.add_argument("--disable-dev-shm-usage")
 options.add_argument("window-size=1024,768")
 
 # Selenium will not work for some websites, for these we will use httpx to send http requests and beautifulsoup to parse through the resulting html code fetched using httpx to extract the relevant data. For this to work, we will use common browser headers which make our web traffic appear as if it is from a human instead of from an automated script. These headers will be passed as an argument while using the get method from the httpx module.
@@ -64,7 +64,8 @@ selectors = {
 }
 
 # Initializing the chrome web browser to load web pages with selenium
-driver = webdriver.Chrome(options=options)
+#service = FirefoxService(executable_path=GeckoDriverManager().install())
+driver = webdriver.Firefox(options=options)
 
 
 def scrape_url(store, product_type, url):
@@ -112,21 +113,21 @@ def scrape_url(store, product_type, url):
     return scraped_data
 
 def main():
-    db = firestore.Client()
-    batch = db.batch()
+    #db = firestore.Client()
+    #batch = db.batch()
     all_data = []
     
     for product_category in urls:
         for web_store in urls[product_category]:
             data = scrape_url(web_store, product_category, urls[product_category][web_store])
             all_data += data
-
+    """
     for doc_data in all_data:
         doc_ref = db.collection("products").document(doc_data['product_url'])
         batch.set(doc_ref, doc_data)
     
     batch.commit()
-
+    """
 
 if __name__ == "__main__":
     main()
