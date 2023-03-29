@@ -56,15 +56,6 @@
         <ul class="results-list" id="list"></ul>
       </div>
 
-      <!-- Login  -->
-      <!-- <a
-    href="login.html"
-    class="btn loginbtn btn-outline-secondary"
-    role="button"
-    aria-pressed="true"
-    >Login</a
-  > -->
-
       <!-- Hamburger Menu  -->
       <nav id="nav-bar" class="nav-bar">
         <input id="menu-btn" class="menu-btn" type="checkbox" />
@@ -106,16 +97,36 @@
               <label for="stores" class="filter-heading">Stores</label>
               <div class="container" id="stores-checkboxes"></div>
             </div>
+            <!-- by rating -->
+            <div class="row filter-section rating">
+              <label for="review" class="filter-heading">Customer Review</label>
+              <label
+                ><input type="radio" name="stars" value="4" />
+                <span class="icon">★★★★☆ & Up</span>
+              </label>
+              <label
+                ><input type="radio" name="stars" value="3" />
+                <span class="icon">★★★☆☆ & Up</span>
+              </label>
+              <label
+                ><input type="radio" name="stars" value="2" />
+                <span class="icon">★★☆☆☆ & Up</span>
+              </label>
+              <label
+                ><input type="radio" name="stars" value="1" />
+                <span class="icon">★☆☆☆☆ & Up</span>
+              </label>
+            </div>
+            <!-- apply filter button-->
             <div class="row filter-btn">
               <button type="button" id="apply-filter">Apply Filter</button>
             </div>
-            <!-- by reviews -->
           </div>
         </div>
 
         <!-- product card  -->
         <div class="col-lg-8 col-12">
-          <h2 id="category-header">huh</h2>
+          <h2 id="category-header">huh<span id="product-count"></span></h2>
           <button
             type="button"
             id="btn-filter"

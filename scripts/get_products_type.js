@@ -114,6 +114,8 @@ function generateProductCards() {
     `;
     productList.append(productCard);
   });
+  const productCount = $("#product-count");
+  productCount.html(`(${allProducts.length} results)`);
 }
 
 //update product cards when user clicks the previous button
@@ -145,7 +147,7 @@ queryProductCategory();
 filters
 -----------------------------------------------------------------------*/
 
-//filter panel - populate store
+/*--filter panel - populate store--*/
 function populateStores() {
   const stores = new Set();
   allProducts.forEach((doc) => {
@@ -156,17 +158,20 @@ function populateStores() {
   const checkboxesContainer = $('#stores-checkboxes');
   let checkboxesHTML = '';
   stores.forEach((store) => {
+    const filteredProductsByStore = allProducts.filter(
+      (doc) => doc.data().store === store
+    );
     checkboxesHTML += `
       <div class="form-check">
         <input class="form-check-input" type="checkbox" id="${store}" checked>
-        <label class="form-check-label" for="${store}">${store}</label>
+        <label class="form-check-label" for="${store}">${store} (${filteredProductsByStore.length})</label>
       </div>
     `;
   });
   checkboxesContainer.html(checkboxesHTML);
 }
 
-//filter panel - double range price slider
+/*--filter panel - double range price slider--*/
 function generatePriceRangeSlider(priceMin, priceMax) {
   $('.double-range-slider').html(
     `<div class="wrapper">
@@ -193,6 +198,7 @@ function generatePriceRangeSlider(priceMin, priceMax) {
   sliderTwo.on('input', slideTwo);
 }
 
+//update price min when left thumb is moved
 function slideOne() {
   if (parseInt(sliderTwo.val()) - parseInt(sliderOne.val()) <= 10) {
     sliderOne.val(parseInt(sliderTwo.val()) - 10);
@@ -201,6 +207,7 @@ function slideOne() {
   fillColor();
 }
 
+//update price max when right thumb is moved
 function slideTwo() {
   if (parseInt(sliderTwo.val()) - parseInt(sliderOne.val()) <= 10) {
     sliderTwo.val(parseInt(sliderOne.val()) + 10);
@@ -209,6 +216,7 @@ function slideTwo() {
   fillColor();
 }
 
+//fill color of the slider tract
 function fillColor() {
   percent1 = (sliderOne.val() / sliderMaxValue) * 100;
   percent2 = (sliderTwo.val() / sliderMaxValue) * 100;
@@ -218,7 +226,7 @@ function fillColor() {
   );
 }
 
-//filter panel - apply filters
+/*--filter panel - apply filters--*/
 function applyFilter() {
   const storeCheckboxes = $('.form-check-input:checked');
   const selectedStores = [];

@@ -106,7 +106,7 @@ def scrape_url(store, product_type, url):
             print("element error")
             del product_element
         else:
-            result = {"name": product_name, "product type": product_type, "store": store, "price": product_price, "rating": product_rating,
+            result = {"product_name": product_name, "product_type": product_type, "store": store, "price": product_price, "rating": product_rating,
                     "product_url": product_url, "image_url": image_url}
             scraped_data.append(result)
 
