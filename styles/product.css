@@ -69,6 +69,7 @@ Header
 }
 
 .navbar-logo {
+  cursor: pointer;
   height: 100%;
 }
 
@@ -78,6 +79,18 @@ Header
   font-weight: 700;
   margin-left: 10px;
   color: white;
+}
+
+@media (max-width: 600px) {
+  .navbar-brand {
+    font-size: 1.2em;
+  }
+}
+
+@media (max-width: 450px) {
+  .navbar-brand {
+    display: none;
+  }
 }
 
 .navbar-brand:hover {

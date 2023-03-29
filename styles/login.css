@@ -9,6 +9,28 @@ body {
     background-size: cover;
 }
 
+.back-arrow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    left: 1%;
+    top: 1%;
+}
+
+.back-arrow > i {
+    font-size: 2.2em;
+}
+
+.back-arrow > p {
+    padding-left: 10px;
+    font-size: 1em;
+    font-family: 'League Spartan', sans-serif;
+}
+
 .container {
     width: 380px;
     height: 100vh;
@@ -51,7 +73,7 @@ body {
     font-weight: 400;
 }
 
-.login-input {
+.login-input, .forgot-input {
     border: none;
     border-bottom: 1px solid black;
     padding: 5px;
@@ -62,11 +84,16 @@ body {
     outline: none;
 }
 
-.forgot-link, .register-link {
+.forgot-btn, .register-link {
+    cursor: pointer;
     text-decoration: none;
     font-family: 'League Spartan', sans-serif;
     font-weight: 600;
     color: black;
+}
+
+.forgot-btn:hover {
+    text-decoration: underline;
 }
 
 .login-btn {
@@ -100,7 +127,7 @@ body {
 .register-box {
     display: flex;
     position: absolute;
-    left: 100%;
+    left: 105%;
     flex-direction: column;
     border: black 1px solid;
     border-radius: 5%;
@@ -152,12 +179,42 @@ body {
     flex-direction: row;
 }
 
-.login-click {
+.login-click, .login-click-forgor {
     margin-left: 5px;
     cursor: pointer;
     font-weight: 700;
 }
 
-.login-click:hover {
+.login-click:hover, .login-click-forgor:hover {
     text-decoration: underline;
+}
+
+.forgor-box {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 105%;
+    border: black 1px solid;
+    border-radius: 5%;
+    padding: 40px 70px;
+    background: transparent;
+    backdrop-filter: blur(20px);
+}
+
+.success-div {
+    opacity: 0;
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5%;
+    background-color: #2631598b;
+    padding: 0 20px;
+    transition: 500ms ease;
+}
+
+.success-div > p {
+    color: white;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 1.2em;    
 }

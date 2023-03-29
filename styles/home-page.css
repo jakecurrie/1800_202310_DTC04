@@ -204,7 +204,7 @@ html {
 
 .navbar-logo {
     height: 100%;
-    opacity: 0.5;
+    opacity: 0;
     transition: 500ms;
     cursor: pointer;
 }

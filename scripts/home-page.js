@@ -5,12 +5,12 @@ const navbarTitle = document.querySelector('.navbar-title');
 
 // Show navbar when window is at 100px
 function showNavBar() {
-  const body = document.getElementById("body")
+  const body = document.getElementById('body');
   yPos = window.pageYOffset;
   if (yPos < 100) {
     navbar.style.backgroundColor = 'transparent';
     navbarTitle.style.display = 'none';
-    logo.style.opacity = '0.5';
+    logo.style.opacity = '0';
     // hide scrollbar
     body.classList.add('hidden-scrollbar');
   } else {
@@ -21,21 +21,21 @@ function showNavBar() {
     body.classList.remove('hidden-scrollbar');
   }
 }
-// Hamburger menu 
-const hamburger = document.querySelector(".hamburger")
+// Hamburger menu
+const hamburger = document.querySelector('.hamburger');
 hamburger.addEventListener('click', (event) => {
-  let hamOrX = event.target.getAttribute("class")
-  const sideNav = document.querySelector(".navbar-features-mobile")
-  if (hamOrX == "fa-solid fa-bars") {
-      event.target.className = "fa-solid fa-xmark"
-      sideNav.style.boxShadow = "2px 2px 2px 2px rgba(0, 0, 0, 0.281)"
-      sideNav.style.right = "0"
+  let hamOrX = event.target.getAttribute('class');
+  const sideNav = document.querySelector('.navbar-features-mobile');
+  if (hamOrX == 'fa-solid fa-bars') {
+    event.target.className = 'fa-solid fa-xmark';
+    sideNav.style.boxShadow = '2px 2px 2px 2px rgba(0, 0, 0, 0.281)';
+    sideNav.style.right = '0';
   } else {
-      event.target.className = "fa-solid fa-bars"
-      sideNav.style.boxShadow = "none"
-      sideNav.style.right = "-125px"
+    event.target.className = 'fa-solid fa-bars';
+    sideNav.style.boxShadow = 'none';
+    sideNav.style.right = '-125px';
   }
-})
+});
 
 // when website is loaded / scrolled, call the shownavbar function
 window.addEventListener('load', showNavBar);
@@ -68,7 +68,7 @@ function userLoginStatus() {
       currentUser = db.collection('users').doc(user.uid);
       currentUser.onSnapshot((doc) => {
         myAccountBtn.innerHTML = doc.data().name;
-        myAccountBtnMobile.innerHTML = "Logout";
+        myAccountBtnMobile.innerHTML = 'Logout';
       });
       //if logged in, show the log out button
       const logoutBtn = document.querySelector('.fa-arrow-right-from-bracket');

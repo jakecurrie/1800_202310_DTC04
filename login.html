@@ -10,7 +10,11 @@
       href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;400;500;600;900&family=Tilt+Warp&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/styles/test-login.css" />
+    <script
+      src="https://kit.fontawesome.com/294e21ede5.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="/styles/login.css" />
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
@@ -20,6 +24,10 @@
     <title>Login</title>
   </head>
   <body>
+    <a href="./home-page.html" class="back-arrow">
+      <i class="fa-solid fa-chevron-left"></i>
+      <p>Back</p>
+    </a>
     <div class="container">
       <div class="login-box">
         <h1 class="login-title">Login</h1>
@@ -44,7 +52,7 @@
           </div>
         </form>
         <div class="login-forgor">
-          <a href="" class="forgot-link"><p>Forgot Password?</p></a>
+          <p href="" class="forgot-btn">Forgot Password?</p>
         </div>
         <div class="login">
           <button type="submit" class="login-btn">Login</button>
@@ -85,17 +93,40 @@
               class="register-input"
             />
           </div>
-          <div class="register-password-again">
-            <label class="input-title" for="">Password again</label>
-            <input name="password" type="password" class="register-input" />
-          </div>
         </form>
         <button type="submit" class="register-btn">Register</button>
         <div class="login">
           <p>Already have an account?</p>
-          <p class="login-click">Sign in</p>
+          <p class="login-click">Login</p>
         </div>
       </div>
+
+      <div class="forgor-box">
+        <h1 class="login-title">Forgot Password</h1>
+        <form class="login-input-box" action="">
+          <div class="login-email">
+            <label class="input-title" for="">Email</label>
+            <input
+              name="email"
+              type="text"
+              id="forgot-email"
+              class="forgot-input"
+            />
+          </div>
+        </form>
+        <div class="login">
+          <button type="submit" id="forgot-btn" class="login-btn">
+            Send Email
+          </button>
+        </div>
+        <div class="login">
+          <p>Already have an account?</p>
+          <p class="login-click-forgor">Login</p>
+        </div>
+      </div>
+    </div>
+    <div class="success-div">
+      <p>Email Sent!</p>
     </div>
   </body>
 </html>
