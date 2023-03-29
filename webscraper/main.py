@@ -123,7 +123,7 @@ def main():
             all_data += data
     
     for doc_data in all_data:
-        doc_ref = db.collection("products").document(doc_data['product_url'])
+        doc_ref = db.collection("products").document()
         batch.set(doc_ref, doc_data)
     
     batch.commit()
