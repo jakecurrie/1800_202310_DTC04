@@ -59,7 +59,7 @@ selectors = {
             "price": "[class='price-box__price__amount__integer']",
             "rating": "[class='bv-rating-average']",
             "product_url": "[class='product-tile__title productLink']",
-            "image_url": "[class='product-tile__image-link productLink']"}
+            "image_url": "[class='product-tile__image']"}
         }
 }
 
@@ -113,21 +113,22 @@ def scrape_url(store, product_type, url):
     return scraped_data
 
 def main():
-    #db = firestore.Client()
-    #batch = db.batch()
+    db = firestore.Client()
+    batch = db.batch()
     all_data = []
     
     for product_category in urls:
         for web_store in urls[product_category]:
             data = scrape_url(web_store, product_category, urls[product_category][web_store])
             all_data += data
-    """
+    
     for doc_data in all_data:
         doc_ref = db.collection("products").document(doc_data['product_url'])
         batch.set(doc_ref, doc_data)
     
     batch.commit()
-    """
+    
+
 
 if __name__ == "__main__":
     main()
