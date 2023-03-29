@@ -439,6 +439,10 @@ Product Card
   overflow: hidden;
 }
 
+.row {
+  margin-right: 0;
+}
+
 @media (min-width: 992px) {
   .product-card {
     max-width: 33%;
