@@ -35,6 +35,7 @@ function queryProductCategory() {
       generatePagination();
       generateProductCards();
       populateStores();
+      populateReviews();
       generatePriceRangeSlider(priceMin, priceMax);
     })
     .catch((error) => {
@@ -100,7 +101,7 @@ function generateProductCards() {
           <div class="part-1">
             <img class="card-img-top" src="${product.image_url}" alt="${product.product_name}">
             <ul>
-              <li><a href="#"><i class="fa fa-heart wishlist-btn"></i></a></li>
+              <li><a href="#"><i class="fa fa-heart wishlist-btn focus"></i></a></li>
               <li><a href="${product.product_url}"target="_blank"><i class="fa fa-link link-btn"></i></a></li>
             </ul>
           </div>
@@ -119,6 +120,7 @@ function generateProductCards() {
 
     wishlistBtn.on("click", (event) => {
       console.log(`product ${doc.id} clicked`);
+      event.preventDefault(); //prevent page from directing to a href
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           currentUser = db.collection("users").doc(user.uid); //global
@@ -182,10 +184,14 @@ function updateBookmark(id) {
           bookmarks: firebase.firestore.FieldValue.arrayRemove(id),
         })
         .then(function () {
-          console.log("This bookmark is removed for" + currentUser);
+          console.log(`This bookmark is removed for ${userDoc.data().name}`);
           var iconID = "save-" + id;
           console.log(iconID);
-          $("#" + iconID).innerText = "bookmark_border"; // change the icon
+
+          $(`.single-product #product-${id} .wishlist-btn`).addClass(
+            "bookmarked"
+          );
+          // $("#" + iconID).innerText = "bookmark_border";
         });
     } else {
       //if it does not exist, then add it
@@ -197,9 +203,10 @@ function updateBookmark(id) {
           { merge: true }
         )
         .then(function () {
-          console.log("This bookmark is for" + currentUser);
+          console.log(`This bookmark is added for ${userDoc.data().name}`);
           var iconID = "save-" + id;
           console.log(iconID);
+          $(`#product-${"#" + id} .wishlist-btn`).addClass("yellogreen");
           // $("#"+iconID).innerText = "bookmark";
         });
     }
@@ -218,7 +225,7 @@ function populateStores() {
     stores.add(product.store);
   });
 
-  const checkboxesContainer = $("#stores-checkboxes");
+  const checkboxesContainerStores = $("#stores-checkboxes");
   let checkboxesHTML = "";
   stores.forEach((store) => {
     const filteredProductsByStore = allProducts.filter(
@@ -231,7 +238,7 @@ function populateStores() {
       </div>
     `;
   });
-  checkboxesContainer.html(checkboxesHTML);
+  checkboxesContainerStores.html(checkboxesHTML);
 }
 
 /*--filter panel - double range price slider--*/
@@ -287,6 +294,58 @@ function fillColor() {
     "background",
     `linear-gradient(to right, #dadae5 ${percent1}% , #3264fe ${percent1}% , #3264fe ${percent2}%, #dadae5 ${percent2}%)`
   );
+}
+
+/*--filter panel - customer review--*/
+function populateReviews() {
+  const checkboxesContainerRating = $("#reviews-checkboxes");
+  let checkboxesHTML = "";
+
+  for (let i = 4; i >= 0; i--) {
+    const stars = starsHTML(i);
+    const filteredProductsByRating = allProducts.filter((doc) => {
+      const rating = parseFloat(doc.data().rating);
+      switch (i) {
+        case 0:
+          return rating >= 4 && rating <= 5;
+        case 1:
+          return rating >= 3 && rating < 4;
+        case 2:
+          return rating >= 2 && rating < 3;
+        case 3:
+          return rating >= 1 && rating < 2;
+        case 4:
+          return rating == null || rating < 1;
+        default:
+          return false;
+      }
+    });
+
+    checkboxesHTML += `
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="${i}" checked>
+        <label class="form-check-label" for="${i}">${stars} & up (${filteredProductsByRating.length})</label>
+      </div>
+    `;
+  }
+  checkboxesContainerRating.html(checkboxesHTML);
+}
+
+function starsHTML(rating) {
+  const fullStars = Math.floor(rating);
+  let starsHTML = "";
+
+  //print full stars
+  for (let i = 0; i < fullStars; i++) {
+    starsHTML += `<i class="fa fa-star yellow"></i>`;
+  }
+  //then print empty stars
+  const emptyStars = 5 - fullStars;
+  for (let i = 0; i < emptyStars; i++) {
+    starsHTML += `<i class="fa fa-star"></i>`;
+  }
+
+  return starsHTML;
 }
 
 /*--filter panel - apply filters--*/
