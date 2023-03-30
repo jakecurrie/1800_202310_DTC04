@@ -3,86 +3,39 @@ navbarLogoSection.addEventListener('click', () => {
   window.location.replace('/home-page.html');
 });
 
-function showUserName() {
-  myAccountBtn = document.querySelector('#login');
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      currentUser = db.collection('users').doc(user.uid);
-      userNameContainer = document.querySelector('.user-name');
-      currentUser
-        .get()
-        .then((userDoc) => {
-          let userName = userDoc.data().name;
-          userNameContainer.innerHTML = userName;
-          myAccountBtn.innerHTML = userDoc.data().name;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      //if logged in, show the log out button
-      const logoutBtn = document.querySelector('.fa-arrow-right-from-bracket');
-      logoutBtn.style.display = 'block';
-      //hover event listeners
-      // when hover over account name, change to the text log out
-      const loginText = document.querySelector('#login');
-      loginText.addEventListener('mouseover', () => {
-        loginText.innerHTML = 'Logout';
-      });
-      loginText.addEventListener('mouseout', () => {
-        currentUser.onSnapshot((doc) => {
-          myAccountBtn.innerHTML = doc.data().name;
-        });
-        //click event listener
-        // when clicked log out, log out
-        loginText.addEventListener('click', () => {
-          firebase
-            .auth()
-            .signOut()
-            .then(() => {
-              console.log('logged out');
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        });
-      });
-    } else {
-      userNameContainer = document.querySelector('.title-welcome');
-      userNameContainer.innerHTML = 'Log in to see your wishlist!';
-      // if not logged in, show the text log in and change the href attribute to login page
-      myAccountBtn.innerHTML = 'Login';
-      const loginBox = document.querySelector('#refer-login');
-      loginBox.setAttribute('href', './login.html');
-    }
-  });
-}
-
 function userLoginStatus() {
   myAccountBtn = document.querySelector('#login');
   myAccountBtnMobile = document.querySelector('#login-mobile');
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       currentUser = db.collection('users').doc(user.uid);
+
+      // generate the cards if logged in and pass the current user as arg
+      generateFavoriteCards(currentUser);
       currentUser.onSnapshot((doc) => {
         myAccountBtn.innerHTML = doc.data().name;
         myAccountBtnMobile.innerHTML = 'Logout';
+        //if logged in, show their name on the title
+        const welcomeTitleSpan = document.querySelector('.user-name');
+        welcomeTitleSpan.innerHTML = doc.data().name;
       });
       //if logged in, show the log out button
       const logoutBtn = document.querySelector('.fa-arrow-right-from-bracket');
       logoutBtn.style.display = 'block';
+
       //hover event listeners
       // when hover over account name, change to the text log oout
       const loginText = document.querySelector('#login');
       loginText.addEventListener('mouseover', () => {
         loginText.innerHTML = 'Logout';
       });
+
       // when hover out, changes the text to the user name
       loginText.addEventListener('mouseout', () => {
         currentUser.onSnapshot((doc) => {
           myAccountBtn.innerHTML = doc.data().name;
         });
+
         //click event listener
         // when clicked log out, log out
         loginText.addEventListener('click', () => {
@@ -108,6 +61,9 @@ function userLoginStatus() {
       logoutBtn.style.display = 'none';
       loginBox.setAttribute('href', './login.html');
       loginBoxMobile.setAttribute('href', './login.html');
+      // if
+      const welcomeTitle = document.querySelector('.title-welcome');
+      welcomeTitle.innerHTML = 'Log in to see your wishlist!';
     }
   });
 }
@@ -130,4 +86,76 @@ hamburger.addEventListener('click', (event) => {
   }
 });
 
-showUserName();
+function generateFavoriteCards(currentUser) {
+  const cardContainer = document.querySelector('.content-container');
+  currentUser
+    .get()
+    .then((doc) => {
+      doc.data().bookmarks.forEach((productID) => {
+        db.collection('products')
+          .doc(productID)
+          .onSnapshot((doc) => {
+            if (doc.exists) {
+              product = doc.data();
+              const productCard = `
+          <div class="part-1">
+            <img class="card-image" src="${product.image_url}" alt="${product.product_name}">
+            <div id="icon-${productID}">
+              <p><i id="wishlist-${productID}" class="fa fa-heart wishlist-btn"></i></p>
+              <a href="${product.product_url}"target="_blank"><i class="fa fa-link link-btn"></i></a>
+            </div>
+          </div>
+          <div class="part-2">
+            <h3 class="card-price">$${product.price}</h3>
+            <h4 class="card-title">${product.product_name}</h4>
+            <h4 class="card-store">${product.store}</h4>
+          </div>
+            `;
+              card = cardContainer.appendChild(document.createElement('div'));
+              card.classList.add(`content-card-${productID}`);
+              card.innerHTML = productCard;
+              const cardDiv = document.querySelector(
+                `.content-card-${productID}`
+              );
+              const iconDiv = document.getElementById(`icon-${productID}`);
+              const heartIcon = document.getElementById(
+                `wishlist-${productID}`
+              );
+              // Event Listener
+              // When hover over card, show the icons
+              card.addEventListener('mouseover', () => {
+                iconDiv.style.bottom = '10px';
+                iconDiv.style.opacity = '1';
+              });
+              // When not hover dont show the icons
+              card.addEventListener('mouseout', () => {
+                iconDiv.style.bottom = '-60px';
+                iconDiv.style.opacity = '0';
+              });
+              // when click heart icon...
+              heartIcon.addEventListener('click', () => {
+                heartIcon.style.color = 'black';
+                // ...remove from bookmark
+                currentUser
+                  .update({
+                    bookmarks:
+                      firebase.firestore.FieldValue.arrayRemove(productID),
+                  })
+                  .then(function () {
+                    console.log('This bookmark is removed');
+                  });
+                // remove the card div
+                cardDiv.remove();
+              });
+            } else {
+              console.log('no products mate');
+            }
+          });
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+// Event Listeners
