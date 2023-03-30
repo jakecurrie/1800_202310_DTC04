@@ -217,6 +217,7 @@ html {
 }
 
 .navbar-features-mobile {
+    position: absolute;
     display: none;
 }
 
@@ -362,7 +363,6 @@ html {
     }
 
     .navbar-features-mobile {
-        position: absolute;
         transition: 500ms;
         top: 80px;
         right: -125px;
@@ -370,7 +370,7 @@ html {
         flex-direction: column;
         justify-content: space-around;
         width: 125px;
-        height: 100vh;
+        height: 90vh;
         background-color: rgb(38, 49, 89);
     }
 

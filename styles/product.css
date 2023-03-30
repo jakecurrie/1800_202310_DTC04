@@ -152,6 +152,8 @@ Header
   right: 1vw;
 }
 
+/* Old hamburger menu */
+
 .menu {
   list-style: none;
   background-color: #f9f9fb;
@@ -190,6 +192,57 @@ Header
 }
 .menu-link:hover {
   color: var(--grey);
+}
+
+/* New Hamburger Menu */
+
+.navbar-features-mobile {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100vh;
+  width: 125px;
+  top: 55px;
+  right: -20px;
+  background-color: rgb(38, 49, 89);
+}
+
+.navbar-features {
+    width: 50%;
+}
+
+.feature-div {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.feature-div > p {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 1.5em;
+    text-decoration: none;
+    color: white;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+}
+
+.navbar-features-mobile > a {
+  text-decoration: none;
+}
+
+.navbar-icons {
+  visibility: visible;
+  height: 100%;
+  color: white;
+  font-size: 2em;
+}
+
+.logout-icon {
+  visibility: hidden;
 }
 
 /*----------------------------------------------------------------------------
@@ -437,6 +490,10 @@ Product Card
   height: 272px;
   margin-bottom: 20px;
   overflow: hidden;
+}
+
+.row {
+  margin-right: 0;
 }
 
 @media (min-width: 992px) {

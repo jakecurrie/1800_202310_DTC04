@@ -16,6 +16,10 @@
       rel="stylesheet"
     />
     <script
+      src="https://kit.fontawesome.com/294e21ede5.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
@@ -64,7 +68,8 @@
         <label class="menu-icon" for="menu-btn"
           ><span class="hamburger"></span
         ></label>
-        <ul class="row menu">
+        <!-- Old Hamburger Menu -->
+        <!-- <ul class="row menu">
           <br /><br />
           <li><a class="col-md-auto menu-link" href="">Logout</a></li>
           <br /><br />
@@ -74,7 +79,28 @@
           <br /><br />
           <li><a class="col-md-auto menu-link" href="">Help</a></li>
           <br /><br />
-        </ul>
+        </ul> -->
+        <div class="navbar-features-mobile">
+          <a id="refer-category" class="refer-category-mobile">
+            <div class="feature-div product">
+              <i class="fa-solid fa-shop navbar-icons"></i>
+              <p class="navbar-button" id="shop">Shop</p>
+            </div>
+          </a>
+          <a id="refer-wishlist" href="./wishlist.html">
+            <div class="feature-div wishlist">
+              <i class="fa-regular fa-heart navbar-icons"></i>
+              <p class="navbar-button" id="wishlist">Wishlist</p>
+            </div>
+          </a>
+          <a id="refer-login" class="refer-login-mobile" href="">
+            <div class="feature-div login">
+              <i class="fa-solid fa-user navbar-icons"></i>
+              <p class="navbar-button" id="login-mobile"></p>
+              <i class="fa-solid fa-arrow-right-from-bracket logout-icon"></i>
+            </div>
+          </a>
+        </div>
       </nav>
     </header>
 
