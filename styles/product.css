@@ -611,31 +611,6 @@ Product Card
   bottom: 20px;
   opacity: 1;
 }
-#product-list
-  .single-product
-  .part-1
-  ul
-  li
-  a.wishlist-btn.bookmarked:hover
-  > .fa-heart,
-#product-list
-  .single-product
-  .part-1
-  ul
-  li
-  a.wishlist-btn.bookmarked:focus
-  > .fa-heart,
-#product-list
-  .single-product
-  .part-1
-  ul
-  li
-  a.wishlist-btn.bookmarked:active
-  > .fa-heart {
-  color: #fe302f !important;
-  bottom: 20px;
-  opacity: 1;
-}
 
 .yellogreen {
   color: yellowgreen;

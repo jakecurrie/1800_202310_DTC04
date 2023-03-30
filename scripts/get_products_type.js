@@ -233,7 +233,7 @@ function populateStores() {
     );
     checkboxesHTML += `
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="${store}" checked>
+        <input class="form-check-input store-filter" type="checkbox" id="${store}" checked>
         <label class="form-check-label" for="${store}">${store} (${filteredProductsByStore.length})</label>
       </div>
     `;
@@ -322,12 +322,13 @@ function populateReviews() {
     });
 
     checkboxesHTML += `
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="${i}" checked>
-        <label class="form-check-label" for="${i}">${stars} & up (${filteredProductsByRating.length})</label>
-      </div>
-    `;
+    <div class="form-check">
+      <input class="form-check-input rating-filter" type="checkbox" id="${i}" checked>
+      <label class="form-check-label" for="${i}">${stars} & up (${filteredProductsByRating.length})</label>
+    </div>
+  `;
   }
+
   checkboxesContainerRating.html(checkboxesHTML);
 }
 
@@ -350,10 +351,16 @@ function starsHTML(rating) {
 
 /*--filter panel - apply filters--*/
 function applyFilter() {
-  const storeCheckboxes = $(".form-check-input:checked");
+  const storeCheckboxes = $(".store-filter:checked");
+  const ratingCheckboxes = $(".rating-filter:checked");
+
+  const selectedRatings = [];
   const selectedStores = [];
   storeCheckboxes.each(function () {
     selectedStores.push($(this).attr("id"));
+  });
+  ratingCheckboxes.each(function () {
+    selectedRatings.push($(this).attr("id"));
   });
 
   allProducts = [...originalProducts];
@@ -365,15 +372,24 @@ function applyFilter() {
     const selectedPriceMax = parseFloat($("#slider-2").val());
     var filterStores = false;
     var filterPrices = false;
+    var filterRatings = false;
 
     if (selectedStores.length === 0 || selectedStores.includes(product.store)) {
       filterStores = true;
     }
+
+    if (
+      selectedRatings.length === 0 ||
+      selectedRatings.includes(product.rating)
+    ) {
+      filterRatings = true;
+    }
+
     if (productPrice >= selectedPriceMin && productPrice <= selectedPriceMax) {
       filterPrices = true;
     }
 
-    return filterStores && filterPrices;
+    return filterStores && filterPrices && filterRatings;
   });
 
   console.log("filtered products length: ", filteredProducts.length);
