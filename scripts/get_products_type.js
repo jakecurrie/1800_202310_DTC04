@@ -13,15 +13,15 @@ query product category
 function queryProductCategory() {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const category = urlParams.get('category');
-  const categoryHeader = $('#category-header');
+  const category = urlParams.get("category");
+  const categoryHeader = $("#category-header");
 
   categoryHeader.html(category);
 
   const db = firebase.firestore();
   const productsRef = db
-    .collection('products')
-    .where('product_type', '==', category);
+    .collection("products")
+    .where("product_type", "==", category);
   productsRef
     .get()
     .then((querySnapshot) => {
@@ -46,9 +46,9 @@ function queryProductCategory() {
 pagination
 -----------------------------------------------------------------------*/
 function generatePagination() {
-  const paginationContainer = $('#pagination-container');
+  const paginationContainer = $("#pagination-container");
   const totalPages = Math.ceil(allProducts.length / cardsPerPage);
-  let paginationHTML = '';
+  let paginationHTML = "";
   for (let i = 1; i <= totalPages; i++) {
     if (i === currentPage) {
       paginationHTML += `<button class="btn active pagbtn">${i}</button>`;
@@ -58,8 +58,8 @@ function generatePagination() {
   }
   paginationContainer.html(paginationHTML);
 
-  const prevBtn = $('#prev-btn');
-  const nextBtn = $('#next-btn');
+  const prevBtn = $("#prev-btn");
+  const nextBtn = $("#next-btn");
 
   //hide the previous button on the first page
   if (currentPage === 1) {
@@ -75,7 +75,7 @@ function generatePagination() {
     nextBtn.show();
   }
 
-  paginationContainer.off().on('click', '.pagbtn', function () {
+  paginationContainer.off().on("click", ".pagbtn", function () {
     currentPage = $(this).index() + 1;
     generateProductCards();
     generatePagination();
@@ -89,7 +89,7 @@ product card
 function generateProductCards() {
   const startIndex = (currentPage - 1) * cardsPerPage;
   const endIndex = startIndex + cardsPerPage;
-  const productList = $('#product-list');
+  const productList = $("#product-list");
   productList.empty();
 
   allProducts.slice(startIndex, endIndex).forEach((doc) => {
@@ -100,26 +100,44 @@ function generateProductCards() {
           <div class="part-1">
             <img class="card-img-top" src="${product.image_url}" alt="${product.product_name}">
             <ul>
-              <li><a href="#"><i class="fa fa-heart"></i></a></li>
-              <li><a href="${product.image_url}"target="_blank"><i class="fa fa-link"></i></a></li>
+              <li><a href="#"><i class="fa fa-heart wishlist-btn"></i></a></li>
+              <li><a href="${product.product_url}"target="_blank"><i class="fa fa-link link-btn"></i></a></li>
             </ul>
           </div>
           <div class="part-2">
             <h3 class="product-price">$${product.price}</h3>
             <h4 class="product-title">${product.product_name}</h4>
             <h4 class="product-store">${product.store}</h4>
+            <h4 class="product-rating">${product.rating}</h4>
           </div>
         </div>
       </div>
     `;
     productList.append(productCard);
+
+    const wishlistBtn = $(`#product-${doc.id} .wishlist-btn`);
+
+    wishlistBtn.on("click", (event) => {
+      console.log(`product ${doc.id} clicked`);
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          currentUser = db.collection("users").doc(user.uid); //global
+          console.log(currentUser);
+          updateBookmark(doc.id);
+        } else {
+          // No user is signed in.
+          console.log("No user is signed in");
+          window.location.href = "login.html";
+        }
+      });
+    });
   });
-  const productCount = $("#product-count");
-  productCount.html(`(${allProducts.length} results)`);
+  // const productCount = $("#product-count");
+  // productCount.html(`(${allProducts.length} results)`);
 }
 
 //update product cards when user clicks the previous button
-$('#prev-btn').on('click', function () {
+$("#prev-btn").on("click", function () {
   if (currentPage > 1) {
     currentPage--;
     console.log(currentPage);
@@ -130,7 +148,7 @@ $('#prev-btn').on('click', function () {
 });
 
 //update product cards when user clicks the next button
-$('#next-btn').on('click', function () {
+$("#next-btn").on("click", function () {
   const totalPages = Math.ceil(allProducts.length / cardsPerPage);
   if (currentPage < totalPages) {
     currentPage++;
@@ -144,6 +162,51 @@ $('#next-btn').on('click', function () {
 queryProductCategory();
 
 /*-----------------------------------------------------------------------
+Wishlist
+-----------------------------------------------------------------------*/
+function updateBookmark(id) {
+  currentUser.get().then(function (userDoc) {
+    if (userDoc.data().bookmarks) {
+      bookmarksNow = userDoc.data().bookmarks;
+    } else {
+      bookmarksNow = []; //if boookmarks field is undefined
+    }
+    console.log(bookmarksNow);
+
+    //check if this bookmark already existed in firestore:
+    if (bookmarksNow.includes(id)) {
+      console.log(id);
+      //if it does exist, then remove it
+      currentUser
+        .update({
+          bookmarks: firebase.firestore.FieldValue.arrayRemove(id),
+        })
+        .then(function () {
+          console.log("This bookmark is removed for" + currentUser);
+          var iconID = "save-" + id;
+          console.log(iconID);
+          $("#" + iconID).innerText = "bookmark_border"; // change the icon
+        });
+    } else {
+      //if it does not exist, then add it
+      currentUser
+        .set(
+          {
+            bookmarks: firebase.firestore.FieldValue.arrayUnion(id),
+          },
+          { merge: true }
+        )
+        .then(function () {
+          console.log("This bookmark is for" + currentUser);
+          var iconID = "save-" + id;
+          console.log(iconID);
+          // $("#"+iconID).innerText = "bookmark";
+        });
+    }
+  });
+}
+
+/*-----------------------------------------------------------------------
 filters
 -----------------------------------------------------------------------*/
 
@@ -155,8 +218,8 @@ function populateStores() {
     stores.add(product.store);
   });
 
-  const checkboxesContainer = $('#stores-checkboxes');
-  let checkboxesHTML = '';
+  const checkboxesContainer = $("#stores-checkboxes");
+  let checkboxesHTML = "";
   stores.forEach((store) => {
     const filteredProductsByStore = allProducts.filter(
       (doc) => doc.data().store === store
@@ -173,7 +236,7 @@ function populateStores() {
 
 /*--filter panel - double range price slider--*/
 function generatePriceRangeSlider(priceMin, priceMax) {
-  $('.double-range-slider').html(
+  $(".double-range-slider").html(
     `<div class="wrapper">
       <div class="slider-container">
         <div class="slider-track"></div>
@@ -186,16 +249,16 @@ function generatePriceRangeSlider(priceMin, priceMax) {
       </div>
     </div>`
   );
-  sliderOne = $('#slider-1');
-  sliderTwo = $('#slider-2');
-  sliderTrack = $('.slider-track');
-  sliderMaxValue = sliderOne.attr('max');
+  sliderOne = $("#slider-1");
+  sliderTwo = $("#slider-2");
+  sliderTrack = $(".slider-track");
+  sliderMaxValue = sliderOne.attr("max");
 
   slideOne();
   slideTwo();
 
-  sliderOne.on('input', slideOne);
-  sliderTwo.on('input', slideTwo);
+  sliderOne.on("input", slideOne);
+  sliderTwo.on("input", slideTwo);
 }
 
 //update price min when left thumb is moved
@@ -203,7 +266,7 @@ function slideOne() {
   if (parseInt(sliderTwo.val()) - parseInt(sliderOne.val()) <= 10) {
     sliderOne.val(parseInt(sliderTwo.val()) - 10);
   }
-  $('#price-min').text('Min: $' + sliderOne.val());
+  $("#price-min").text("Min: $" + sliderOne.val());
   fillColor();
 }
 
@@ -212,7 +275,7 @@ function slideTwo() {
   if (parseInt(sliderTwo.val()) - parseInt(sliderOne.val()) <= 10) {
     sliderTwo.val(parseInt(sliderOne.val()) + 10);
   }
-  $('#price-max').text('Max: $' + sliderTwo.val());
+  $("#price-max").text("Max: $" + sliderTwo.val());
   fillColor();
 }
 
@@ -221,17 +284,17 @@ function fillColor() {
   percent1 = (sliderOne.val() / sliderMaxValue) * 100;
   percent2 = (sliderTwo.val() / sliderMaxValue) * 100;
   sliderTrack.css(
-    'background',
+    "background",
     `linear-gradient(to right, #dadae5 ${percent1}% , #3264fe ${percent1}% , #3264fe ${percent2}%, #dadae5 ${percent2}%)`
   );
 }
 
 /*--filter panel - apply filters--*/
 function applyFilter() {
-  const storeCheckboxes = $('.form-check-input:checked');
+  const storeCheckboxes = $(".form-check-input:checked");
   const selectedStores = [];
   storeCheckboxes.each(function () {
-    selectedStores.push($(this).attr('id'));
+    selectedStores.push($(this).attr("id"));
   });
 
   allProducts = [...originalProducts];
@@ -239,8 +302,8 @@ function applyFilter() {
   const filteredProducts = allProducts.filter((doc) => {
     const product = doc.data();
     const productPrice = parseFloat(product.price);
-    const selectedPriceMin = parseFloat($('#slider-1').val());
-    const selectedPriceMax = parseFloat($('#slider-2').val());
+    const selectedPriceMin = parseFloat($("#slider-1").val());
+    const selectedPriceMax = parseFloat($("#slider-2").val());
     var filterStores = false;
     var filterPrices = false;
 
@@ -254,7 +317,7 @@ function applyFilter() {
     return filterStores && filterPrices;
   });
 
-  console.log('filtered products length: ', filteredProducts.length);
+  console.log("filtered products length: ", filteredProducts.length);
 
   allProducts = filteredProducts;
   currentPage = 1;
@@ -262,10 +325,10 @@ function applyFilter() {
   generateProductCards();
 }
 
-$('#apply-filter').on('click', function () {
+$("#apply-filter").on("click", function () {
   applyFilter();
 });
 
-document.querySelector('.navbar-logo').addEventListener('click', () => {
-  window.location.href = './home-page.html';
+document.querySelector(".navbar-logo").addEventListener("click", () => {
+  window.location.href = "./home-page.html";
 });

@@ -479,7 +479,7 @@ Product Card
 }
 
 .card-img-top:hover {
-  transform: scale(1.2, 1.2) rotate(5deg);
+  transform: scale(0.8, 0.8) rotate(5deg);
 }
 
 .card-img-top {
@@ -536,15 +536,16 @@ Product Card
 }
 
 #product-list .single-product .part-2 .product-title,
-#product-list .single-product .part-2 .product-store {
+#product-list .single-product .part-2 .product-store,
+#product-list .single-product .part-2 .product-rating {
   font-size: 0.8rem;
 }
 
-a {
+/* a {
   text-decoration: none;
   outline: none !important;
   color: #fff;
-}
+} */
 
 .border-shape {
   background: #fffbeb none repeat scroll 0 0;
