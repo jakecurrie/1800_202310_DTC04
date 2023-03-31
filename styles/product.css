@@ -96,6 +96,7 @@ Header
 .navbar-brand:hover {
   color: var(--lightgrey);
 }
+
 .hamburger {
   display: block;
   position: relative;
@@ -105,6 +106,7 @@ Header
   transition: 0.2s ease-out;
   z-index: 12;
 }
+
 .hamburger:before,
 .hamburger:after {
   background: white;
@@ -196,6 +198,14 @@ Header
 
 /* New Hamburger Menu */
 
+.fa-bars, .fa-xmark {
+  display: block;
+  cursor: pointer;
+  visibility: visible;
+  color: white;
+  font-size: 2em;
+}
+
 .navbar-features-mobile {
   display: flex;
   position: absolute;
@@ -204,8 +214,9 @@ Header
   height: 100vh;
   width: 125px;
   top: 55px;
-  right: -20px;
+  right: -200px;
   background-color: rgb(38, 49, 89);
+  transition: 500ms ease;
 }
 
 .navbar-features {
@@ -395,20 +406,25 @@ Filter panel
 }
 
 #apply-filter {
-  background-color: #eeeeee;
+  background-color: #a3a3a3;
   border-radius: 15px;
 }
 
-@media (min-width: 768px) {
-  #btn-filter {
-    display: none;
-  }
+#btn-filter {
+  display: none;
 }
 
-@media (max-width: 767px) {
-  .filter-panel {
-    display: none;
+@media (max-width: 992px) {
+  .d-lg-block {
+    display: block!important;
+    position: fixed;
+    bottom: -800px;
+    width: 100vw;
+    height: 80vh;
+    z-index: 5;
+    background-color: rgb(240, 240, 240);
   }
+
   #btn-filter {
     display: block;
   }
@@ -484,6 +500,8 @@ input[type="range"]::-webkit-slider-thumb {
   font-size: 14px;
   color: #333;
 }
+
+
 
 /*----------------------------------------------------------------------------
 Product Card

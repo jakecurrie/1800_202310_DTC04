@@ -118,9 +118,6 @@ function generateFavoriteCards(currentUser) {
                 `.content-card-${productID}`
               );
               const iconDiv = document.getElementById(`icon-${productID}`);
-              const heartIcon = document.getElementById(
-                `wishlist-${productID}`
-              );
               // Event Listener
               // When hover over card, show the icons
               card.addEventListener('mouseover', () => {
@@ -133,8 +130,8 @@ function generateFavoriteCards(currentUser) {
                 iconDiv.style.opacity = '0';
               });
               // when click heart icon...
-              heartIcon.addEventListener('click', () => {
-                heartIcon.style.color = 'black';
+              iconDiv.children[0].addEventListener('click', () => {
+                iconDiv.children[0].style.color = 'black';
                 // ...remove from bookmark
                 currentUser
                   .update({
