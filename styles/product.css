@@ -21,7 +21,6 @@ html {
 main {
   margin-top: 100px;
   margin-left: 10px;
-
 }
 body {
   font-family: "Source Sans Pro", sans-serif;
@@ -199,7 +198,8 @@ Header
 
 /* New Hamburger Menu */
 
-.fa-bars, .fa-xmark {
+.fa-bars,
+.fa-xmark {
   display: block;
   cursor: pointer;
   visibility: visible;
@@ -402,11 +402,13 @@ Filter panel
   margin-bottom: 10px;
 }
 
-.filter-by > h3{
+.filter-by > h3 {
   font-size: 1.4em;
 }
 
-.filter-by-price, .filter-by-store, .filter-by-rating {
+.filter-by-price,
+.filter-by-store,
+.filter-by-rating {
   height: 55px;
   overflow-y: hidden;
   transition: 300ms ease;
@@ -438,7 +440,7 @@ Filter panel
 
 @media (max-width: 992px) {
   .d-lg-block {
-    display: block!important;
+    display: block !important;
     position: fixed;
     bottom: -800px;
     width: 100vw;
@@ -510,11 +512,7 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 50%;
 }
 
-.star-rating {
-  display: flex;
-}
-
-.fa-star {
+.grey-stars {
   color: #ddd;
 }
 
@@ -528,13 +526,31 @@ input[type="range"]::-webkit-slider-thumb {
   color: #333;
 }
 
+.star-rating,
+.back-stars,
+.front-stars {
+  display: flex;
+  font-size: 1em;
+}
+.star-rating {
+  justify-content: start;
+}
+.back-stars {
+  color: lightgrey;
+  position: relative;
+}
+.front-stars {
+  color: #ffbc0b !important;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  transition: all 0.5s;
+}
 @media screen and (max-width: 992px) {
   .slider-container {
     width: 100%;
   }
-  
 }
-
 /*----------------------------------------------------------------------------
 Product Card
 ------------------------------------------------------------------------------*/
