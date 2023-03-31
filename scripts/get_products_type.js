@@ -149,6 +149,7 @@ function generateProductCards() {
 
     //click wishlist button to bookmark item
     const wishlistBtn = $(`#product-${doc.id} .wishlist-btn`);
+
     wishlistBtn.on("click", (event) => {
       console.log(`product ${doc.id} clicked`);
       event.preventDefault();
@@ -276,7 +277,7 @@ function fillColor() {
   percent2 = (sliderTwo.val() / sliderMaxValue) * 100;
   sliderTrack.css(
     "background",
-    `linear-gradient(to right, #dadae5 ${percent1}% , #3264fe ${percent1}% , #3264fe ${percent2}%, #dadae5 ${percent2}%)`
+    `linear-gradient(to right, #dadae5 ${percent1}% , #a3a3a3  ${percent1}% , #a3a3a3  ${percent2}%, #dadae5 ${percent2}%)`
   );
 }
 
