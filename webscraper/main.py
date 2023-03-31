@@ -6,6 +6,7 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.firefox import GeckoDriverManager
 import time
+import re
 from google.cloud import firestore
 
 # Adjusting selenium settings to reduce script runtime and ensure compatability with google cloud run
@@ -112,6 +113,34 @@ def scrape_url(store, product_type, url):
 
     return scraped_data
 
+
+def can_tire_image_fix(product_data):
+    """
+    Remove everything after ".png" in image_urls.
+    """
+    if product_data["store"] == "Canadian Tire":
+        match = re.search(r'^(.*\.png)', product_data['image_url'])
+        if match:
+            product_data['image_url'] = match.group(1)
+
+
+def remove_dollar_sign(product_data):
+    """
+    Strip any dollar signs from price data.
+    """
+    if "$" in product_data['price']:
+        product_data['price'] = product_data['price'].replace("$", "")
+
+
+def clean_data(dataset):
+    """
+    Run all data cleaning functions on dataset.
+    """
+    for product in dataset:
+        can_tire_image_fix(product)
+        remove_dollar_sign(product)
+
+
 def main():
     db = firestore.Client()
     batch = db.batch()
@@ -121,8 +150,10 @@ def main():
         for web_store in urls[product_category]:
             data = scrape_url(web_store, product_category, urls[product_category][web_store])
             all_data += data
+
+    cleaned_data = clean_data(all_data)
     
-    for doc_data in all_data:
+    for doc_data in cleaned_data:
         doc_ref = db.collection("products").document()
         batch.set(doc_ref, doc_data)
     
