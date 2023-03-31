@@ -17,6 +17,7 @@ body {
     cursor: pointer;
     text-decoration: none;
     color: black;
+    z-index: 100;
     left: 1%;
     top: 1%;
 }
