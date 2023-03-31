@@ -198,7 +198,8 @@ Header
 
 /* New Hamburger Menu */
 
-.fa-bars, .fa-xmark {
+.fa-bars,
+.fa-xmark {
   display: block;
   cursor: pointer;
   visibility: visible;
@@ -416,7 +417,7 @@ Filter panel
 
 @media (max-width: 992px) {
   .d-lg-block {
-    display: block!important;
+    display: block !important;
     position: fixed;
     bottom: -800px;
     width: 100vw;
@@ -483,11 +484,7 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 50%;
 }
 
-.star-rating {
-  display: flex;
-}
-
-.fa-star {
+.grey-stars {
   color: #ddd;
 }
 
@@ -501,7 +498,26 @@ input[type="range"]::-webkit-slider-thumb {
   color: #333;
 }
 
-
+.star-rating,
+.back-stars,
+.front-stars {
+  display: flex;
+  font-size: 1em;
+}
+.star-rating {
+  justify-content: start;
+}
+.back-stars {
+  color: lightgrey;
+  position: relative;
+}
+.front-stars {
+  color: #ffbc0b !important;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  transition: all 0.5s;
+}
 
 /*----------------------------------------------------------------------------
 Product Card
