@@ -126,7 +126,7 @@ function generateFavoriteCards(currentUser) {
               });
               // When not hover dont show the icons
               card.addEventListener('mouseout', () => {
-                iconDiv.style.bottom = '-60px';
+                iconDiv.style.bottom = '0px';
                 iconDiv.style.opacity = '0';
               });
               // when click heart icon...
@@ -139,13 +139,10 @@ function generateFavoriteCards(currentUser) {
                       firebase.firestore.FieldValue.arrayRemove(productID),
                   })
                   .then(function () {
-                    console.log('This bookmark is removed');
+                    cardDiv.remove();
                   });
                 // remove the card div
-                cardDiv.remove();
               });
-            } else {
-              console.log('no products mate');
             }
           });
       });
