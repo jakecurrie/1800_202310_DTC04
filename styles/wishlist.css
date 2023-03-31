@@ -129,10 +129,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 200px;
-    background-color: rgb(246, 246, 246);
+    width: 180px;
     padding: 10px;
-    height: 300px;
+    background-color: rgb(246, 246, 246);
+    height: 280px;
 }
 
 .part-1 {
@@ -141,7 +141,7 @@ body {
 }
 
 .card-image {
-    height: 190px;
+    height: 180px;
     object-fit: cover
 }
 
@@ -170,6 +170,10 @@ body {
 
 .fa-link {
     color: black;
+}
+
+.part-2 {
+    width: 180px;
 }
 
 .card-title {
@@ -283,6 +287,17 @@ body {
         grid-gap: 50px;
     }
 }
+
+@media screen and (max-width: 600px) {
+    .content-container {
+        grid-template-columns: repeat(1, 250px);
+    }
+
+    .content-container > div {
+        width: 230px;
+    }
+}
+
 
 @media screen and (max-width: 450px) {
     .title-snowscraper {
