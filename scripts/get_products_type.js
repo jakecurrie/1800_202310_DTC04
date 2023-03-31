@@ -164,56 +164,6 @@ $("#next-btn").on("click", function () {
 queryProductCategory();
 
 /*-----------------------------------------------------------------------
-Wishlist
------------------------------------------------------------------------*/
-function updateBookmark(id) {
-  currentUser.get().then(function (userDoc) {
-    if (userDoc.data().bookmarks) {
-      bookmarksNow = userDoc.data().bookmarks;
-    } else {
-      bookmarksNow = []; //if boookmarks field is undefined
-    }
-    console.log(bookmarksNow);
-
-    //check if this bookmark already existed in firestore:
-    if (bookmarksNow.includes(id)) {
-      console.log(id);
-      //if it does exist, then remove it
-      currentUser
-        .update({
-          bookmarks: firebase.firestore.FieldValue.arrayRemove(id),
-        })
-        .then(function () {
-          console.log(`This bookmark is removed for ${userDoc.data().name}`);
-          var iconID = "save-" + id;
-          console.log(iconID);
-
-          $(`.single-product #product-${id} .wishlist-btn`).addClass(
-            "bookmarked"
-          );
-          // $("#" + iconID).innerText = "bookmark_border";
-        });
-    } else {
-      //if it does not exist, then add it
-      currentUser
-        .set(
-          {
-            bookmarks: firebase.firestore.FieldValue.arrayUnion(id),
-          },
-          { merge: true }
-        )
-        .then(function () {
-          console.log(`This bookmark is added for ${userDoc.data().name}`);
-          var iconID = "save-" + id;
-          console.log(iconID);
-          $(`#product-${"#" + id} .wishlist-btn`).addClass("yellogreen");
-          // $("#"+iconID).innerText = "bookmark";
-        });
-    }
-  });
-}
-
-/*-----------------------------------------------------------------------
 filters
 -----------------------------------------------------------------------*/
 
@@ -222,23 +172,26 @@ function populateStores() {
   const stores = new Set();
   allProducts.forEach((doc) => {
     const product = doc.data();
+    // console.log(`product.rating: ${product.rating}`);
+
     stores.add(product.store);
   });
 
-  const checkboxesContainerStores = $("#stores-checkboxes");
+  const checkboxesContainer = $("#stores-checkboxes");
   let checkboxesHTML = "";
   stores.forEach((store) => {
     const filteredProductsByStore = allProducts.filter(
       (doc) => doc.data().store === store
     );
+
     checkboxesHTML += `
       <div class="form-check">
-        <input class="form-check-input store-filter" type="checkbox" id="${store}" checked>
+        <input class="form-check-input" type="checkbox" id="${store}" checked>
         <label class="form-check-label" for="${store}">${store} (${filteredProductsByStore.length})</label>
       </div>
     `;
   });
-  checkboxesContainerStores.html(checkboxesHTML);
+  checkboxesContainer.html(checkboxesHTML);
 }
 
 /*--filter panel - double range price slider--*/
@@ -305,6 +258,8 @@ function populateReviews() {
     const stars = starsHTML(i);
     const filteredProductsByRating = allProducts.filter((doc) => {
       const rating = parseFloat(doc.data().rating);
+      console.log(`Parsed rating value: ${rating}`);
+
       switch (i) {
         case 0:
           return rating >= 4 && rating <= 5;
@@ -315,18 +270,22 @@ function populateReviews() {
         case 3:
           return rating >= 1 && rating < 2;
         case 4:
-          return rating == null || rating < 1;
+          return rating == null || rating === "" || rating < 1 || isNaN(rating);
         default:
           return false;
       }
     });
+    // console.log(
+    //   `Rating ${i} - filteredProductsByRating:`,
+    //   filteredProductsByRating
+    // );
 
     checkboxesHTML += `
-    <div class="form-check">
-      <input class="form-check-input rating-filter" type="checkbox" id="${i}" checked>
-      <label class="form-check-label" for="${i}">${stars} & up (${filteredProductsByRating.length})</label>
-    </div>
-  `;
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="rating-${i}" checked>
+    <label class="form-check-label" for="rating-${i}">${stars} & up (${filteredProductsByRating.length})</label>
+  </div>
+`;
   }
 
   checkboxesContainerRating.html(checkboxesHTML);
@@ -351,25 +310,32 @@ function starsHTML(rating) {
 
 /*--filter panel - apply filters--*/
 function applyFilter() {
-  const storeCheckboxes = $(".store-filter:checked");
-  const ratingCheckboxes = $(".rating-filter:checked");
-
-  const selectedRatings = [];
+  const storeCheckboxes = $(".form-check-input:checked");
   const selectedStores = [];
   storeCheckboxes.each(function () {
     selectedStores.push($(this).attr("id"));
   });
-  ratingCheckboxes.each(function () {
-    selectedRatings.push($(this).attr("id"));
-  });
 
+  console.log("selectedStores:", selectedStores); // log selected stores
+
+  const ratingCheckboxes = $(".form-check-input:checked").filter(
+    (index, checkbox) => {
+      return parseInt(checkbox.id) > 0;
+    }
+  );
+  const selectedRatings = ratingCheckboxes
+    .map((index, checkbox) => {
+      return parseInt(checkbox.id);
+    })
+    .get();
   allProducts = [...originalProducts];
-
+  console.log("selectedRating:", selectedRatings); // log selected ratings
   const filteredProducts = allProducts.filter((doc) => {
     const product = doc.data();
     const productPrice = parseFloat(product.price);
     const selectedPriceMin = parseFloat($("#slider-1").val());
     const selectedPriceMax = parseFloat($("#slider-2").val());
+    const productRating = parseFloat(product.rating);
     var filterStores = false;
     var filterPrices = false;
     var filterRatings = false;
@@ -377,24 +343,24 @@ function applyFilter() {
     if (selectedStores.length === 0 || selectedStores.includes(product.store)) {
       filterStores = true;
     }
-
-    if (
-      selectedRatings.length === 0 ||
-      selectedRatings.includes(product.rating)
-    ) {
-      filterRatings = true;
-    }
-
     if (productPrice >= selectedPriceMin && productPrice <= selectedPriceMax) {
       filterPrices = true;
+    }
+    if (
+      selectedRatings.length === 0 ||
+      selectedRatings.includes(Math.floor(productRating))
+    ) {
+      filterRatings = true;
     }
 
     return filterStores && filterPrices && filterRatings;
   });
 
-  console.log("filtered products length: ", filteredProducts.length);
+  console.log("allProducts length before filtering:", allProducts.length);
+  console.log("filteredProducts length:", filteredProducts.length);
 
   allProducts = filteredProducts;
+
   currentPage = 1;
   generatePagination();
   generateProductCards();
@@ -407,3 +373,52 @@ $("#apply-filter").on("click", function () {
 document.querySelector(".navbar-logo").addEventListener("click", () => {
   window.location.href = "./home-page.html";
 });
+
+/*-----------------------------------------------------------------------
+Wishlist
+-----------------------------------------------------------------------*/
+function updateBookmark(id) {
+  currentUser.get().then(function (userDoc) {
+    if (userDoc.data().bookmarks) {
+      bookmarksNow = userDoc.data().bookmarks;
+    } else {
+      bookmarksNow = []; //if boookmarks field is undefined
+    }
+    console.log(bookmarksNow);
+
+    //check if this bookmark already existed in firestore:
+    if (bookmarksNow.includes(id)) {
+      console.log(id);
+      //if it does exist, then remove it
+      currentUser
+        .update({
+          bookmarks: firebase.firestore.FieldValue.arrayRemove(id),
+        })
+        .then(function () {
+          console.log(`This bookmark is removed for ${userDoc.data().name}`);
+          var iconID = "save-" + id;
+          console.log(iconID);
+          $(`.single-product #product-${id} .wishlist-btn`).addClass(
+            "bookmarked"
+          );
+          // $("#" + iconID).innerText = "bookmark_border";
+        });
+    } else {
+      //if it does not exist, then add it
+      currentUser
+        .set(
+          {
+            bookmarks: firebase.firestore.FieldValue.arrayUnion(id),
+          },
+          { merge: true }
+        )
+        .then(function () {
+          console.log(`This bookmark is added for ${userDoc.data().name}`);
+          var iconID = "save-" + id;
+          console.log(iconID);
+          $(`#product-${"#" + id} .wishlist-btn`).addClass("yellogreen");
+          // $("#"+iconID).innerText = "bookmark";
+        });
+    }
+  });
+}
