@@ -4,7 +4,9 @@ body {
 
 html {
     overflow-y: overlay;
+    scroll-behavior: smooth;
 }
+
 
 .hidden-scrollbar::-webkit-scrollbar {
     display: none;
@@ -249,7 +251,7 @@ html {
     font-family: 'League Spartan', sans-serif;
     font-size: 1.5em;
     text-decoration: none;
-    color: white;
+    color: white;   
 }
 
 #refer-login {
