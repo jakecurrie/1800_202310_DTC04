@@ -87,7 +87,7 @@ def scrape_url(store, product_type, url):
     child_selectors = selectors[store]["child_selectors"]
     # creating an empty list to store all product data in
     scraped_data = []
-    # instructing the web browser to load the url, then wait 10 seconds for page to fully load
+    # instructing the web browser to load the url, then wait 15 seconds for page to fully load
     driver.get(url)
     time.sleep(15)
     # grabbing a list of product elements on the page that match the parent css selector. The parent css selector is the
@@ -138,12 +138,12 @@ def remove_dollar_sign(product_data):
         product_data['price'] = product_data['price'].replace("$", "")
 
 
-def clean_data(dataset):
+def clean_data(product_data):
     """
     Run all data cleaning functions on dataset.
     """
-    can_tire_image_fix(product)
-    remove_dollar_sign(product)
+    can_tire_image_fix(product_data)
+    remove_dollar_sign(product_data)
 
 
 def webscraper():
