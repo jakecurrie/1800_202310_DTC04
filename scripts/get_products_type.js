@@ -13,15 +13,15 @@ query product category
 function queryProductCategory() {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const category = urlParams.get("category");
-  const categoryHeader = $("#category-header");
+  const category = urlParams.get('category');
+  const categoryHeader = $('#category-header');
 
   categoryHeader.html(category);
 
   const db = firebase.firestore();
   const productsRef = db
-    .collection("products")
-    .where("product_type", "==", category);
+    .collection('products')
+    .where('product_type', '==', category);
   productsRef
     .get()
     .then((querySnapshot) => {
@@ -47,9 +47,9 @@ function queryProductCategory() {
 pagination
 -----------------------------------------------------------------------*/
 function generatePagination() {
-  const paginationContainer = $("#pagination-container");
+  const paginationContainer = $('#pagination-container');
   const totalPages = Math.ceil(allProducts.length / cardsPerPage);
-  let paginationHTML = "";
+  let paginationHTML = '';
   for (let i = 1; i <= totalPages; i++) {
     if (i === currentPage) {
       paginationHTML += `<button class="btn active pagbtn">${i}</button>`;
@@ -59,8 +59,8 @@ function generatePagination() {
   }
   paginationContainer.html(paginationHTML);
 
-  const prevBtn = $("#prev-btn");
-  const nextBtn = $("#next-btn");
+  const prevBtn = $('#prev-btn');
+  const nextBtn = $('#next-btn');
 
   //hide the previous button on the first page
   if (currentPage === 1) {
@@ -76,7 +76,7 @@ function generatePagination() {
     nextBtn.show();
   }
 
-  paginationContainer.off().on("click", ".pagbtn", function () {
+  paginationContainer.off().on('click', '.pagbtn', function () {
     currentPage = $(this).index() + 1;
     generateProductCards();
     generatePagination();
@@ -90,7 +90,7 @@ product card
 function generateProductCards() {
   const startIndex = (currentPage - 1) * cardsPerPage;
   const endIndex = startIndex + cardsPerPage;
-  const productList = $("#product-list");
+  const productList = $('#product-list');
   productList.empty();
 
   allProducts.slice(startIndex, endIndex).forEach((doc) => {
@@ -118,18 +118,18 @@ function generateProductCards() {
 
     const wishlistBtn = $(`#product-${doc.id} .wishlist-btn`);
 
-    wishlistBtn.on("click", (event) => {
+    wishlistBtn.on('click', (event) => {
       console.log(`product ${doc.id} clicked`);
       event.preventDefault(); //prevent page from directing to a href
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-          currentUser = db.collection("users").doc(user.uid); //global
+          currentUser = db.collection('users').doc(user.uid); //global
           console.log(currentUser);
           updateBookmark(doc.id);
         } else {
           // No user is signed in.
-          console.log("No user is signed in");
-          window.location.href = "login.html";
+          console.log('No user is signed in');
+          window.location.href = 'login.html';
         }
       });
     });
@@ -139,7 +139,7 @@ function generateProductCards() {
 }
 
 //update product cards when user clicks the previous button
-$("#prev-btn").on("click", function () {
+$('#prev-btn').on('click', function () {
   if (currentPage > 1) {
     currentPage--;
     console.log(currentPage);
@@ -150,7 +150,7 @@ $("#prev-btn").on("click", function () {
 });
 
 //update product cards when user clicks the next button
-$("#next-btn").on("click", function () {
+$('#next-btn').on('click', function () {
   const totalPages = Math.ceil(allProducts.length / cardsPerPage);
   if (currentPage < totalPages) {
     currentPage++;
@@ -177,8 +177,8 @@ function populateStores() {
     stores.add(product.store);
   });
 
-  const checkboxesContainer = $("#stores-checkboxes");
-  let checkboxesHTML = "";
+  const checkboxesContainer = $('#stores-checkboxes');
+  let checkboxesHTML = '';
   stores.forEach((store) => {
     const filteredProductsByStore = allProducts.filter(
       (doc) => doc.data().store === store
@@ -196,7 +196,7 @@ function populateStores() {
 
 /*--filter panel - double range price slider--*/
 function generatePriceRangeSlider(priceMin, priceMax) {
-  $(".double-range-slider").html(
+  $('.double-range-slider').html(
     `<div class="wrapper">
       <div class="slider-container">
         <div class="slider-track"></div>
@@ -209,16 +209,16 @@ function generatePriceRangeSlider(priceMin, priceMax) {
       </div>
     </div>`
   );
-  sliderOne = $("#slider-1");
-  sliderTwo = $("#slider-2");
-  sliderTrack = $(".slider-track");
-  sliderMaxValue = sliderOne.attr("max");
+  sliderOne = $('#slider-1');
+  sliderTwo = $('#slider-2');
+  sliderTrack = $('.slider-track');
+  sliderMaxValue = sliderOne.attr('max');
 
   slideOne();
   slideTwo();
 
-  sliderOne.on("input", slideOne);
-  sliderTwo.on("input", slideTwo);
+  sliderOne.on('input', slideOne);
+  sliderTwo.on('input', slideTwo);
 }
 
 //update price min when left thumb is moved
@@ -226,7 +226,7 @@ function slideOne() {
   if (parseInt(sliderTwo.val()) - parseInt(sliderOne.val()) <= 10) {
     sliderOne.val(parseInt(sliderTwo.val()) - 10);
   }
-  $("#price-min").text("Min: $" + sliderOne.val());
+  $('#price-min').text('Min: $' + sliderOne.val());
   fillColor();
 }
 
@@ -235,7 +235,7 @@ function slideTwo() {
   if (parseInt(sliderTwo.val()) - parseInt(sliderOne.val()) <= 10) {
     sliderTwo.val(parseInt(sliderOne.val()) + 10);
   }
-  $("#price-max").text("Max: $" + sliderTwo.val());
+  $('#price-max').text('Max: $' + sliderTwo.val());
   fillColor();
 }
 
@@ -244,15 +244,15 @@ function fillColor() {
   percent1 = (sliderOne.val() / sliderMaxValue) * 100;
   percent2 = (sliderTwo.val() / sliderMaxValue) * 100;
   sliderTrack.css(
-    "background",
-    `linear-gradient(to right, #dadae5 ${percent1}% , #3264fe ${percent1}% , #3264fe ${percent2}%, #dadae5 ${percent2}%)`
+    'background',
+    `linear-gradient(to right, #dadae5 ${percent1}% , #a3a3a3  ${percent1}% , #a3a3a3  ${percent2}%, #dadae5 ${percent2}%)`
   );
 }
 
 /*--filter panel - customer review--*/
 function populateReviews() {
-  const checkboxesContainerRating = $("#reviews-checkboxes");
-  let checkboxesHTML = "";
+  const checkboxesContainerRating = $('#reviews-checkboxes');
+  let checkboxesHTML = '';
 
   for (let i = 4; i >= 0; i--) {
     const stars = starsHTML(i);
@@ -270,7 +270,7 @@ function populateReviews() {
         case 3:
           return rating >= 1 && rating < 2;
         case 4:
-          return rating == null || rating === "" || rating < 1 || isNaN(rating);
+          return rating == null || rating === '' || rating < 1 || isNaN(rating);
         default:
           return false;
       }
@@ -293,7 +293,7 @@ function populateReviews() {
 
 function starsHTML(rating) {
   const fullStars = Math.floor(rating);
-  let starsHTML = "";
+  let starsHTML = '';
 
   //print full stars
   for (let i = 0; i < fullStars; i++) {
@@ -310,15 +310,15 @@ function starsHTML(rating) {
 
 /*--filter panel - apply filters--*/
 function applyFilter() {
-  const storeCheckboxes = $(".form-check-input:checked");
+  const storeCheckboxes = $('.form-check-input:checked');
   const selectedStores = [];
   storeCheckboxes.each(function () {
-    selectedStores.push($(this).attr("id"));
+    selectedStores.push($(this).attr('id'));
   });
 
-  console.log("selectedStores:", selectedStores); // log selected stores
+  console.log('selectedStores:', selectedStores); // log selected stores
 
-  const ratingCheckboxes = $(".form-check-input:checked").filter(
+  const ratingCheckboxes = $('.form-check-input:checked').filter(
     (index, checkbox) => {
       return parseInt(checkbox.id) > 0;
     }
@@ -329,12 +329,12 @@ function applyFilter() {
     })
     .get();
   allProducts = [...originalProducts];
-  console.log("selectedRating:", selectedRatings); // log selected ratings
+  console.log('selectedRating:', selectedRatings); // log selected ratings
   const filteredProducts = allProducts.filter((doc) => {
     const product = doc.data();
     const productPrice = parseFloat(product.price);
-    const selectedPriceMin = parseFloat($("#slider-1").val());
-    const selectedPriceMax = parseFloat($("#slider-2").val());
+    const selectedPriceMin = parseFloat($('#slider-1').val());
+    const selectedPriceMax = parseFloat($('#slider-2').val());
     const productRating = parseFloat(product.rating);
     var filterStores = false;
     var filterPrices = false;
@@ -356,8 +356,8 @@ function applyFilter() {
     return filterStores && filterPrices && filterRatings;
   });
 
-  console.log("allProducts length before filtering:", allProducts.length);
-  console.log("filteredProducts length:", filteredProducts.length);
+  console.log('allProducts length before filtering:', allProducts.length);
+  console.log('filteredProducts length:', filteredProducts.length);
 
   allProducts = filteredProducts;
 
@@ -366,12 +366,12 @@ function applyFilter() {
   generateProductCards();
 }
 
-$("#apply-filter").on("click", function () {
+$('#apply-filter').on('click', function () {
   applyFilter();
 });
 
-document.querySelector(".navbar-logo").addEventListener("click", () => {
-  window.location.href = "./home-page.html";
+document.querySelector('.navbar-logo').addEventListener('click', () => {
+  window.location.href = './home-page.html';
 });
 
 /*-----------------------------------------------------------------------
@@ -396,10 +396,10 @@ function updateBookmark(id) {
         })
         .then(function () {
           console.log(`This bookmark is removed for ${userDoc.data().name}`);
-          var iconID = "save-" + id;
+          var iconID = 'save-' + id;
           console.log(iconID);
           $(`.single-product #product-${id} .wishlist-btn`).addClass(
-            "bookmarked"
+            'bookmarked'
           );
           // $("#" + iconID).innerText = "bookmark_border";
         });
@@ -414,9 +414,9 @@ function updateBookmark(id) {
         )
         .then(function () {
           console.log(`This bookmark is added for ${userDoc.data().name}`);
-          var iconID = "save-" + id;
+          var iconID = 'save-' + id;
           console.log(iconID);
-          $(`#product-${"#" + id} .wishlist-btn`).addClass("yellogreen");
+          $(`#product-${'#' + id} .wishlist-btn`).addClass('yellogreen');
           // $("#"+iconID).innerText = "bookmark";
         });
     }

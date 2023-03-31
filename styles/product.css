@@ -402,12 +402,32 @@ Filter panel
   margin-bottom: 10px;
 }
 
+.filter-by > h3{
+  font-size: 1.4em;
+}
+
+.filter-by-price, .filter-by-store, .filter-by-rating {
+  height: 55px;
+  overflow-y: hidden;
+  transition: 300ms ease;
+}
+
+.fa-angle-down {
+  height: fit-content;
+  transition: 300ms ease;
+}
+
 .filter-heading {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   font-weight: 600;
   padding-bottom: 15px;
 }
 
 #apply-filter {
+  margin-top: 10px;
   background-color: #a3a3a3;
   border-radius: 15px;
 }
@@ -446,7 +466,7 @@ Filter - price range slider
 
 input[type="range"]:active::-webkit-slider-thumb {
   background-color: #ffffff;
-  border: 3px solid #3264fe;
+  border: 3px solid #a3a3a3;
 }
 
 .slider-values {
@@ -483,7 +503,7 @@ input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   height: 1em;
   width: 1em;
-  background-color: #3264fe;
+  background-color: #a3a3a3;
   cursor: pointer;
   margin-top: -4px;
   pointer-events: auto;
