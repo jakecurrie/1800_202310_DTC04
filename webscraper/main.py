@@ -105,9 +105,12 @@ def scrape_url(store, product_type, url):
                 product_price += f".{decimal_price}"
             product_rating = product_element.find_element(By.CSS_SELECTOR, child_selectors['rating']).text
             product_url = product_element.find_element(By.CSS_SELECTOR, child_selectors['product_url']).get_attribute("href")
-            image_url = product_element.find_element(By.CSS_SELECTOR, child_selectors['image_url']).get_attribute("src")
+            if store == "Canadian Tire":
+                image_url = product_element.find_element(By.CSS_SELECTOR, child_selectors['image_url']).get_attribute("data-src")
+            else:
+                image_url = product_element.find_element(By.CSS_SELECTOR, child_selectors['image_url']).get_attribute("src")
         except exceptions.NoSuchElementException:
-            print("element error")
+            print(f"Element Error, Store: {store} Category: {product_type}")
             del product_element
         else:
             result = {"product_name": product_name, "product_type": product_type, "store": store, "price": product_price, "rating": product_rating,
@@ -139,12 +142,11 @@ def clean_data(dataset):
     """
     Run all data cleaning functions on dataset.
     """
-    for product in dataset:
-        can_tire_image_fix(product)
-        remove_dollar_sign(product)
+    can_tire_image_fix(product)
+    remove_dollar_sign(product)
 
 
-def main():
+def webscraper():
     db = firestore.Client()
     batch = db.batch()
     all_data = []
@@ -154,15 +156,23 @@ def main():
             data = scrape_url(web_store, product_category, urls[product_category][web_store])
             all_data += data
 
-    cleaned_data = clean_data(all_data)
+    for prod in all_data:
+        try:
+            clean_data(prod)
+        except Exception as e:
+            print(e)
+            print(f"Data cleaning issue: {prod}")
     
-    for doc_data in cleaned_data:
+    for doc_data in all_data:
         doc_ref = db.collection("products").document()
         batch.set(doc_ref, doc_data)
     
     batch.commit()
-    
 
+
+def main():
+    webscraper()
+    
 
 if __name__ == "__main__":
     main()
