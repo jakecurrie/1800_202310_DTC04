@@ -100,6 +100,9 @@ def scrape_url(store, product_type, url):
         try:
             product_name = product_element.find_element(By.CSS_SELECTOR, child_selectors['name']).text
             product_price = product_element.find_element(By.CSS_SELECTOR, child_selectors['price']).text
+            if store == "Rona":
+                decimal_price = product_element.find_element(By.CSS_SELECTOR, "[class='price-box__price__amount__decimal']").text
+                product_price += f".{decimal_price}"
             product_rating = product_element.find_element(By.CSS_SELECTOR, child_selectors['rating']).text
             product_url = product_element.find_element(By.CSS_SELECTOR, child_selectors['product_url']).get_attribute("href")
             image_url = product_element.find_element(By.CSS_SELECTOR, child_selectors['image_url']).get_attribute("src")
