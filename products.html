@@ -110,24 +110,31 @@
       <div class="row">
         <div class="col-lg-4 d-none d-lg-block">
           <div class="filter-panel">
-            <div class="row filter-section">
+            <div class="row filter-section filter-by">
               <h3>Filter By</h3>
             </div>
             <!-- by price range -->
-            <div class="row filter-section">
+            <div class="row filter-section filter-by-price">
               <label for="price-range" class="filter-heading"
-                >Price Range</label
-              >
+                ><p>Price Range</p>
+                <i class="fa-solid fa-angle-down price-dropdown-icon"></i
+              ></label>
               <div class="double-range-slider"></div>
             </div>
             <!-- by stores -->
-            <div class="row filter-section">
-              <label for="stores" class="filter-heading">Stores</label>
+            <div class="row filter-section filter-by-store">
+              <label for="stores" class="filter-heading"
+                ><p>Stores</p>
+                <i class="fa-solid fa-angle-down store-dropdown-icon"></i
+              ></label>
               <div class="container" id="stores-checkboxes"></div>
             </div>
             <!-- by rating -->
-            <div class="row filter-section">
-              <label for="reviews" class="filter-heading">Reviews</label>
+            <div class="row filter-section filter-by-rating">
+              <label for="reviews" class="filter-heading"
+                ><p>Reviews</p>
+                <i class="fa-solid fa-angle-down rating-dropdown-icon"></i
+              ></label>
               <div class="container" id="reviews-checkboxes"></div>
             </div>
             <!-- apply filter button-->

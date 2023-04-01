@@ -107,7 +107,7 @@ html {
     color: white;
     background-color: #7a7972;
     border: none;
-    border-radius: 10%;
+    border-radius: 10px;
 }
 
 .card-shopnow:focus {

@@ -139,9 +139,9 @@ function generateFavoriteCards(currentUser) {
                       firebase.firestore.FieldValue.arrayRemove(productID),
                   })
                   .then(function () {
+                    // remove the card div
                     cardDiv.remove();
                   });
-                // remove the card div
               });
             }
           });

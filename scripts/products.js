@@ -140,8 +140,56 @@ $backToTopBtn.click(function () {
 });
 
 /*-----------------------------------------------------------------------------
-Filter Button
+Filter Section
 ------------------------------------------------------------------------------*/
+// Filter open options with click
+//filter by ___ divs
+const filterByPrice = document.querySelector('.filter-by-price');
+const filterByStore = document.querySelector('.filter-by-store');
+const filterByRating = document.querySelector('.filter-by-rating');
+
+let filterByPriceClick = 0;
+let filterByStoreClick = 0;
+let filterByRatingClick = 0;
+
+//.children[0] refers to the title of each filter function
+filterByPrice.children[0].addEventListener('click', () => {
+  filterByPriceClick += 1;
+  if (filterByPriceClick === 1) {
+    filterByPrice.style.height = '140px';
+    filterByPrice.children[0].children[1].style.rotate = '180deg';
+  } else {
+    filterByPriceClick = 0;
+    filterByPrice.style.height = '55px';
+    filterByPrice.children[0].children[1].style.rotate = '0deg';
+  }
+});
+
+filterByStore.children[0].addEventListener('click', () => {
+  filterByStoreClick += 1;
+  if (filterByStoreClick === 1) {
+    filterByStore.style.height = '160px';
+    filterByStore.children[0].children[1].style.rotate = '180deg';
+  } else {
+    filterByStoreClick = 0;
+    filterByStore.style.height = '55px';
+    filterByStore.children[0].children[1].style.rotate = '0deg';
+  }
+});
+
+filterByRating.children[0].addEventListener('click', () => {
+  filterByRatingClick += 1;
+  if (filterByRatingClick === 1) {
+    filterByRating.style.height = '220px';
+    filterByRating.children[0].children[1].style.rotate = '180deg';
+  } else {
+    filterByRatingClick = 0;
+    filterByRating.style.height = '55px';
+    filterByRating.children[0].children[1].style.rotate = '0deg';
+  }
+});
+
+// FIlter Open and Close Button
 const filterButton = document.querySelector('#btn-filter');
 const filterContainer = document.querySelector('.d-lg-block');
 

@@ -109,18 +109,50 @@ function generateProductCards() {
             <h3 class="product-price">$${product.price}</h3>
             <h4 class="product-title">${product.product_name}</h4>
             <h4 class="product-store">${product.store}</h4>
-            <h4 class="product-rating">${product.rating}</h4>
+            <div class="d-flex flex-row">
+            
+                <h4 class="product-rating">${product.rating}</h4>
+            
+            
+                <div class="star-rating" title="5 0%">
+                  <div class="back-stars">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <div class="front-stars" style="width: 50%">
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                </div>
+      
+            </div>
           </div>
         </div>
       </div>
     `;
     productList.append(productCard);
 
+    //display product cards as stars
+    const productCardElement = $(`#product-${doc.id}`);
+    const starRatingWrapper = productCardElement.find(".star-rating");
+    const frontStars = productCardElement.find(".front-stars");
+    const percentage =
+      parseFloat(product.rating) >= 0 ? parseFloat(product.rating) * 20 : 0;
+    starRatingWrapper.attr("title", percentage + "%");
+    frontStars.css("width", percentage + "%");
+
+    //click wishlist button to bookmark item
     const wishlistBtn = $(`#product-${doc.id} .wishlist-btn`);
 
     wishlistBtn.on("click", (event) => {
       console.log(`product ${doc.id} clicked`);
-      event.preventDefault(); //prevent page from directing to a href
+      event.preventDefault();
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           currentUser = db.collection("users").doc(user.uid); //global
@@ -245,7 +277,7 @@ function fillColor() {
   percent2 = (sliderTwo.val() / sliderMaxValue) * 100;
   sliderTrack.css(
     "background",
-    `linear-gradient(to right, #dadae5 ${percent1}% , #3264fe ${percent1}% , #3264fe ${percent2}%, #dadae5 ${percent2}%)`
+    `linear-gradient(to right, #dadae5 ${percent1}% , #a3a3a3  ${percent1}% , #a3a3a3  ${percent2}%, #dadae5 ${percent2}%)`
   );
 }
 
@@ -302,7 +334,7 @@ function starsHTML(rating) {
   //then print empty stars
   const emptyStars = 5 - fullStars;
   for (let i = 0; i < emptyStars; i++) {
-    starsHTML += `<i class="fa fa-star"></i>`;
+    starsHTML += `<i class="fa fa-star grey-stars"></i>`;
   }
 
   return starsHTML;
