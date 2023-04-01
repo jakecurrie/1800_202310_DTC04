@@ -129,6 +129,10 @@ html {
     align-items: center;
     padding-top: 200px;
     padding-bottom: 500px;
+    background-image: url('/images/valley.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .store-descrip {
