@@ -26,7 +26,7 @@ function queryProductCategory() {
     .get()
     .then((querySnapshot) => {
       allProducts = querySnapshot.docs;
-      originalProducts = [...allProducts];
+      originalProducts = [...allProducts]; //make a copy of unfiltered products
       const priceRange = allProducts.map((doc) => doc.data().price);
       const priceMin = Math.min(...priceRange);
       const priceMax = Math.max(...priceRange);
@@ -110,11 +110,7 @@ function generateProductCards() {
             <h4 class="product-title">${product.product_name}</h4>
             <h4 class="product-store">${product.store}</h4>
             <div class="d-flex flex-row">
-            
-                <h4 class="product-rating">${product.rating}</h4>
-            
-            
-                <div class="star-rating" title="5 0%">
+                <div class="star-rating" title="50%">
                   <div class="back-stars">
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star" aria-hidden="true"></i>
@@ -130,7 +126,8 @@ function generateProductCards() {
                     </div>
                   </div>
                 </div>
-      
+                &nbsp
+                <h4 class="product-rating">${product.rating}</h4>
             </div>
           </div>
         </div>
@@ -138,36 +135,29 @@ function generateProductCards() {
     `;
     productList.append(productCard);
 
-    //display product cards as stars
+    //display product rating as stars at the bottom of the product card
     const productCardElement = $(`#product-${doc.id}`);
-    const starRatingWrapper = productCardElement.find(".star-rating");
     const frontStars = productCardElement.find(".front-stars");
     const percentage =
       parseFloat(product.rating) >= 0 ? parseFloat(product.rating) * 20 : 0;
-    starRatingWrapper.attr("title", percentage + "%");
     frontStars.css("width", percentage + "%");
 
-    //click wishlist button to bookmark item
+    //click wishlist button to bookmark item to user collection
     const wishlistBtn = $(`#product-${doc.id} .wishlist-btn`);
-
     wishlistBtn.on("click", (event) => {
       console.log(`product ${doc.id} clicked`);
-      event.preventDefault();
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           currentUser = db.collection("users").doc(user.uid); //global
-          console.log(currentUser);
           updateBookmark(doc.id);
         } else {
-          // No user is signed in.
+          // if user is not signed in, redirect user to sign in page
           console.log("No user is signed in");
           window.location.href = "login.html";
         }
       });
     });
   });
-  // const productCount = $("#product-count");
-  // productCount.html(`(${allProducts.length} results)`);
 }
 
 //update product cards when user clicks the previous button
@@ -205,7 +195,6 @@ function populateStores() {
   allProducts.forEach((doc) => {
     const product = doc.data();
     // console.log(`product.rating: ${product.rating}`);
-
     stores.add(product.store);
   });
 
@@ -215,10 +204,9 @@ function populateStores() {
     const filteredProductsByStore = allProducts.filter(
       (doc) => doc.data().store === store
     );
-
     checkboxesHTML += `
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="${store}" checked>
+        <input class="form-check-input store-checkboxes" type="checkbox" id="${store}" checked>
         <label class="form-check-label" for="${store}">${store} (${filteredProductsByStore.length})</label>
       </div>
     `;
@@ -245,10 +233,8 @@ function generatePriceRangeSlider(priceMin, priceMax) {
   sliderTwo = $("#slider-2");
   sliderTrack = $(".slider-track");
   sliderMaxValue = sliderOne.attr("max");
-
   slideOne();
   slideTwo();
-
   sliderOne.on("input", slideOne);
   sliderTwo.on("input", slideTwo);
 }
@@ -290,78 +276,62 @@ function populateReviews() {
     const stars = starsHTML(i);
     const filteredProductsByRating = allProducts.filter((doc) => {
       const rating = parseFloat(doc.data().rating);
-      console.log(`Parsed rating value: ${rating}`);
-
       switch (i) {
         case 0:
-          return rating >= 4 && rating <= 5;
+          return rating < 1 || isNaN(rating);
         case 1:
-          return rating >= 3 && rating < 4;
+          return rating >= 1 && rating < 2;
         case 2:
           return rating >= 2 && rating < 3;
         case 3:
-          return rating >= 1 && rating < 2;
+          return rating >= 3 && rating < 4;
         case 4:
-          return rating == null || rating === "" || rating < 1 || isNaN(rating);
+          return rating >= 4;
         default:
           return false;
       }
     });
-    // console.log(
-    //   `Rating ${i} - filteredProductsByRating:`,
-    //   filteredProductsByRating
-    // );
 
     checkboxesHTML += `
-  <div class="form-check">
-    <input class="form-check-input" type="checkbox" id="rating-${i}" checked>
-    <label class="form-check-label" for="rating-${i}">${stars} & up (${filteredProductsByRating.length})</label>
-  </div>
-`;
+      <div class="form-check">
+        <input class="form-check-input rating-checkboxes" type="checkbox" id="${i}" checked>
+        <label class="form-check-label" for="rating-${i}">${stars} & up (${filteredProductsByRating.length})</label>
+      </div>
+      `;
   }
-
   checkboxesContainerRating.html(checkboxesHTML);
 }
 
+//display rating as stars next to product rating checkboxes
 function starsHTML(rating) {
   const fullStars = Math.floor(rating);
   let starsHTML = "";
-
-  //print full stars
   for (let i = 0; i < fullStars; i++) {
-    starsHTML += `<i class="fa fa-star yellow"></i>`;
+    starsHTML += `<i class="fa fa-star yellow"></i>`; //print full stars
   }
-  //then print empty stars
   const emptyStars = 5 - fullStars;
   for (let i = 0; i < emptyStars; i++) {
-    starsHTML += `<i class="fa fa-star grey-stars"></i>`;
+    starsHTML += `<i class="fa fa-star grey-stars"></i>`; //then print empty stars
   }
-
   return starsHTML;
 }
 
 /*--filter panel - apply filters--*/
 function applyFilter() {
-  const storeCheckboxes = $(".form-check-input:checked");
+  const storeCheckboxes = $(".store-checkboxes:checked");
   const selectedStores = [];
   storeCheckboxes.each(function () {
     selectedStores.push($(this).attr("id"));
   });
+  const ratingCheckboxes = $(".rating-checkboxes:checked");
+  const selectedRatings = [];
+  ratingCheckboxes.each(function () {
+    selectedRatings.push($(this).attr("id"));
+    console.log("selected ratings:", selectedRatings);
+  });
 
-  console.log("selectedStores:", selectedStores); // log selected stores
-
-  const ratingCheckboxes = $(".form-check-input:checked").filter(
-    (index, checkbox) => {
-      return parseInt(checkbox.id) > 0;
-    }
-  );
-  const selectedRatings = ratingCheckboxes
-    .map((index, checkbox) => {
-      return parseInt(checkbox.id);
-    })
-    .get();
   allProducts = [...originalProducts];
-  console.log("selectedRating:", selectedRatings); // log selected ratings
+
   const filteredProducts = allProducts.filter((doc) => {
     const product = doc.data();
     const productPrice = parseFloat(product.price);
@@ -378,11 +348,16 @@ function applyFilter() {
     if (productPrice >= selectedPriceMin && productPrice <= selectedPriceMax) {
       filterPrices = true;
     }
-    if (
-      selectedRatings.length === 0 ||
-      selectedRatings.includes(Math.floor(productRating))
-    ) {
+    if (selectedRatings.length === 0) {
       filterRatings = true;
+    } else {
+      selectedRatings.forEach((rating) => {
+        const ratingMin = parseInt(rating);
+        const ratingMax = ratingMin + 0.99;
+        if (productRating >= ratingMin && productRating <= ratingMax) {
+          filterRatings = true;
+        }
+      });
     }
 
     return filterStores && filterPrices && filterRatings;
@@ -392,7 +367,6 @@ function applyFilter() {
   console.log("filteredProducts length:", filteredProducts.length);
 
   allProducts = filteredProducts;
-
   currentPage = 1;
   generatePagination();
   generateProductCards();
@@ -416,11 +390,9 @@ function updateBookmark(id) {
     } else {
       bookmarksNow = []; //if boookmarks field is undefined
     }
-    console.log(bookmarksNow);
 
     //check if this bookmark already existed in firestore:
     if (bookmarksNow.includes(id)) {
-      console.log(id);
       //if it does exist, then remove it
       currentUser
         .update({
@@ -429,7 +401,6 @@ function updateBookmark(id) {
         .then(function () {
           console.log(`This bookmark is removed for ${userDoc.data().name}`);
           var iconID = "save-" + id;
-          console.log(iconID);
           $(`.single-product #product-${id} .wishlist-btn`).addClass(
             "bookmarked"
           );
@@ -447,7 +418,6 @@ function updateBookmark(id) {
         .then(function () {
           console.log(`This bookmark is added for ${userDoc.data().name}`);
           var iconID = "save-" + id;
-          console.log(iconID);
           $(`#product-${"#" + id} .wishlist-btn`).addClass("yellogreen");
           // $("#"+iconID).innerText = "bookmark";
         });
