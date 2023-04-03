@@ -37,8 +37,10 @@ urls = {
         "Canadian Tire": "https://www.canadiantire.ca/en/cat/outdoor-living/snow-removal-equipment-tools/snow-brushes-ice-scrapers-DC0001698.html",
         "Lowe's": "https://www.lowes.ca/dept/ice-scrapers-snow-winter-essentials-outdoor-a828?display=24&sort=ordernumber_i%3Adesc&query=*%3A*"},
     "Gloves & Hand Warmers": {
-        "Canadian Tire": "https://www.canadiantire.ca/en/cat/toys-sports-recreation/clothing-shoes-accessories/hats-gloves-accessories/gloves-mittens-hand-warmers-DC0002229.html?page=1"
-        }
+        "Canadian Tire": "https://www.canadiantire.ca/en/cat/toys-sports-recreation/clothing-shoes-accessories/hats-gloves-accessories/gloves-mittens-hand-warmers-DC0002229.html?page=1",
+        "SportChek": "https://www.sportchek.ca/categories/men/accessories/winter/gloves-mitts.html?preselectedBrandsNumber=0;preselectedCategoriesNumber=4;q1=men%3A%3Aaccessories%3A%3Awinter-accessories%3A%3Agloves-mittens;x1=ast-id-level-4;page=1"},
+    "Tire Chains": {
+        "Canadian Tire": "https://www.canadiantire.ca/en/cat/automotive/tires-wheels/tire-wheel-accessories/tire-chains-DC0000425.html"}
     }
 
 # Creating a dictionary to store class names used to identify and extract data for each website
@@ -67,12 +69,56 @@ selectors = {
             "rating": "[class='bv-rating-average']",
             "product_url": "[class='product-tile__title productLink']",
             "image_url": "[class='product-tile__image']"}
+        },
+    "SportChek": {
+        "parent": "[class='product-grid__list-item-content']",
+        "child_selectors": {
+            "name": "[class='product-title-text']",
+            "price": "[class='product-price-text ']",
+            "rating": "[class='rating__value']",
+            "product_url": "[class='product-grid__link']",
+            "image_url": "img"}
+        },
+    "Amazon": {
+        "parent": "[class='a-section a-spacing-base']",
+        "child_selectors": {
+            "name": "a[class='a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal'] > span']",
+            "price": "[class='a-price-whole']",
+            "rating": "[class='a-size-base']",
+            "product_url": "[class='a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal']",
+            "image_url": "[class='s-image']"
         }
+    }
 }
+
 
 # Initializing the chrome web browser to load web pages with selenium
 #service = FirefoxService(executable_path=GeckoDriverManager().install())
 driver = webdriver.Firefox(options=options)
+
+
+def scrape_sportcheck(store, product_type, url):
+    driver.get(url)
+    data = []
+    css_selectors = selectors["SportChek"]
+    child_selectors = css_selectors["child_selectors"]
+    all_product_elements = driver.find_elements(By.CSS_SELECTOR, css_selectors["parent"])
+    for product_element in all_product_elements:
+        try:
+            product_name = product_element.find_element(By.CSS_SELECTOR, child_selectors["name"]).text
+            product_price = product_element.find_element(By.CSS_SELECTOR, child_selectors["price"]).get_attribute('innerText')
+            product_rating = product_element.find_element(By.CSS_SELECTOR, child_selectors["rating"]).get_attribute('style')
+            product_url = product_element.find_element(By.CSS_SELECTOR, child_selectors["product_url"]).get_attribute('href')
+            image_url = product_element.find_element(By.CSS_SELECTOR, child_selectors["image_url"]).get_attribute('src')
+        except exceptions.NoSuchElementException:
+            print(f"Element Error, Store: SportChek")
+            del product_element
+        else:
+             result = {"product_name": product_name, "product_type": product_type, "store": store, "price": product_price, "rating": product_rating,
+                    "product_url": product_url, "image_url": image_url}
+             data.append(result)
+    return data
+            
 
 
 def scrape_url(store, product_type, url):
