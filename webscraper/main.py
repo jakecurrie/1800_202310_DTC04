@@ -24,7 +24,8 @@ urls = {
     "Shovels": {
         "Canadian Tire": "https://www.canadiantire.ca/en/cat/outdoor-living/snow-removal-equipment-tools/snow-shovels-rakes-DC0001703.html",
         "Lowe's": "https://www.lowes.ca/dept/snow-shovels-snow-winter-essentials-outdoor-a1255?display=100&sort=ordernumber_i%3Adesc",
-        "Rona": "https://www.rona.ca/en/outdoor/snow-and-ice-removal/snow-shovels"},
+        "Rona": "https://www.rona.ca/en/outdoor/snow-and-ice-removal/snow-shovels",
+        "Amazon": "https://www.amazon.ca/s?k=snow+shovel&rh=n%3A6257556011%2Cn%3A6257566011&dc&ds=v1%3AULsMxGplZxB8A7DWeQ6A6cs5WQyRS2%2F%2FgXBVsbWmUy8&crid=1EC4WOVPJ9290&qid=1680487724&rnid=5264023011&sprefix=snow+shovel%2Caps%2C216&ref=sr_nr_n_2"},
     "Ice Melters": {
         "Canadian Tire": "https://www.canadiantire.ca/en/cat/outdoor-living/snow-removal-equipment-tools/ice-melters-DC0001701.html",
         "Lowe's": "https://www.lowes.ca/dept/ice-melt-snow-winter-essentials-outdoor-a827?display=100&sort=ordernumber_i%3Adesc",
@@ -37,8 +38,7 @@ urls = {
         "Canadian Tire": "https://www.canadiantire.ca/en/cat/outdoor-living/snow-removal-equipment-tools/snow-brushes-ice-scrapers-DC0001698.html",
         "Lowe's": "https://www.lowes.ca/dept/ice-scrapers-snow-winter-essentials-outdoor-a828?display=24&sort=ordernumber_i%3Adesc&query=*%3A*"},
     "Gloves & Hand Warmers": {
-        "Canadian Tire": "https://www.canadiantire.ca/en/cat/toys-sports-recreation/clothing-shoes-accessories/hats-gloves-accessories/gloves-mittens-hand-warmers-DC0002229.html?page=1",
-        "SportChek": "https://www.sportchek.ca/categories/men/accessories/winter/gloves-mitts.html?preselectedBrandsNumber=0;preselectedCategoriesNumber=4;q1=men%3A%3Aaccessories%3A%3Awinter-accessories%3A%3Agloves-mittens;x1=ast-id-level-4;page=1"},
+        "Canadian Tire": "https://www.canadiantire.ca/en/cat/toys-sports-recreation/clothing-shoes-accessories/hats-gloves-accessories/gloves-mittens-hand-warmers-DC0002229.html?page=1"},
     "Tire Chains": {
         "Canadian Tire": "https://www.canadiantire.ca/en/cat/automotive/tires-wheels/tire-wheel-accessories/tire-chains-DC0000425.html"}
     }
@@ -68,39 +68,86 @@ selectors = {
             "price": "[class='price-box__price__amount__integer']",
             "rating": "[class='bv-rating-average']",
             "product_url": "[class='product-tile__title productLink']",
-            "image_url": "[class='product-tile__image']"}
-        },
-    "SportChek": {
-        "parent": "[class='product-grid__list-item-content']",
-        "child_selectors": {
-            "name": "[class='product-title-text']",
-            "price": "[class='product-price-text ']",
-            "rating": "[class='rating__value']",
-            "product_url": "[class='product-grid__link']",
-            "image_url": "img"}
-        },
+            "image_url": "[class='product-tile__image']"}},
     "Amazon": {
         "parent": "[class='a-section']",
         "child_selectors": {
-            "name": "a[class='a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal'] > span']",
+            "name": "[class='a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal']",
             "price": "[class='a-price-whole']",
             "rating": "[class='a-size-base']",
             "product_url": "[class='a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal']",
-            "image_url": "[class='s-image']"
+            "image_url": "[class='s-image']"}}
         }
-    }
-}
 
+decimal_price_selectors = {
+    "Amazon": "[class='a-price-fraction']",
+    "Rona": "[class='price-box__price__amount__decimal']"
+}
 
 # Initializing the chrome web browser to load web pages with selenium
 #service = FirefoxService(executable_path=GeckoDriverManager().install())
 driver = webdriver.Firefox(options=options)
 
 
+def default_scraper(store, product_type, url):
+    driver.get(url)
+    time.sleep(10)
+    data = []
+    css_selectors = selectors[store]
+    child_selectors = css_selectors["child_selectors"]
+    all_product_elements = driver.find_elements(By.CSS_SELECTOR, css_selectors["parent"])
+    for product_element in all_product_elements:
+        try:
+            product_name = product_element.find_element(By.CSS_SELECTOR, child_selectors["name"]).text
+            product_price = product_element.find_element(By.CSS_SELECTOR, child_selectors["price"]).text
+            if store in ["Amazon", "Rona"]:
+                decimal_price = product_element.find_element(By.CSS_SELECTOR, decimal_price_selectors[store]).text
+                product_price += f".{decimal_price}" 
+            product_rating = product_element.find_element(By.CSS_SELECTOR, child_selectors["rating"]).text
+            product_url = product_element.find_element(By.CSS_SELECTOR, child_selectors["product_url"]).get_attribute('href')
+            image_url = product_element.find_element(By.CSS_SELECTOR, child_selectors["image_url"]).get_attribute('src')
+        except exceptions.NoSuchElementException:
+            print(f"Element Error, Store: {store} Product Type: {product_type}")
+            del product_element
+        except exceptions.InvalidSelectorException:
+            print("Just amazon being amazon")
+            del product_element
+        else:
+             result = {"product_name": product_name, "product_type": product_type, "store": store, "price": product_price, "rating": product_rating,
+                    "product_url": product_url, "image_url": image_url}
+             data.append(result)
+    return data
+
+
+def scrape_can_tire(store, product_type, url):
+    driver.get(url)
+    time.sleep(10)
+    data = []
+    css_selectors = selectors[store]
+    child_selectors = css_selectors["child_selectors"]
+    all_product_elements = driver.find_elements(By.CSS_SELECTOR, css_selectors["parent"])
+    for product_element in all_product_elements:
+        try:
+            product_name = product_element.find_element(By.CSS_SELECTOR, child_selectors["name"]).text
+            product_price = product_element.find_element(By.CSS_SELECTOR, child_selectors["price"]).text
+            product_rating = product_element.find_element(By.CSS_SELECTOR, child_selectors["rating"]).text
+            product_url = product_element.find_element(By.CSS_SELECTOR, child_selectors["product_url"]).get_attribute('href')
+            image_url = product_element.find_element(By.CSS_SELECTOR, child_selectors["image_url"]).get_attribute('data-src')
+        except exceptions.NoSuchElementException:
+            print(f"Element Error, Store: {store} Product Type: {product_type}")
+            del product_element
+        else:
+             result = {"product_name": product_name, "product_type": product_type, "store": store, "price": product_price, "rating": product_rating,
+                    "product_url": product_url, "image_url": image_url}
+             data.append(result)
+    return data
+
+
 def scrape_sportcheck(store, product_type, url):
     driver.get(url)
+    time.sleep(10)
     data = []
-    css_selectors = selectors["SportChek"]
+    css_selectors = selectors[store]
     child_selectors = css_selectors["child_selectors"]
     all_product_elements = driver.find_elements(By.CSS_SELECTOR, css_selectors["parent"])
     for product_element in all_product_elements:
@@ -111,66 +158,26 @@ def scrape_sportcheck(store, product_type, url):
             product_url = product_element.find_element(By.CSS_SELECTOR, child_selectors["product_url"]).get_attribute('href')
             image_url = product_element.find_element(By.CSS_SELECTOR, child_selectors["image_url"]).get_attribute('src')
         except exceptions.NoSuchElementException:
-            print(f"Element Error, Store: SportChek")
+            print(f"Element Error, Store: {store} Product Type: {product_type}")
             del product_element
         else:
              result = {"product_name": product_name, "product_type": product_type, "store": store, "price": product_price, "rating": product_rating,
                     "product_url": product_url, "image_url": image_url}
              data.append(result)
     return data
+
+
+def select_scraper(store, product_type, url):
+    function_dict = {
+        "Amazon": default_scraper,
+        "Rona": default_scraper,
+        "Lowe's": default_scraper,
+        "Canadian Tire": scrape_can_tire,
+        "SportChek": scrape_sportcheck
+    }
+    scrape_function = function_dict[store]
+    return scrape_function(store, product_type, url)
             
-
-
-def scrape_url(store, product_type, url):
-    """
-    Get data for all products on a webpage.
-
-    :param store: name of the online store, as string
-    :param product_type: category of product listed at url, as string
-    :param url: address of webpage to scrape, as string
-    :precondition: store must exactly match a store name in the urls and selectors dictionaries
-    :precondition: product_type must exactly match a product type listed in the urls dictionary
-    :precondition: url must exist in the urls dictionary
-    :postcondition: scrapes website for data on all products listed at the url
-    :return: list of dictionaries containing data for each product found
-    """
-    # getting the relevant css selectors from the selectors dictionary for the desired url
-    parent_selector = selectors[store]["parent"]
-    child_selectors = selectors[store]["child_selectors"]
-    # creating an empty list to store all product data in
-    scraped_data = []
-    # instructing the web browser to load the url, then wait 15 seconds for page to fully load
-    driver.get(url)
-    time.sleep(15)
-    # grabbing a list of product elements on the page that match the parent css selector. The parent css selector is the
-    # class name associated with each individual product card on the website. Each selected element contains the html
-    # code for a product card element and all of its child elements which contain the data we need
-    all_product_elements = driver.find_elements(By.CSS_SELECTOR, parent_selector)
-    # looping through the list of product elements. For each product, we find the html elements in the product card
-    # that have the class names of interest (listed in child_selectors dictionary) and extract their text or href values
-    for product_element in all_product_elements:
-        try:
-            product_name = product_element.find_element(By.CSS_SELECTOR, child_selectors['name']).text
-            product_price = product_element.find_element(By.CSS_SELECTOR, child_selectors['price']).text
-            if store == "Rona":
-                decimal_price = product_element.find_element(By.CSS_SELECTOR, "[class='price-box__price__amount__decimal']").text
-                product_price += f".{decimal_price}"
-            product_rating = product_element.find_element(By.CSS_SELECTOR, child_selectors['rating']).text
-            product_url = product_element.find_element(By.CSS_SELECTOR, child_selectors['product_url']).get_attribute("href")
-            if store == "Canadian Tire":
-                image_url = product_element.find_element(By.CSS_SELECTOR, child_selectors['image_url']).get_attribute("data-src")
-            else:
-                image_url = product_element.find_element(By.CSS_SELECTOR, child_selectors['image_url']).get_attribute("src")
-        except exceptions.NoSuchElementException:
-            print(f"Element Error, Store: {store} Category: {product_type}")
-            del product_element
-        else:
-            result = {"product_name": product_name, "product_type": product_type, "store": store, "price": product_price, "rating": product_rating,
-                    "product_url": product_url, "image_url": image_url}
-            scraped_data.append(result)
-
-    return scraped_data
-
 
 def can_tire_image_fix(product_data):
     """
@@ -190,13 +197,20 @@ def remove_dollar_sign(product_data):
         product_data['price'] = product_data['price'].replace("$", "")
 
 
+def convert_sportchek_review_rating(product_data):
+    if product_data["store"] == "SportChek":
+        match = re.search(r'(\d+)', product_data['rating'])
+        if match:
+            product_data['rating'] = match.group(1)
+
+
 def clean_data(product_data):
     """
     Run all data cleaning functions on dataset.
     """
     can_tire_image_fix(product_data)
     remove_dollar_sign(product_data)
-
+    convert_sportchek_review_rating(product_data)
 
 def webscraper():
     db = firestore.Client()
@@ -205,7 +219,7 @@ def webscraper():
     
     for product_category in urls:
         for web_store in urls[product_category]:
-            data = scrape_url(web_store, product_category, urls[product_category][web_store])
+            data = select_scraper(web_store, product_category, urls[product_category][web_store])
             all_data += data
 
     for prod in all_data:
