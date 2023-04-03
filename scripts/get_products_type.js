@@ -30,8 +30,8 @@ function queryProductCategory() {
       const priceRange = allProducts.map((doc) => doc.data().price);
       const priceMin = Math.min(...priceRange);
       const priceMax = Math.max(...priceRange);
-      // console.log("min price is", priceMin);
-      // console.log("max price is", priceMax);
+      console.log("min price is", priceMin);
+      console.log("max price is", priceMax);
       generatePagination();
       generateProductCards();
       populateStores();
@@ -329,15 +329,14 @@ function applyFilter() {
     selectedRatings.push($(this).attr("id"));
     console.log("selected ratings:", selectedRatings);
   });
-
   allProducts = [...originalProducts];
-
   const filteredProducts = allProducts.filter((doc) => {
     const product = doc.data();
     const productPrice = parseFloat(product.price);
     const selectedPriceMin = parseFloat($("#slider-1").val());
     const selectedPriceMax = parseFloat($("#slider-2").val());
     const productRating = parseFloat(product.rating);
+
     var filterStores = false;
     var filterPrices = false;
     var filterRatings = false;
@@ -354,7 +353,11 @@ function applyFilter() {
       selectedRatings.forEach((rating) => {
         const ratingMin = parseInt(rating);
         const ratingMax = ratingMin + 0.99;
-        if (productRating >= ratingMin && productRating <= ratingMax) {
+        if (isNaN(productRating)) {
+          filterRatings = ratingMin === 0; //if rating is NaN, put it in the filters for 0 & up
+        } else if (productRating === 5 && ratingMin >= 4) {
+          filterRatings = true; //if rating is 5, put it in the filters for 4 & up
+        } else if (productRating >= ratingMin && productRating <= ratingMax) {
           filterRatings = true;
         }
       });
