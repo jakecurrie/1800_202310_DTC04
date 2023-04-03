@@ -2,13 +2,9 @@ const cardsPerPage = 12;
 let currentPage = 1;
 let allProducts;
 let originalProducts;
-let sliderOne;
-let sliderTwo;
-let sliderTrack;
-let sliderMaxValue;
 
 /*-----------------------------------------------------------------------
-query product category
+Query product category
 -----------------------------------------------------------------------*/
 function queryProductCategory() {
   const queryString = window.location.search;
@@ -44,7 +40,7 @@ function queryProductCategory() {
 }
 
 /*-----------------------------------------------------------------------
-pagination
+Pagination
 -----------------------------------------------------------------------*/
 function generatePagination() {
   const paginationContainer = $("#pagination-container");
@@ -85,7 +81,7 @@ function generatePagination() {
 }
 
 /*-----------------------------------------------------------------------
-product card
+Product card
 -----------------------------------------------------------------------*/
 function generateProductCards() {
   const startIndex = (currentPage - 1) * cardsPerPage;
@@ -99,10 +95,14 @@ function generateProductCards() {
       <div class="col-lg-4 col-5">
         <div id="product-${doc.id}" class="single-product">
           <div class="part-1">
-            <img class="card-img-top" src="${product.image_url}" alt="${product.product_name}">
+            <img class="card-img-top" src="${product.image_url}" alt="${
+      product.product_name
+    }">
             <ul>
               <li><a href="#"><i class="fa fa-heart wishlist-btn focus"></i></a></li>
-              <li><a href="${product.product_url}"target="_blank"><i class="fa fa-link link-btn"></i></a></li>
+              <li><a href="${
+                product.product_url
+              }"target="_blank"><i class="fa fa-link link-btn"></i></a></li>
             </ul>
           </div>
           <div class="part-2">
@@ -127,7 +127,12 @@ function generateProductCards() {
                   </div>
                 </div>
                 &nbsp
-                <h4 class="product-rating">${product.rating}</h4>
+              <h4 class="product-rating">${
+                product.rating === "0" || product.rating === "0.0"
+                  ? ""
+                  : product.rating
+              }</h4>
+
             </div>
           </div>
         </div>
@@ -186,7 +191,7 @@ $("#next-btn").on("click", function () {
 queryProductCategory();
 
 /*-----------------------------------------------------------------------
-filters
+Filters
 -----------------------------------------------------------------------*/
 
 /*--filter panel - populate store--*/
@@ -215,13 +220,17 @@ function populateStores() {
 }
 
 /*--filter panel - double range price slider--*/
+let sliderOne;
+let sliderTwo;
+let sliderTrack;
+let sliderMaxValue;
 function generatePriceRangeSlider(priceMin, priceMax) {
   $(".double-range-slider").html(
     `<div class="wrapper">
       <div class="slider-container">
         <div class="slider-track"></div>
-        <input type="range" min="${priceMin}" max="${priceMax}" value="${priceMin}" id="slider-1" />
-        <input type="range" min="${priceMin}" max="${priceMax}" value="${priceMax}" id="slider-2" />
+        <input type="range" min="${priceMin}" max="${priceMax}" value="${priceMin}" step="0.01" id="slider-1" />
+        <input type="range" min="${priceMin}" max="${priceMax}" value="${priceMax}" step="0.01" id="slider-2" />
       </div>
       <div class="slider-values">
         <span id="price-min">Min $${priceMin}</span>
@@ -241,8 +250,8 @@ function generatePriceRangeSlider(priceMin, priceMax) {
 
 //update price min when left thumb is moved
 function slideOne() {
-  if (parseInt(sliderTwo.val()) - parseInt(sliderOne.val()) <= 10) {
-    sliderOne.val(parseInt(sliderTwo.val()) - 10);
+  if (parseInt(sliderTwo.val()) - parseInt(sliderOne.val()) <= 20) {
+    sliderOne.val(parseInt(sliderTwo.val()) - 20);
   }
   $("#price-min").text("Min: $" + sliderOne.val());
   fillColor();
@@ -250,20 +259,20 @@ function slideOne() {
 
 //update price max when right thumb is moved
 function slideTwo() {
-  if (parseInt(sliderTwo.val()) - parseInt(sliderOne.val()) <= 10) {
-    sliderTwo.val(parseInt(sliderOne.val()) + 10);
+  if (parseInt(sliderTwo.val()) - parseInt(sliderOne.val()) <= 20) {
+    sliderTwo.val(parseInt(sliderOne.val()) + 20);
   }
   $("#price-max").text("Max: $" + sliderTwo.val());
   fillColor();
 }
 
-//fill color of the slider tract
+//fill color of the slider track
 function fillColor() {
   percent1 = (sliderOne.val() / sliderMaxValue) * 100;
   percent2 = (sliderTwo.val() / sliderMaxValue) * 100;
   sliderTrack.css(
     "background",
-    `linear-gradient(to right, #dadae5 ${percent1}% , #a3a3a3  ${percent1}% , #a3a3a3  ${percent2}%, #dadae5 ${percent2}%)`
+    `linear-gradient(to right, #dadae5 ${percent1}% ,#3264fe  ${percent1}% , #3264fe  ${percent2}%, #dadae5 ${percent2}%)`
   );
 }
 
@@ -317,7 +326,7 @@ function starsHTML(rating) {
 }
 
 /*--filter panel - apply filters--*/
-function applyFilter() {
+function getSelectedCheckboxes() {
   const storeCheckboxes = $(".store-checkboxes:checked");
   const selectedStores = [];
   storeCheckboxes.each(function () {
@@ -327,8 +336,13 @@ function applyFilter() {
   const selectedRatings = [];
   ratingCheckboxes.each(function () {
     selectedRatings.push($(this).attr("id"));
-    console.log("selected ratings:", selectedRatings);
+    // console.log("selected ratings:", selectedRatings);
   });
+  return { selectedStores, selectedRatings };
+}
+
+function applyFilter() {
+  const { selectedStores, selectedRatings } = getSelectedCheckboxes();
   allProducts = [...originalProducts];
   const filteredProducts = allProducts.filter((doc) => {
     const product = doc.data();
@@ -336,7 +350,6 @@ function applyFilter() {
     const selectedPriceMin = parseFloat($("#slider-1").val());
     const selectedPriceMax = parseFloat($("#slider-2").val());
     const productRating = parseFloat(product.rating);
-
     var filterStores = false;
     var filterPrices = false;
     var filterRatings = false;

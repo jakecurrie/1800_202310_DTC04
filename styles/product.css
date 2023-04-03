@@ -458,9 +458,9 @@ Filter panel
   }
 }
 
-/*----------------------------------------------------------------------------
+/*------------------------------------
 Filter - price range slider
-------------------------------------------------------------------------------*/
+-------------------------------------*/
 .double-range-slider {
   width: 100%;
   margin: 0;
@@ -468,7 +468,7 @@ Filter - price range slider
 
 input[type="range"]:active::-webkit-slider-thumb {
   background-color: #ffffff;
-  border: 3px solid #a3a3a3;
+  border: 3px solid #3264fe;
 }
 
 .slider-values {
@@ -505,13 +505,16 @@ input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   height: 1em;
   width: 1em;
-  background-color: #a3a3a3;
+  background-color: #3264fe;
   cursor: pointer;
   margin-top: -4px;
   pointer-events: auto;
   border-radius: 50%;
 }
 
+/*------------------------------------
+Filter - ratings
+-------------------------------------*/
 .grey-stars {
   color: #ddd;
 }
@@ -526,6 +529,7 @@ input[type="range"]::-webkit-slider-thumb {
   color: #333;
 }
 
+/* product card - star ratings */
 .star-rating,
 .back-stars,
 .front-stars {
@@ -692,12 +696,6 @@ Product Card
 #product-list .single-product .part-2 .product-rating {
   font-size: 0.8rem;
 }
-
-/* a {
-  text-decoration: none;
-  outline: none !important;
-  color: #fff;
-} */
 
 .border-shape {
   background: #fffbeb none repeat scroll 0 0;
