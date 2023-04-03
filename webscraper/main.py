@@ -80,7 +80,7 @@ selectors = {
             "image_url": "img"}
         },
     "Amazon": {
-        "parent": "[class='a-section a-spacing-base']",
+        "parent": "[class='a-section']",
         "child_selectors": {
             "name": "a[class='a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal'] > span']",
             "price": "[class='a-price-whole']",
