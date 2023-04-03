@@ -154,48 +154,6 @@ Header
   right: 1vw;
 }
 
-/* Old hamburger menu */
-
-.menu {
-  list-style: none;
-  background-color: #f9f9fb;
-  backdrop-filter: blur(20px);
-  /* border: 1px solid var(--lightgrey); */
-  border-radius: 5%;
-  z-index: 11;
-}
-.loginbtn {
-  margin-left: auto;
-}
-
-.menu-link {
-  text-align: justify;
-  display: inline-block;
-  position: relative;
-  color: var(--grey);
-}
-
-.menu-link::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  transform: scaleX(0);
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  background-color: var(--lightgrey);
-  transform-origin: bottom right;
-  transition: transform 0.25s ease-out;
-}
-
-.menu-link:hover::after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
-}
-.menu-link:hover {
-  color: var(--grey);
-}
-
 /* New Hamburger Menu */
 
 .fa-bars,
@@ -304,30 +262,33 @@ Search bar
 .results-container {
   position: absolute;
   top: calc(80% + 2px);
-  left: 0;
   z-index: 1;
   display: none;
-  margin-left: 170px;
-  width: 50vw;
+  left: 50%;
+  /* top: 50%; */
+  transform: translate(-50%);
+  /* margin-left: 170px; */
+  width: 60vw;
   background-color: white;
   border-radius: 15px;
   box-shadow: 10px 20px 20px rgb(50 50 50 / 5%);
 }
+
 .results-list {
   list-style-type: none;
   padding: 0;
-  margin: 5px;
+  margin: 2px;
 }
 li.result-item {
   background-color: #f9f9fb;
-  padding: 5px;
+  padding: 2px;
   cursor: pointer;
 }
 
 .results-list li {
   position: relative;
   display: inline-block;
-  margin: 15px 5px;
+  margin: 10px 5px;
 }
 
 .results-list li:not(.error-message)::after {
@@ -430,6 +391,13 @@ Filter panel
 
 #apply-filter {
   margin-top: 10px;
+  border: 2px solid #a3a3a3;
+  background-color: rgb(240, 240, 240);
+  border-radius: 15px;
+}
+
+#apply-filter:hover {
+  margin-top: 10px;
   background-color: #a3a3a3;
   border-radius: 15px;
 }
@@ -515,6 +483,11 @@ input[type="range"]::-webkit-slider-thumb {
 /*------------------------------------
 Filter - ratings
 -------------------------------------*/
+.results-length {
+  color: var(--lightgrey);
+  font-size: smaller;
+}
+
 .grey-stars {
   color: #ddd;
 }
@@ -675,16 +648,12 @@ Product Card
   color: #fe302f;
 }
 
-#product-list .single-product .part-1 ul li a.wishlist-btn.bookmarked:focus,
+/* #product-list .single-product .part-1 ul li a.wishlist-btn.bookmarked:focus,
 #product-list .single-product .part-1 ul li a.wishlist-btn.bookmarked:active {
   color: #fe302f;
   bottom: 20px;
   opacity: 1;
-}
-
-.yellogreen {
-  color: yellowgreen;
-}
+} */
 
 #product-list .single-product .part-2 .product-price {
   display: inline-block;

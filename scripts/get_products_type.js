@@ -212,7 +212,7 @@ function populateStores() {
     checkboxesHTML += `
       <div class="form-check">
         <input class="form-check-input store-checkboxes" type="checkbox" id="${store}" checked>
-        <label class="form-check-label" for="${store}">${store} (${filteredProductsByStore.length})</label>
+        <label class="form-check-label" for="${store}">${store} <span class="results-length">(${filteredProductsByStore.length})</span></label>
       </div>
     `;
   });
@@ -287,15 +287,15 @@ function populateReviews() {
       const rating = parseFloat(doc.data().rating);
       switch (i) {
         case 0:
-          return rating < 1 || isNaN(rating);
+          return rating < 1 || isNaN(rating); //ratings less than 1 or is NAN
         case 1:
-          return rating >= 1 && rating < 2;
+          return rating >= 1 && rating < 2; //rating between 1 and 2
         case 2:
-          return rating >= 2 && rating < 3;
+          return rating >= 2 && rating < 3; //rating between 2 and 3
         case 3:
-          return rating >= 3 && rating < 4;
+          return rating >= 3 && rating < 4; //rating between 3 and 4
         case 4:
-          return rating >= 4;
+          return rating >= 4; //rating larger o requal to 4
         default:
           return false;
       }
@@ -304,7 +304,7 @@ function populateReviews() {
     checkboxesHTML += `
       <div class="form-check">
         <input class="form-check-input rating-checkboxes" type="checkbox" id="${i}" checked>
-        <label class="form-check-label" for="rating-${i}">${stars} & up (${filteredProductsByRating.length})</label>
+        <label class="form-check-label" for="rating-${i}">${stars} & up <span class="results-length">(${filteredProductsByRating.length})</span></label>
       </div>
       `;
   }
@@ -375,7 +375,6 @@ function applyFilter() {
         }
       });
     }
-
     return filterStores && filterPrices && filterRatings;
   });
 
@@ -392,6 +391,9 @@ $("#apply-filter").on("click", function () {
   applyFilter();
 });
 
+/*-----------------------------------------------------------------------
+Navbar logo
+-----------------------------------------------------------------------*/
 document.querySelector(".navbar-logo").addEventListener("click", () => {
   window.location.href = "./home-page.html";
 });
@@ -434,7 +436,7 @@ function updateBookmark(id) {
         .then(function () {
           console.log(`This bookmark is added for ${userDoc.data().name}`);
           var iconID = "save-" + id;
-          $(`#product-${"#" + id} .wishlist-btn`).addClass("yellogreen");
+          // $(`#product-${"#" + id} .wishlist-btn`).addClass("yellowgreen");
           // $("#"+iconID).innerText = "bookmark";
         });
     }
