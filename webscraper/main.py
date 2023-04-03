@@ -32,7 +32,13 @@ urls = {
     "Heaters": {
         "Canadian Tire": "https://www.canadiantire.ca/en/cat/home-pets/heating-cooling-air-quality/heaters-DC0000829.html",
         "Lowe's": "https://www.lowes.ca/dept/portable-space-heaters-heaters-heating-cooling-a1100?display=24&sort=ordernumber_i%3Adesc&query=*%3A*",
-        "Rona": "https://www.rona.ca/en/heating-cooling-and-ventilation/heating/portable-heaters"}
+        "Rona": "https://www.rona.ca/en/heating-cooling-and-ventilation/heating/portable-heaters"},
+    "Snow Brushes & Ice Scrapers": {
+        "Canadian Tire": "https://www.canadiantire.ca/en/cat/outdoor-living/snow-removal-equipment-tools/snow-brushes-ice-scrapers-DC0001698.html",
+        "Lowe's": "https://www.lowes.ca/dept/ice-scrapers-snow-winter-essentials-outdoor-a828?display=24&sort=ordernumber_i%3Adesc&query=*%3A*"},
+    "Gloves & Hand Warmers": {
+        "Canadian Tire": "https://www.canadiantire.ca/en/cat/toys-sports-recreation/clothing-shoes-accessories/hats-gloves-accessories/gloves-mittens-hand-warmers-DC0002229.html?page=1"
+        }
     }
 
 # Creating a dictionary to store class names used to identify and extract data for each website
