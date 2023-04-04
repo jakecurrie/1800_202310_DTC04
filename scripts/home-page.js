@@ -105,8 +105,8 @@ function userLoginStatus() {
       // if not logged in, show the text log in and change the href attribute to login page
       const loginBox = document.querySelector('#refer-login');
       const loginBoxMobile = document.querySelector('.refer-login-mobile');
-      loginBox.setAttribute('href', './login.html');
-      loginBoxMobile.setAttribute('href', './login.html');
+      loginBox.setAttribute('href', './login.html?from=homepage');
+      loginBoxMobile.setAttribute('href', './login.html?from=homepage');
     }
   });
 }

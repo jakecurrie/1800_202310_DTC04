@@ -195,3 +195,24 @@ document
       forgotPassword();
     }
   });
+
+const queryString = window.location.search;
+const urlParam = new URLSearchParams(queryString);
+const origin = urlParam.get('from');
+
+// when click on back, it goes back to the original page it was in using query
+const backBtn = document.querySelector('.back-arrow');
+backBtn.addEventListener('click', () => {
+  
+  if (origin === 'wishlist') {
+    window.location.href = 'wishlist.html'
+  } 
+  if (origin === 'homepage') {
+    window.location.href = 'home-page.html'
+  }
+  else {
+    let productQuery = queryString.replace("?from=", "")
+    window.location.href = `products.html?category=${productQuery}`
+  }
+
+})

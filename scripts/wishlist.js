@@ -59,8 +59,8 @@ function userLoginStatus() {
       const loginBoxMobile = document.querySelector('.refer-login-mobile');
       const logoutBtn = document.querySelector('.fa-arrow-right-from-bracket');
       logoutBtn.style.display = 'none';
-      loginBox.setAttribute('href', './login.html');
-      loginBoxMobile.setAttribute('href', './login.html');
+      loginBox.setAttribute('href', './login.html?from=wishlist');
+      loginBoxMobile.setAttribute('href', './login.html?from=wishlist');
       // if
       const welcomeTitle = document.querySelector('.title-welcome');
       welcomeTitle.innerHTML = 'Log in to see your wishlist!';

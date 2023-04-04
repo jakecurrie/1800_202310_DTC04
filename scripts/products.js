@@ -117,10 +117,14 @@ firebase.auth().onAuthStateChanged((user) => {
         });
     });
   } else {
+    const queryString = window.location.search;
+    const productQuery = queryString.replace("?category=", "")
+
     loginTitle.innerHTML = "Login";
-    loginContainer.href = "./login.html";
+    loginContainer.href = `./login.html?from=${productQuery}`;
   }
 });
+
 
 /*-----------------------------------------------------------------------
 Back to top button
