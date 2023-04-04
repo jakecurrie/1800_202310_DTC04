@@ -29,18 +29,24 @@ urls = {
     "Ice Melters": {
         "Canadian Tire": "https://www.canadiantire.ca/en/cat/outdoor-living/snow-removal-equipment-tools/ice-melters-DC0001701.html",
         "Lowe's": "https://www.lowes.ca/dept/ice-melt-snow-winter-essentials-outdoor-a827?display=100&sort=ordernumber_i%3Adesc",
-        "Rona": "https://www.rona.ca/en/outdoor/snow-and-ice-removal/ice-melters-and-salt"},
+        "Rona": "https://www.rona.ca/en/outdoor/snow-and-ice-removal/ice-melters-and-salt",
+        "Amazon": "https://www.amazon.ca/s?k=ice+melters&rh=n%3A6257557011%2Cn%3A6257560011&dc&ds=v1%3AAQse30LEcvWcjEFRww4bfg0yRekNJ2WJhVkFOpRf8b4&crid=1YKL8JLU3DO49&qid=1680580760&rnid=5264023011&sprefix=ice+melter%2Caps%2C146&ref=sr_nr_n_2"},
     "Heaters": {
         "Canadian Tire": "https://www.canadiantire.ca/en/cat/home-pets/heating-cooling-air-quality/heaters-DC0000829.html",
         "Lowe's": "https://www.lowes.ca/dept/portable-space-heaters-heaters-heating-cooling-a1100?display=24&sort=ordernumber_i%3Adesc&query=*%3A*",
-        "Rona": "https://www.rona.ca/en/heating-cooling-and-ventilation/heating/portable-heaters"},
+        "Rona": "https://www.rona.ca/en/heating-cooling-and-ventilation/heating/portable-heaters",
+        "Amazon": "https://www.amazon.ca/s?k=space+heaters&rh=n%3A2224065011&dc&ds=v1%3A1FRxsRjbu0OOfYTIEqL8zNqDKdrNHI69MX4K2d85It0&qid=1680580813&rnid=5264023011&ref=sr_nr_n_1"},
     "Snow Brushes & Ice Scrapers": {
         "Canadian Tire": "https://www.canadiantire.ca/en/cat/outdoor-living/snow-removal-equipment-tools/snow-brushes-ice-scrapers-DC0001698.html",
-        "Lowe's": "https://www.lowes.ca/dept/ice-scrapers-snow-winter-essentials-outdoor-a828?display=24&sort=ordernumber_i%3Adesc&query=*%3A*"},
+        "Lowe's": "https://www.lowes.ca/dept/ice-scrapers-snow-winter-essentials-outdoor-a828?display=24&sort=ordernumber_i%3Adesc&query=*%3A*",
+        "Amazon": "https://www.amazon.ca/s?k=ice+scrapers&rh=n%3A6303829011&dc&ds=v1%3AuroBBGbnIuRI%2FdSqRAARCXQhrlhYmx6JGVJSN%2FWCZjA&qid=1680581003&rnid=5264023011&ref=sr_nr_n_1"},
     "Gloves & Hand Warmers": {
-        "Canadian Tire": "https://www.canadiantire.ca/en/cat/toys-sports-recreation/clothing-shoes-accessories/hats-gloves-accessories/gloves-mittens-hand-warmers-DC0002229.html?page=1"},
+        "Canadian Tire": "https://www.canadiantire.ca/en/cat/toys-sports-recreation/clothing-shoes-accessories/hats-gloves-accessories/gloves-mittens-hand-warmers-DC0002229.html?page=1",
+        "SportChek": "https://www.sportchek.ca/categories/men/accessories/winter/gloves-mitts.html?preselectedBrandsNumber=0;preselectedCategoriesNumber=4;q1=men%3A%3Aaccessories%3A%3Awinter-accessories%3A%3Agloves-mittens;x1=ast-id-level-4;page=1",
+        "Amazon": "https://www.amazon.ca/s?k=winter+gloves&crid=2WI57N09YVOCT&sprefix=winter+gloves%2Caps%2C228&ref=nb_sb_noss_1"},
     "Tire Chains": {
-        "Canadian Tire": "https://www.canadiantire.ca/en/cat/automotive/tires-wheels/tire-wheel-accessories/tire-chains-DC0000425.html"}
+        "Canadian Tire": "https://www.canadiantire.ca/en/cat/automotive/tires-wheels/tire-wheel-accessories/tire-chains-DC0000425.html",
+        "Amazon": "https://www.amazon.ca/s?k=tire+chains&rh=n%3A7420868011&dc&ds=v1%3AMKMX5ULMx1Jc62h83%2FmiAWj0WkE0hd4BpMFbglYvBiE&crid=19XO7D7MFOB4H&qid=1680584281&rnid=5264023011&sprefix=tire+chains%2Caps%2C250&ref=sr_nr_n_1"}
     }
 
 # Creating a dictionary to store class names used to identify and extract data for each website
@@ -70,12 +76,12 @@ selectors = {
             "product_url": "[class='product-tile__title productLink']",
             "image_url": "[class='product-tile__image']"}},
     "Amazon": {
-        "parent": "[class='a-section']",
+        "parent": "div.s-card-container",
         "child_selectors": {
-            "name": "[class='a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal']",
+            "name": "a.a-text-normal",
             "price": "[class='a-price-whole']",
             "rating": "[class='a-size-base']",
-            "product_url": "[class='a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal']",
+            "product_url": "a.a-link-normal",
             "image_url": "[class='s-image']"}}
         }
 
