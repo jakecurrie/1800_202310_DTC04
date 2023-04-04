@@ -240,36 +240,34 @@ def webscraper():
 def update_firestore():
     all_data = webscraper()
     db = firestore.Client()
-    batches = []
-
-    # Update or delete existing documents and add new documents
-    for doc_data in all_data:
-        # Check if there is an existing document with a matching "field" value
-        query = db.collection("products").where("product_url", "==", doc_data["product_url"])
-        docs = query.get()
-
-        if len(docs) > 0:
-            # Update the existing document
-            doc_ref = docs[0].reference
-            batch_operation = firestore.UpdateBatch(doc_ref, doc_data)
-        else:
-            # Add a new document
-            doc_ref = db.collection("products").document()
-            batch_operation = firestore.CreateBatch(doc_ref, doc_data)
-
-        # Delete documents that do not match
-        for doc in docs:
-            if doc.id != doc_ref.id:
-                batch_operation.delete(doc.reference)
-
-        # Add the batch operation to the current batch
-        if not batches or len(batches[-1]) == 499:
-            # Create a new batch if the current batch is full or doesn't exist yet
-            batches.append(db.batch())
-        batches[-1].commit(batch_operation)
-
-    # Commit all batches
-    for batch in batches:
+    batch_size = 500
+    num_docs = len(all_data)
+    
+    for i in range(0, num_docs, batch_size):
+        batch = db.batch()
+        batch_data = all_data[i:i+batch_size]
+        
+        # Update or delete existing documents and add new documents
+        for doc_data in batch_data:
+            # Check if there is an existing document with a matching "product_url" value
+            query = db.collection("products").where("product_url", "==", doc_data["product_url"])
+            docs = query.get()
+    
+            if len(docs) > 0:
+                # Update the existing document
+                doc_ref = docs[0].reference
+                batch.update(doc_ref, doc_data)
+            else:
+                # Add a new document
+                doc_ref = db.collection("products").document()
+                batch.set(doc_ref, doc_data)
+    
+            # Delete documents that do not match
+            for doc in docs:
+                if doc.id != doc_ref.id:
+                    batch.delete(doc.reference)
+        
+        # Commit the batch write
         batch.commit()
 
 
