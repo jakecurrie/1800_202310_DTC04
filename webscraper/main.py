@@ -240,7 +240,7 @@ def webscraper():
 def update_firestore():
     all_data = webscraper()
     db = firestore.Client()
-    batch_size = 500
+    batch_size = 250
     num_docs = len(all_data)
     
     for i in range(0, num_docs, batch_size):
