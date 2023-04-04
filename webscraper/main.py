@@ -237,7 +237,7 @@ def webscraper():
     return all_data
 
 
-def update_firestore(all_data):
+def update_firestore():
     db = firestore.Client()
     batch = db.batch()
 
