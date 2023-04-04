@@ -199,15 +199,20 @@ document
 const queryString = window.location.search;
 const urlParam = new URLSearchParams(queryString);
 const origin = urlParam.get('from');
+console.log(origin === null);
 
 // when click on back, it goes back to the original page it was in using query
 const backBtn = document.querySelector('.back-arrow');
 backBtn.addEventListener('click', () => {
   
-  if (origin === 'wishlist') {
+  if (origin === null) {
+    console.log('null');
+    window.location.href = 'home-page.html'
+  }
+  else if (origin === 'wishlist') {
     window.location.href = 'wishlist.html'
   } 
-  if (origin === 'homepage') {
+  else if (origin === 'homepage') {
     window.location.href = 'home-page.html'
   }
   else {
