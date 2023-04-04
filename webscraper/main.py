@@ -42,7 +42,6 @@ urls = {
         "Amazon": "https://www.amazon.ca/s?k=ice+scrapers&rh=n%3A6303829011&dc&ds=v1%3AuroBBGbnIuRI%2FdSqRAARCXQhrlhYmx6JGVJSN%2FWCZjA&qid=1680581003&rnid=5264023011&ref=sr_nr_n_1"},
     "Gloves & Hand Warmers": {
         "Canadian Tire": "https://www.canadiantire.ca/en/cat/toys-sports-recreation/clothing-shoes-accessories/hats-gloves-accessories/gloves-mittens-hand-warmers-DC0002229.html?page=1",
-        "SportChek": "https://www.sportchek.ca/categories/men/accessories/winter/gloves-mitts.html?preselectedBrandsNumber=0;preselectedCategoriesNumber=4;q1=men%3A%3Aaccessories%3A%3Awinter-accessories%3A%3Agloves-mittens;x1=ast-id-level-4;page=1",
         "Amazon": "https://www.amazon.ca/s?k=winter+gloves&crid=2WI57N09YVOCT&sprefix=winter+gloves%2Caps%2C228&ref=nb_sb_noss_1"},
     "Tire Chains": {
         "Canadian Tire": "https://www.canadiantire.ca/en/cat/automotive/tires-wheels/tire-wheel-accessories/tire-chains-DC0000425.html",
