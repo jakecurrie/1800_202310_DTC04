@@ -99,21 +99,60 @@ function generateFavoriteCards(currentUser) {
               product = doc.data();
               const productCard = `
           <div class="part-1">
-            <img class="card-image" src="${product.image_url}" alt="${product.product_name}">
+            <img class="card-image" src="${product.image_url}" alt="${
+                product.product_name
+              }">
             <div id="icon-${productID}">
               <p><i id="wishlist-${productID}" class="fa fa-heart wishlist-btn"></i></p>
-              <a href="${product.product_url}"target="_blank"><i class="fa fa-link link-btn"></i></a>
+              <a href="${
+                product.product_url
+              }"target="_blank"><i class="fa fa-link link-btn"></i></a>
             </div>
           </div>
-          <div class="part-2">
+          <div class="part-2" id="product-${doc.id}">
             <h3 class="card-price">$${product.price}</h3>
             <h4 class="card-title">${product.product_name}</h4>
             <h4 class="card-store">${product.store}</h4>
+            <div class="d-flex flex-row">
+                <div class="star-rating" title="50%">
+                  <div class="back-stars">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <div class="front-stars" style="width: 50%">
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                </div>
+                &nbsp
+              <h4 class="card-rating">${
+                product.rating === '0' || product.rating === '0.0'
+                  ? ''
+                  : product.rating
+              }</h4>
+
+            </div>
           </div>
             `;
               card = cardContainer.appendChild(document.createElement('div'));
               card.classList.add(`content-card-${productID}`);
               card.innerHTML = productCard;
+
+              //display product rating as stars at the bottom of the product card
+              const productCardElement = $(`#product-${doc.id}`);
+              const frontStars = productCardElement.find('.front-stars');
+              const percentage =
+                parseFloat(product.rating) >= 0
+                  ? parseFloat(product.rating) * 20
+                  : 0;
+              frontStars.css('width', percentage + '%');
+
               const cardDiv = document.querySelector(
                 `.content-card-${productID}`
               );
