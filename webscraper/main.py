@@ -218,31 +218,54 @@ def clean_data(product_data):
     convert_sportchek_review_rating(product_data)
 
 def webscraper():
-    db = firestore.Client()
-    batch = db.batch()
     all_data = []
     
+    # Collect all data from web stores
     for product_category in urls:
         for web_store in urls[product_category]:
             data = select_scraper(web_store, product_category, urls[product_category][web_store])
             all_data += data
 
+    # Clean the data
     for prod in all_data:
         try:
             clean_data(prod)
         except Exception as e:
             print(e)
             print(f"Data cleaning issue: {prod}")
-    
+
+    return all_data
+
+
+def update_firestore(all_data):
+    db = firestore.Client()
+    batch = db.batch()
+
+    # Update or delete existing documents and add new documents
     for doc_data in all_data:
-        doc_ref = db.collection("products").document()
-        batch.set(doc_ref, doc_data)
-    
+        # Check if there is an existing document with a matching "field" value
+        query = db.collection("products").where("product_url", "==", doc_data["product_url"])
+        docs = query.get()
+
+        if len(docs) > 0:
+            # Update the existing document
+            doc_ref = docs[0].reference
+            batch.update(doc_ref, doc_data)
+        else:
+            # Add a new document
+            doc_ref = db.collection("products").document()
+            batch.set(doc_ref, doc_data)
+
+        # Delete documents that do not match
+        for doc in docs:
+            if doc.id != doc_ref.id:
+                batch.delete(doc.reference)
+
     batch.commit()
 
 
 def main():
-    webscraper()
+    update_firestore()
     
 
 if __name__ == "__main__":
