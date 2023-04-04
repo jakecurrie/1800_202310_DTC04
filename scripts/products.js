@@ -174,7 +174,7 @@ filterByPrice.children[0].addEventListener("click", () => {
 filterByStore.children[0].addEventListener("click", () => {
   filterByStoreClick += 1;
   if (filterByStoreClick === 1) {
-    filterByStore.style.height = "160px";
+    filterByStore.style.height = "190px";
     filterByStore.children[0].children[1].style.rotate = "180deg";
   } else {
     filterByStoreClick = 0;
@@ -186,7 +186,7 @@ filterByStore.children[0].addEventListener("click", () => {
 filterByRating.children[0].addEventListener("click", () => {
   filterByRatingClick += 1;
   if (filterByRatingClick === 1) {
-    filterByRating.style.height = "220px";
+    filterByRating.style.height = "210px";
     filterByRating.children[0].children[1].style.rotate = "180deg";
   } else {
     filterByRatingClick = 0;

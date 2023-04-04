@@ -104,14 +104,18 @@ html {
     height: 100px;
     font-family: 'League Spartan', sans-serif;
     font-size: 1em;
-    color: white;
-    background-color: #7a7972;
-    border: none;
+    color: black;
+    background-color: rgb(240, 240, 240);
+    border: 1px solid rgb(124, 124, 124);
     border-radius: 10px;
 }
 
+.card-shopnow:hover {
+    background-color: #d4d4d4;
+}
+
 .card-shopnow:focus {
-    background-color: #555451;
+    background-color: #a3a3a3;
 }
 
 .card-description {
