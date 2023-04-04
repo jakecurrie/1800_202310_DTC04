@@ -23,32 +23,46 @@ function userLoginStatus() {
       const logoutBtn = document.querySelector('.fa-arrow-right-from-bracket');
       logoutBtn.style.display = 'block';
 
-      //hover event listeners
-      // when hover over account name, change to the text log oout
       const loginText = document.querySelector('#login');
-      loginText.addEventListener('mouseover', () => {
+      const loginDiv = document.querySelector('#login-div');
+      const loginTextMobile = document.querySelector('#login-mobile');
+      const loginMobileDiv = document.querySelector('#login-mobile-div');
+
+      loginDiv.addEventListener('mouseover', () => {
         loginText.innerHTML = 'Logout';
       });
-
       // when hover out, changes the text to the user name
       loginText.addEventListener('mouseout', () => {
         currentUser.onSnapshot((doc) => {
           myAccountBtn.innerHTML = doc.data().name;
         });
-
-        //click event listener
-        // when clicked log out, log out
-        loginText.addEventListener('click', () => {
-          firebase
-            .auth()
-            .signOut()
-            .then(() => {
-              console.log('logged out');
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        });
+      });
+      //click event listener
+      // when clicked log out, log out
+      // desktop
+      loginDiv.addEventListener('click', () => {
+        console.log('logged out');
+        firebase
+          .auth()
+          .signOut()
+          .then(() => {
+            console.log('logged out');
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      });
+      // mobile
+      loginMobileDiv.addEventListener('click', () => {
+        firebase
+          .auth()
+          .signOut()
+          .then(() => {
+            console.log('logged out');
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       });
     } else {
       // change the account name to login if not logged in
