@@ -33,7 +33,7 @@ body {
 }
 
 .container {
-    width: 380px;
+    width: 365px;
     height: 100vh;
     position: relative;
     display: flex;
@@ -49,7 +49,6 @@ body {
     border: black 1px solid;
     border-radius: 5%;
     padding: 40px 70px;
-    background: transparent;
     backdrop-filter: blur(20px);
 }
 

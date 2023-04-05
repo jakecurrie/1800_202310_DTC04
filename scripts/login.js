@@ -207,13 +207,13 @@ backBtn.addEventListener('click', () => {
   
   if (origin === null) {
     console.log('null');
-    window.location.href = 'home-page.html'
+    window.location.href = 'index.html'
   }
   else if (origin === 'wishlist') {
     window.location.href = 'wishlist.html'
   } 
   else if (origin === 'homepage') {
-    window.location.href = 'home-page.html'
+    window.location.href = 'index.html'
   }
   else {
     let productQuery = queryString.replace("?from=", "")
