@@ -1,7 +1,8 @@
 const navbarLogoSection = document.querySelector('.logo-section');
 navbarLogoSection.addEventListener('click', () => {
-  window.location.replace('/home-page.html');
+  window.location.replace('/index.html');
 });
+
 
 function userLoginStatus() {
   myAccountBtn = document.querySelector('#login');

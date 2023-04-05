@@ -56,7 +56,7 @@ shopBtnMobile.addEventListener('click', scrollIntoCategory);
 // clicking logo and name redirect to home page
 const navbarLogoSection = document.querySelector('.logo-section');
 navbarLogoSection.addEventListener('click', () => {
-  window.location.replace('/home-page.html');
+  window.location.replace('/index.html');
 });
 
 // Show user name if logged in, if else, show my account
