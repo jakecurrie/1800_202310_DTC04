@@ -395,7 +395,7 @@ $("#apply-filter").on("click", function () {
 Navbar logo
 -----------------------------------------------------------------------*/
 document.querySelector(".navbar-logo").addEventListener("click", () => {
-  window.location.href = "./home-page.html";
+  window.location.href = "/index.html";
 });
 
 /*-----------------------------------------------------------------------

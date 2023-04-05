@@ -318,10 +318,27 @@ body {
 }
 
 .LEGAL > p {
+  cursor: pointer;
   margin: 10px 0 8px 0;
   font-size: 15px;
   text-decoration-line: underline;
   color: #737373;
+}
+
+.LEGAL > p:hover {
+  color: #0d6efd;
+  text-decoration: none;
+}
+
+#dtc04 {
+  cursor: pointer;
+  text-decoration-line: underline;
+}
+
+#dtc04:hover {
+  color: #0d6efd;
+  text-decoration: none;
+
 }
 
 .footer-part-2 {
