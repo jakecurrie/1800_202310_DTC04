@@ -202,11 +202,15 @@ def remove_dollar_sign(product_data):
         product_data['price'] = product_data['price'].replace("$", "")
 
 
-def convert_sportchek_review_rating(product_data):
-    if product_data["store"] == "SportChek":
-        match = re.search(r'(\d+)', product_data['rating'])
-        if match:
-            product_data['rating'] = match.group(1)
+def fix_canadian_tire_links(product_data):
+    if product_data["store"] == "Canadian Tire":
+        fixed_link = re.sub(r".html&", ".html?", product_data['product_url'])
+        product_data['product_url'] = fixed_link
+
+
+def remove_empty_strings(product_data):
+    if "" in product_data.values():
+        del product_data
 
 
 def clean_data(product_data):
@@ -215,7 +219,9 @@ def clean_data(product_data):
     """
     can_tire_image_fix(product_data)
     remove_dollar_sign(product_data)
-    convert_sportchek_review_rating(product_data)
+    fix_canadian_tire_links(product_data)
+    remove_empty_strings(product_data)
+
 
 def webscraper():
     all_data = []
