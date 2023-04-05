@@ -41,7 +41,10 @@ function renderList(results) {
         searchCategory.name
       );
       resultItem.on("click", () => {
-        const category = searchCategory.name;
+        let category = searchCategory.name;
+        if (category.includes("&")) {
+          category = category.replace("&", "%26")
+        }
         window.location.href = `products.html?category=${category}`;
       });
       if (results.indexOf(searchCategory) < results.length - 1) {

@@ -83,7 +83,7 @@ function login(email, password) {
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      window.location.href = './home-page.html';
+      window.location.href = './index.html';
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -199,12 +199,10 @@ document
 const queryString = window.location.search;
 const urlParam = new URLSearchParams(queryString);
 const origin = urlParam.get('from');
-console.log(origin === null);
 
 // when click on back, it goes back to the original page it was in using query
 const backBtn = document.querySelector('.back-arrow');
 backBtn.addEventListener('click', () => {
-  
   if (origin === null) {
     console.log('null');
     window.location.href = 'index.html'
@@ -213,6 +211,7 @@ backBtn.addEventListener('click', () => {
     window.location.href = 'wishlist.html'
   } 
   else if (origin === 'homepage') {
+    console.log('how does this work exactly');
     window.location.href = 'index.html'
   }
   else {
