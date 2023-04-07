@@ -9,7 +9,7 @@ This browser based web application to ...
 List team members and/or short bio's here...
 
 - Hello I am SeungJae and I am excited because I was told to write why I am
-- My name is Joanne H.
+- Joanne Ho
 - Hey my name is Jake
 
 ## 3. Technologies and Resources Used
@@ -19,7 +19,8 @@ List technologies (with version numbers), API's, icons, fonts, images, media or 
 - HTML, CSS, JavaScript
 - Bootstrap 5.0 (Frontend library)
 - Firebase 8.0 (BAAS - Backend as a Service)
-- ...
+- Font Awesome 4.7 (icons)
+- Google Material Icons (icons)
 
 ## 4. Complete setup/installion/usage
 
@@ -34,7 +35,7 @@ Here are the steps ...
 
 Here are some known bugs:
 
-- ...
+- When a user deselects a store filter, the combined results of the review filters do not update accordingly. As a result, the total number of results displayed   remains the same, even though some of the results are no longer relevant based on the deselected store filter. This bug also applies when user deselects a review filter and the combined results of the store filters do not update accordingly. 
 - ...
 - ...
 
