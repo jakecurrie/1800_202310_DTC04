@@ -94,7 +94,7 @@ function generateProductCards() {
     const productCard = `
       <div class="col-lg-4 col-5">
         <div id="product-${doc.id}" class="single-product">
-          <div class="part-1">
+          <div class="part-1" id="icon-${doc.id}">
             <img class="card-img-top" src="${product.image_url}" alt="${
       product.product_name
     }">
@@ -150,6 +150,7 @@ function generateProductCards() {
     //click wishlist button to bookmark item to user collection
     const wishlistBtn = $(`#product-${doc.id} .wishlist-btn`);
     wishlistBtn.on("click", (event) => {
+      event.preventDefault(); //prevent the page from scrolling to the top
       console.log(`product ${doc.id} clicked`);
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
@@ -248,7 +249,7 @@ function generatePriceRangeSlider(priceMin, priceMax) {
   sliderTwo.on("input", slideTwo);
 }
 
-//update price min when left thumb is moved
+//update price min when left thumb is moved, set the smallest gap between min and max to be 20
 function slideOne() {
   if (parseInt(sliderTwo.val()) - parseInt(sliderOne.val()) <= 20) {
     sliderOne.val(parseInt(sliderTwo.val()) - 20);
@@ -257,7 +258,7 @@ function slideOne() {
   fillColor();
 }
 
-//update price max when right thumb is moved
+//update price max when right thumb is moved, set the smallest gap between min and max to be 20
 function slideTwo() {
   if (parseInt(sliderTwo.val()) - parseInt(sliderOne.val()) <= 20) {
     sliderTwo.val(parseInt(sliderOne.val()) + 20);
@@ -300,7 +301,6 @@ function populateReviews() {
           return false;
       }
     });
-
     checkboxesHTML += `
       <div class="form-check">
         <input class="form-check-input rating-checkboxes" type="checkbox" id="${i}" checked>
@@ -325,7 +325,7 @@ function starsHTML(rating) {
   return starsHTML;
 }
 
-/*--filter panel - apply filters--*/
+/*--filter panel - get selected stores and review ranges--*/
 function getSelectedCheckboxes() {
   const storeCheckboxes = $(".store-checkboxes:checked");
   const selectedStores = [];
@@ -341,6 +341,7 @@ function getSelectedCheckboxes() {
   return { selectedStores, selectedRatings };
 }
 
+/*--filter panel - apply filters--*/
 function applyFilter() {
   const { selectedStores, selectedRatings } = getSelectedCheckboxes();
   allProducts = [...originalProducts];
@@ -392,23 +393,16 @@ $("#apply-filter").on("click", function () {
 });
 
 /*-----------------------------------------------------------------------
-Navbar logo
------------------------------------------------------------------------*/
-document.querySelector(".navbar-logo").addEventListener("click", () => {
-  window.location.href = "/index.html";
-});
-
-/*-----------------------------------------------------------------------
 Wishlist
 -----------------------------------------------------------------------*/
 function updateBookmark(id) {
+  const wishlistBtn = $(`#product-${id} .wishlist-btn`);
   currentUser.get().then(function (userDoc) {
     if (userDoc.data().bookmarks) {
       bookmarksNow = userDoc.data().bookmarks;
     } else {
       bookmarksNow = []; //if boookmarks field is undefined
     }
-
     //check if this bookmark already existed in firestore:
     if (bookmarksNow.includes(id)) {
       //if it does exist, then remove it
@@ -418,11 +412,7 @@ function updateBookmark(id) {
         })
         .then(function () {
           console.log(`This bookmark is removed for ${userDoc.data().name}`);
-          var iconID = "save-" + id;
-          $(`.single-product #product-${id} .wishlist-btn`).addClass(
-            "bookmarked"
-          );
-          // $("#" + iconID).innerText = "bookmark_border";
+          wishlistBtn.css("color", "black");
         });
     } else {
       //if it does not exist, then add it
@@ -435,9 +425,7 @@ function updateBookmark(id) {
         )
         .then(function () {
           console.log(`This bookmark is added for ${userDoc.data().name}`);
-          var iconID = "save-" + id;
-          // $(`#product-${"#" + id} .wishlist-btn`).addClass("yellowgreen");
-          // $("#"+iconID).innerText = "bookmark";
+          wishlistBtn.css("color", "red");
         });
     }
   });

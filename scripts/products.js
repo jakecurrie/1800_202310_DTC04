@@ -1,6 +1,14 @@
 /*-----------------------------------------------------------------------
+Navbar logo
+-----------------------------------------------------------------------*/
+document.querySelector(".navbar-logo").addEventListener("click", () => {
+  window.location.href = "/index.html";
+});
+
+/*-----------------------------------------------------------------------
 Search bar
 -----------------------------------------------------------------------*/
+//generate am array of winter product categories we stored in firebase
 const searchCategories = [
   { name: "Gloves & Hand Warmers" },
   { name: "Heaters" },
@@ -13,6 +21,7 @@ const searchCategories = [
 const searchInput = $(".search-bar_input");
 const resultsContainer = $(".results-container");
 
+//when user starts to type in the search bar
 searchInput.on("input", (input) => {
   let value = input.target.value.trim().toLowerCase();
 
@@ -24,11 +33,12 @@ searchInput.on("input", (input) => {
     );
     resultsContainer.show();
   } else {
-    renderList(searchCategories);
+    renderList(searchCategories); //call renderList
     resultsContainer.hide();
   }
 });
 
+// generate a list of matching search results
 function renderList(results) {
   const list = $("#list");
   list.empty();
@@ -43,7 +53,7 @@ function renderList(results) {
       resultItem.on("click", () => {
         let category = searchCategory.name;
         if (category.includes("&")) {
-          category = category.replace("&", "%26")
+          category = category.replace("&", "%26");
         }
         window.location.href = `products.html?category=${category}`;
       });
@@ -121,13 +131,12 @@ firebase.auth().onAuthStateChanged((user) => {
     });
   } else {
     const queryString = window.location.search;
-    const productQuery = queryString.replace("?category=", "")
+    const productQuery = queryString.replace("?category=", "");
 
     loginTitle.innerHTML = "Login";
     loginContainer.href = `./login.html?from=${productQuery}`;
   }
 });
-
 
 /*-----------------------------------------------------------------------
 Back to top button
