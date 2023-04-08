@@ -10,7 +10,7 @@ List team members and/or short bio's here...
 
 - Hello I am SeungJae and I am excited because I was told to write why I am
 - Joanne Ho
-- Hey my name is Jake
+- Hey my name is Jake and I'm here to change the world
 
 ## 3. Technologies and Resources Used
 
@@ -21,6 +21,9 @@ List technologies (with version numbers), API's, icons, fonts, images, media or 
 - Firebase 8.0 (BAAS - Backend as a Service)
 - Font Awesome 4.7 (icons)
 - Google Material Icons (icons)
+- Python 3.11.1
+- Selenium 4.8.2
+- Google Cloud Run
 
 ## 4. Complete setup/installion/usage
 
@@ -44,7 +47,7 @@ Here are some known bugs:
 What we'd like to build in the future:
 
 - a sorting functionality that allows users to browse products from low to high price
-- ...
+- add additional stores
 - ...
 
 ## 7. Contents of Folder
@@ -65,10 +68,10 @@ It has the following subfolders and files:
 ├── images                   # Folder for images
     /blah.jpg                # 
 |
-├── webscraper               # Folder for 
-    /Dockerfile              #
-    /main.py                 #
-    /requirement.txt         #
+├── webscraper               # Folder containing webscraping script
+    /Dockerfile              # dockerfile for building docker image of the webscraper
+    /main.py                 # python script to scrape web pages
+    /requirement.txt         # dependencies of the python script
 |
 ├── scripts                  # Folder for scripts
     /authetication.js        # user login and authetication
