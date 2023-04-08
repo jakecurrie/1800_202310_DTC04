@@ -19,6 +19,7 @@ List technologies (with version numbers), API's, icons, fonts, images, media or 
 - HTML, CSS, JavaScript (jQuery 3.5.1)
 - Bootstrap 5.0 (Frontend library)
 - Firebase 8.0 (BAAS - Backend as a Service)
+- Firestore
 - Font Awesome 4.7 (icons)
 - Google Material Icons (icons)
 - Python 3.11.1
