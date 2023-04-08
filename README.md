@@ -9,7 +9,7 @@ This browser based web application is a web-scraping price aggreagator that allo
 List team members and/or short bio's here...
 
 - Hello I am SeungJae and I am excited because I was told to be
-- Joanne Ho
+- Joanne 
 - Hey my name is Jake and I'm here to change the world
 
 ## 3. Technologies and Resources Used
