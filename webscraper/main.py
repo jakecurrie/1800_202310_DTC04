@@ -16,8 +16,6 @@ options.add_argument("--disable-gpu")
 options.add_argument("--no-sandbox")
 options.add_argument("window-size=1024,768")
 
-# Selenium will not work for some websites, for these we will use httpx to send http requests and beautifulsoup to parse through the resulting html code fetched using httpx to extract the relevant data. For this to work, we will use common browser headers which make our web traffic appear as if it is from a human instead of from an automated script. These headers will be passed as an argument while using the get method from the httpx module.
-headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:104.0) Gecko/20100101 Firefox/104.0"}
 
 # Creating a dictionary to store urls for each product type at each store
 urls = {
