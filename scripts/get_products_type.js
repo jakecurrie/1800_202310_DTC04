@@ -21,7 +21,10 @@ function queryProductCategory() {
   productsRef
     .get()
     .then((querySnapshot) => {
-      allProducts = querySnapshot.docs;
+      allProducts = querySnapshot.docs.filter((doc) => {
+        const price = doc.data().price;
+        return !isNaN(price);
+      });
       originalProducts = [...allProducts]; //make a copy of unfiltered products
       const priceRange = allProducts.map((doc) => doc.data().price);
       const priceMin = Math.min(...priceRange);
