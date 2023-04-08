@@ -8,7 +8,7 @@ Link: https://snowscraper-7b189.web.app/
 ## 2. Names of Contributors
 
 - Hello I am SeungJae
-- Joanne Ho
+- Joanne 
 - Hey my name is Jake and I'm here to change the world
 
 ## 3. Technologies and Resources Used
