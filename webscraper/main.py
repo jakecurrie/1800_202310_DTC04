@@ -93,6 +93,9 @@ driver = webdriver.Firefox(options=options)
 
 
 def default_scraper(store, product_type, url):
+    """
+    Scrape Amazon, Lowe's or Rona URLs
+    """
     driver.get(url)
     time.sleep(10)
     data = []
@@ -123,6 +126,9 @@ def default_scraper(store, product_type, url):
 
 
 def scrape_can_tire(store, product_type, url):
+    """
+    Scrape Canadian Tire URLs
+    """
     driver.get(url)
     time.sleep(10)
     data = []
@@ -146,37 +152,16 @@ def scrape_can_tire(store, product_type, url):
     return data
 
 
-def scrape_sportcheck(store, product_type, url):
-    driver.get(url)
-    time.sleep(10)
-    data = []
-    css_selectors = selectors[store]
-    child_selectors = css_selectors["child_selectors"]
-    all_product_elements = driver.find_elements(By.CSS_SELECTOR, css_selectors["parent"])
-    for product_element in all_product_elements:
-        try:
-            product_name = product_element.find_element(By.CSS_SELECTOR, child_selectors["name"]).text
-            product_price = product_element.find_element(By.CSS_SELECTOR, child_selectors["price"]).get_attribute('innerText')
-            product_rating = product_element.find_element(By.CSS_SELECTOR, child_selectors["rating"]).get_attribute('style')
-            product_url = product_element.find_element(By.CSS_SELECTOR, child_selectors["product_url"]).get_attribute('href')
-            image_url = product_element.find_element(By.CSS_SELECTOR, child_selectors["image_url"]).get_attribute('src')
-        except exceptions.NoSuchElementException:
-            print(f"Element Error, Store: {store} Product Type: {product_type}")
-            del product_element
-        else:
-             result = {"product_name": product_name, "product_type": product_type, "store": store, "price": product_price, "rating": product_rating,
-                    "product_url": product_url, "image_url": image_url}
-             data.append(result)
-    return data
-
 
 def select_scraper(store, product_type, url):
+    """
+    Assign scraping function based on store argument
+    """
     function_dict = {
         "Amazon": default_scraper,
         "Rona": default_scraper,
         "Lowe's": default_scraper,
-        "Canadian Tire": scrape_can_tire,
-        "SportChek": scrape_sportcheck
+        "Canadian Tire": scrape_can_tire
     }
     scrape_function = function_dict[store]
     return scrape_function(store, product_type, url)
@@ -201,12 +186,18 @@ def remove_dollar_sign(product_data):
 
 
 def fix_canadian_tire_links(product_data):
+    """
+    Use regex to fix canadian tire url strings.
+    """
     if product_data["store"] == "Canadian Tire":
         fixed_link = re.sub(r".html&", ".html?", product_data['product_url'])
         product_data['product_url'] = fixed_link
 
 
 def remove_empty_strings(product_data):
+    """
+    Remove any products that have empty string data in their attributes.
+    """
     if "" in product_data.values():
         del product_data
 
@@ -242,6 +233,9 @@ def webscraper():
 
 
 def update_firestore():
+    """
+    Create, update, and delete data from firestore database.
+    """
     all_data = webscraper()
     db = firestore.Client()
     batch_size = 250
