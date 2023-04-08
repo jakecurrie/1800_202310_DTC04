@@ -56,7 +56,7 @@ Content of the project folder:
 It has the following subfolders and files:
 ├── .git                     # Folder for git repo
 ├── images                   # Folder for images
-    /blah.jpg                # 
+    (20) image files                
 |
 ├── webscraper               # Folder containing webscraping script
     /Dockerfile              # dockerfile for building docker image of the webscraper
