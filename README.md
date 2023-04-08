@@ -75,18 +75,17 @@ It has the following subfolders and files:
     /requirement.txt         # dependencies of the python script
 |
 ├── scripts                  # Folder for scripts
-    /authetication.js        # user login and authetication
     /get_products_type.js    # read/write product data from/to database 
+    /home-page.js            # index.html functions 
+    /login.js                # user login and authetication
     /products.js             # products page functions 
-    /home-page.js            #
-    /wishlist.js             #
+    /wishlist.js             # wishlist functions (pulling user's bookmarked items)
 |
 ├── styles                   # Folder for styles
     /home-page.css           # stylesheet for index.html (originally named home-page.html)
     /login.css               # stylesheet for login.html
-    /home-page.css           # 
     /product.css             # stylesheet for products.html
-    /wishlist.css            #
+    /wishlist.css            # stylesheet for wishlist.html
 
 
 
