@@ -8,7 +8,7 @@ This browser based web application is a web-scraping price aggreagator that allo
 ## 2. Names of Contributors
 List team members and/or short bio's here...
 
-- Hello I am SeungJae and I am excited because I was told to write why I am
+- Hello I am SeungJae and I am excited because I was told to be
 - Joanne Ho
 - Hey my name is Jake and I'm here to change the world
 
@@ -81,9 +81,9 @@ It has the following subfolders and files:
     /wishlist.js             #
 |
 ├── styles                   # Folder for styles
-    /home-page.css           #
-    /login.css               #
-    /home-page.css           #
+    /home-page.css           # stylesheet for index.html (originally named home-page.html)
+    /login.css               # stylesheet for login.html
+    /home-page.css           # 
     /product.css             # stylesheet for products.html
     /wishlist.css            #
 
